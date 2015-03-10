@@ -2,15 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>gr.javapapo</groupId>
-    <artifactId>sample-parent</artifactId>
+    <artifactId>template</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>sample-ear</module>
-        <module>sample-web</module>
-        <module>sample-services</module>
-        <module>sample-domain</module>
+        <module>template-ear</module>
+        <module>template-web</module>
+        <module>template-domain</module>
     </modules>
 
     <properties>
