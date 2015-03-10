@@ -125,6 +125,16 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.2</version>
             </dependency>
+            <dependency>
+            	<groupId>org.springframework.data</groupId>
+            	<artifactId>spring-data-jpa</artifactId>
+            	<version>1.6.0.RELEASE</version>
+            </dependency>
+            <dependency>
+            	<groupId>commons-lang</groupId>
+            	<artifactId>commons-lang</artifactId>
+            	<version>2.6</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -140,6 +150,8 @@
                         <source>${java-version}</source>
                         <target>${java-version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <fork>true</fork>
+                		<executable>C:\Program Files\Java\jdk1.7.0_60\bin\javac.exe</executable>
                     </configuration>
                 </plugin>
 

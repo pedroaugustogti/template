@@ -1,7 +1,7 @@
 /**
  * Disclaimer: this code is only for demo no production use
  */
-package gr.javapapo;
+package br.com.template.repositories.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class SimpleUser {
+public class EntidadeExemplo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

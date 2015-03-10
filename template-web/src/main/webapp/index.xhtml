@@ -15,7 +15,12 @@
 
 <h:body>
 
-    <p:outputLabel value="Hellow World"></p:outputLabel>
+<h:form>
+	 <p:messages id="messages" autoUpdate="true" closable="true" />
+
+	<p:commandButton value="Teste" action="#{templateBean.pesquisar()}"></p:commandButton>
+</h:form>
+    
 
 </h:body>
 </html>
