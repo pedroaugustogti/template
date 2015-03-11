@@ -1,8 +1,12 @@
-package br.com.template.mensagem;
+package br.com.template.dominio;
 
 public enum MensagemNegocio {
 	
-	MSN001(TipoMensagem.ALERTA);
+	MNG001(TipoMensagem.ALERTA), 
+	
+	MEI001(TipoMensagem.INTERNO),
+	
+	MDF001(TipoMensagem.DEFAULT);
 	
 	private TipoMensagem tipo;
 	

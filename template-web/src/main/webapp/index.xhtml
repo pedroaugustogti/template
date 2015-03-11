@@ -9,18 +9,63 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-
-</h:head>
-
-<h:body>
-
-<h:form>
-	 <p:messages id="messages" autoUpdate="true" closable="true" />
-
-	<p:commandButton value="Teste" action="#{templateBean.pesquisar()}"></p:commandButton>
-</h:form>
-    
-
-</h:body>
+	<h:head>
+	
+	</h:head>
+	
+	<h:body>
+		<h:form>
+		
+			 <p:messages id="messages" autoUpdate="true" closable="true" />
+			 
+			 <h3 style="margin-top: 0">Template</h3>
+			 
+			 <div class="ui-grid ui-grid-responsive">
+			    <div class="ui-grid-row">
+			        <div class="ui-grid-col-1">
+			        	<h:outputText value="Descrição"></h:outputText>
+			        </div>
+			    </div>
+			 </div>
+		 
+			 <div class="ui-grid ui-grid-responsive">
+			    <div class="ui-grid-row">
+			        <div class="ui-grid-col-2">
+			        	<p:inputText value="#{templateBean.entidade.descricao}"></p:inputText>
+			        </div>
+			    </div>
+			 </div>
+			 
+			  <br></br>
+			 
+			 <div class="ui-grid ui-grid-responsive">
+			    <div class="ui-grid-row">
+			        <div class="ui-grid-col-3">
+			        	<p:commandButton value="Pesquisar" action="#{templateBean.pesquisar()}" update="tabela"></p:commandButton>
+			        	&nbsp;&nbsp;&nbsp;
+			        	<p:commandButton value="Salvar" action="#{templateBean.salvar()}"></p:commandButton>
+			        </div>
+			    </div>
+			 </div>
+			 
+			 <br></br>
+			 
+			 <div class="ui-grid ui-grid-responsive">
+			    <div class="ui-grid-row">
+			        <div class="ui-grid-col-4">
+			        
+			        	<p:dataTable id="tabela" var="entidade" value="#{templateBean.entidades}" emptyMessage="Nenhum registro encontrado.">
+						    <p:column headerText="Id">
+						        <h:outputText value="#{entidade.id}" />
+						    </p:column>
+						 
+						    <p:column headerText="Descrição">
+						        <h:outputText value="#{entidade.descricao}" />
+						    </p:column>
+						</p:dataTable>
+			        </div>
+			    </div>
+			 </div>
+		</h:form>
+	</h:body>
 </html>
