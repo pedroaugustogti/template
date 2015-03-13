@@ -1,71 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-
-	<h:head>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 	
-	</h:head>
-	
-	<h:body>
-		<h:form>
-		
-			 <p:messages id="messages" autoUpdate="true" closable="true" />
-			 
-			 <h3 style="margin-top: 0">Template</h3>
-			 
-			 <div class="ui-grid ui-grid-responsive">
-			    <div class="ui-grid-row">
-			        <div class="ui-grid-col-1">
-			        	<h:outputText value="Descrição"></h:outputText>
-			        </div>
-			    </div>
-			 </div>
-		 
-			 <div class="ui-grid ui-grid-responsive">
-			    <div class="ui-grid-row">
-			        <div class="ui-grid-col-2">
-			        	<p:inputText value="#{templateBean.entidade.descricao}"></p:inputText>
-			        </div>
-			    </div>
-			 </div>
-			 
-			  <br></br>
-			 
-			 <div class="ui-grid ui-grid-responsive">
-			    <div class="ui-grid-row">
-			        <div class="ui-grid-col-3">
-			        	<p:commandButton value="Pesquisar" action="#{templateBean.pesquisar()}" update="tabela"></p:commandButton>
-			        	&nbsp;&nbsp;&nbsp;
-			        	<p:commandButton value="Salvar" action="#{templateBean.salvar()}"></p:commandButton>
-			        </div>
-			    </div>
-			 </div>
-			 
-			 <br></br>
-			 
-			 <div class="ui-grid ui-grid-responsive">
-			    <div class="ui-grid-row">
-			        <div class="ui-grid-col-4">
-			        
-			        	<p:dataTable id="tabela" var="entidade" value="#{templateBean.entidades}" emptyMessage="Nenhum registro encontrado.">
-						    <p:column headerText="Id">
-						        <h:outputText value="#{entidade.id}" />
-						    </p:column>
-						 
-						    <p:column headerText="Descrição">
-						        <h:outputText value="#{entidade.descricao}" />
-						    </p:column>
-						</p:dataTable>
-			        </div>
-			    </div>
-			 </div>
-		</h:form>
-	</h:body>
+	<head>
+    	<meta http-equiv="Refresh" content="0; URL=pages/consultarPessoa.jsf"></meta>
+  	</head>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import br.com.template.dto.FiltroEntidadeExemploDTO;
 import br.com.template.entidades.EntidadeExemplo;
 import br.com.template.generics.ConsultasDaoJpa;
 
@@ -15,7 +16,7 @@ public class TemplateServiceImpl implements TemplateService{
 	private ConsultasDaoJpa<EntidadeExemplo> reposiroty;
 
 	@Override
-	public List<EntidadeExemplo> pesquisar(EntidadeExemplo filtro) {
+	public List<EntidadeExemplo> pesquisar(FiltroEntidadeExemploDTO filtro) {
 		return reposiroty.filtrarPesquisa(filtro, EntidadeExemplo.class);
 	}
 }

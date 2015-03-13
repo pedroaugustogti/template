@@ -3,12 +3,12 @@
  */
 package br.com.template.controller;
 
-import java.util.List;
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.com.template.controller.service.GenericServiceController;
 import br.com.template.controller.validation.view.TemplateValidationView;
@@ -16,10 +16,15 @@ import br.com.template.entidades.EntidadeExemplo;
 import br.com.template.excecao.NegocioException;
 import br.com.template.service.TemplateService;
 
-@ManagedBean(name="templateBean")
-@ViewScoped
-public class TemplateBean {
+@ManagedBean(name="templateBeanCadastro")
+@SessionScoped	
+public class TemplateBeanCadastro implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2387137209850478788L;
+
 	@EJB
 	private TemplateValidationView validationView;
 	
@@ -31,23 +36,15 @@ public class TemplateBean {
 	
 	private EntidadeExemplo entidade;
 	
-	private List<EntidadeExemplo> entidades;
-	
 	@PostConstruct
 	public void init(){
 		
 		entidade = new EntidadeExemplo();
 	}
-	
-	public void pesquisar() throws NegocioException{
-		
-		validationView.verificarDigitosSuperiorTresCaracteres(entidade.getDescricao());
-		entidades = genericServiceExemplo.listarTodos(EntidadeExemplo.class);
-	}
-	
+
 	public void salvar() throws NegocioException {
 		
-		validationView.verificarDigitosSuperiorTresCaracteres(entidade.getDescricao());
+		validationView.verificarExcessoCaracteres(entidade.getNome());
 		genericServiceExemplo.salvar(entidade);
 		
 		init();
@@ -57,7 +54,7 @@ public class TemplateBean {
 		return entidade;
 	}
 
-	public List<EntidadeExemplo> getEntidades() {
-		return entidades;
+	public void setEntidade(EntidadeExemplo entidade) {
+		this.entidade = entidade;
 	}
 }

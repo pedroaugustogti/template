@@ -16,4 +16,6 @@ public interface GenericRepository<T extends EntidadeBasica, ID extends Serializ
 	T getById(Class<T> clazz, ID id, String... camposInitialize);
 
 	List<T> listarTodos(Class<T> class1, String... camposInitialize);
+
+	void excluir(T id);
 }

@@ -8,6 +8,6 @@
         </dependent-module>
         <property name="context-root" value="template-web"/>
         <property name="java-output-path" value="/template-web/target/classes"/>
-        <property name="component.exclusion.patterns" value="%regex[WEB-INF/lib/(?!primefaces).*.jar]"/>
+        <property name="component.exclusion.patterns"/>
     </wb-module>
 </project-modules>

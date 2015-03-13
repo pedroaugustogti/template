@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="js/primefaces-locale.js"/>  
+		
+		<title>Pesquisa</title>
+	</h:head>
+
+	<h:body>	 
+	
+		<h:form id="form">
+		
+			<p:messages id="messages" autoUpdate="true" closable="true" style="margin:0 auto; width:80%; text-align:center;"/>
+		
+		    <p:panel id="pesquisa" header="Pesquisa" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+		        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+		        
+	           		<p:outputLabel for="nome" value="Nome:" />
+	           		
+	            	<p:inputText id="nome" value="#{templateBeanPesquisa.filtroEntidadeExemploDTO.nome}" 
+					 	maxlength="45" style="width:250px"/>
+					 	
+				 	<p:outputLabel for="nome" value="Sexo:" />
+					 	
+			 		<p:selectOneMenu id="sexo" value="#{templateBeanPesquisa.filtroEntidadeExemploDTO.sexo}"  style="width:250px">
+			            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+			            <f:selectItem itemLabel="Masculino" itemValue="M" />
+			            <f:selectItem itemLabel="Feminino" itemValue="F" />
+       				</p:selectOneMenu>
+       				
+       				<p:outputLabel for="data" value="Data de Nascimento:" />
+       				
+       				<p:calendar value="#{templateBeanPesquisa.filtroEntidadeExemploDTO.dataNascimento}"  
+							maxlength="10" id="data" style="width:250px"
+							pattern="dd/MM/yyyy" locale="pt_BR"/>
+							
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		        
+	        		<p:commandButton id="btnPesquisar" value="Pesquisar" action="#{templateBeanPesquisa.pesquisar()}" update="grid"/>
+					<p:commandButton id="btnLimpar" value="Limpar" ajax="false" action="index.xhtml" immediate="true"/>	
+					<p:commandButton id="btnCadastrar" value="Cadastrar" actionListener="#{templateBeanCadastro.init()}" action="cadastrarPessoa.xhtml" />
+					
+		        </h:panelGrid>
+		    </p:panel>
+		    
+		    <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+		    
+		    <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+		    	
+		    	 <p:dataTable id="gridPessoa" var="pessoa" value="#{templateBeanPesquisa.entidades}" emptyMessage="Nenhuma pessoa encontrada.">
+			        <f:facet name="header">
+			            Resultado da Pesquisa
+			        </f:facet>
+				        <p:column headerText="Id">
+				            <h:outputText value="#{pessoa.id}" />
+				        </p:column>
+				        <p:column headerText="Nome">
+				            <h:outputText value="#{pessoa.nome}" />
+				        </p:column>
+				        <p:column headerText="Sexo">
+				            <h:outputText value="#{pessoa.sexo.value}" />
+				        </p:column>
+				        <p:column headerText="Data de Nascimento">
+				            <h:outputText value="#{pessoa.dataNascimento}" >
+								<f:convertDateTime dateStyle="default"/>
+							</h:outputText>
+				        </p:column>
+				        <p:column style="width:40px;text-align: center;margin:0 auto;">
+				             <p:commandButton oncomplete="PF('infoPessoa').show()" icon="ui-icon-search" title="Visualizar" update=":form">
+				                <f:setPropertyActionListener value="#{pessoa}" target="#{templateBeanPesquisa.entidadeSelecionada}" />
+				            </p:commandButton>
+				        </p:column>
+				        <p:column style="width:40px;text-align: center;margin:0 auto;">
+				             <p:commandButton icon="ui-icon-refresh" title="Editar" action="cadastrarPessoa.xhtml">
+				                <f:setPropertyActionListener value="#{pessoa}" target="#{templateBeanCadastro.entidade}" />
+				            </p:commandButton>
+				        </p:column>
+				        <p:column style="width:40px;text-align: center; margin:0 auto;">
+				             <p:commandButton oncomplete="PF('confirmaExclusao').show()" icon="ui-icon-trash" title="Excluir" update="gridPessoa">
+				                <f:setPropertyActionListener value="#{pessoa}" target="#{templateBeanPesquisa.entidadeSelecionada}" />
+				            </p:commandButton>
+				        </p:column>
+				    </p:dataTable>
+				    
+		    </p:panel>
+		    
+		    <p:dialog id="dialog" header="Informações" widgetVar="infoPessoa" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+		        <p:outputPanel id="infoPessoa" style="text-align:center;">
+		            <p:panelGrid  columns="2" >
+		 
+		                <h:outputText value="Id:" />
+		                <h:outputText value="#{templateBeanPesquisa.entidadeSelecionada.id}" />
+		 
+		                <h:outputText value="Nome" />
+		                <h:outputText value="#{templateBeanPesquisa.entidadeSelecionada.nome}" />
+		 
+		                <h:outputText value="Sexo" />
+		                <h:outputText value="#{templateBeanPesquisa.entidadeSelecionada.sexo.value}"/>
+		 
+		                <h:outputText value="Data de Nascimento" />
+		                <h:outputText value="#{templateBeanPesquisa.entidadeSelecionada.dataNascimento}" >
+							<f:convertDateTime dateStyle="default"/>
+						</h:outputText>
+		            </p:panelGrid>
+		        </p:outputPanel>
+		    </p:dialog>
+		    
+		    <p:dialog id="alertaExclusao" header="Alerta" widgetVar="confirmaExclusao" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+		        <p:outputPanel id="confirmaExclusao" style="text-align:center; border:none !important;">
+		            <p:panelGrid style="border:none !important;">
+		 
+		                <p:row>
+				            <p:column colspan="2">Tem certeza que deseja excluir o registro?</p:column>
+				        </p:row>
+				        
+				        <p:row>
+				        	<p:column>
+					            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" action="#{templateBeanPesquisa.excluir()}" value="Sim" update="gridPessoa"></p:commandButton>
+					            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" value="Não"></p:commandButton>
+				            </p:column>
+				        </p:row>
+ 
+		            </p:panelGrid>
+		        </p:outputPanel>
+		    </p:dialog>
+		</h:form>
+	</h:body>
+</html>

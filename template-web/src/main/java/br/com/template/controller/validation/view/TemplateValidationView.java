@@ -6,7 +6,7 @@ package br.com.template.controller.validation.view;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
-import br.com.template.dominio.MensagemNegocio;
+import br.com.template.domain.MensagemNegocio;
 import br.com.template.excecao.NegocioException;
 import br.com.template.interceptors.InterceptionViewMenssage;
 
@@ -14,14 +14,13 @@ import br.com.template.interceptors.InterceptionViewMenssage;
 @Interceptors(InterceptionViewMenssage.class)
 public class TemplateValidationView {
 	
-	private final int LIMITE_CARACTERES = 3;
+	private final int LIMITE_CARACTERES = 100;
 	
-	public void verificarDigitosSuperiorTresCaracteres(String param) throws NegocioException{
+	public void verificarExcessoCaracteres(String param) throws NegocioException{
 		
 		if (param != null && param.length() > LIMITE_CARACTERES){
 			
 			throw new NegocioException(MensagemNegocio.MNG001);
 		}
 	}
-
 }

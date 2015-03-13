@@ -1,7 +1,7 @@
 package br.com.template.excecao;
 
-import br.com.template.dominio.MensagemNegocio;
-import br.com.template.dominio.TipoMensagem;
+import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.TipoMensagem;
 import br.com.template.util.InitMessageProperties;
 
 public class NegocioException extends Exception{

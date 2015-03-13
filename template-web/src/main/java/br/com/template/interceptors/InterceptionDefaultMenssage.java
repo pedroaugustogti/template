@@ -3,7 +3,7 @@ package br.com.template.interceptors;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import br.com.template.dominio.MensagemNegocio;
+import br.com.template.domain.MensagemNegocio;
 
 public class InterceptionDefaultMenssage extends AbstractInterceptionMessage{
 

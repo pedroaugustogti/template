@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>gr.javapapo</groupId>
+		<groupId>br.com.template</groupId>
 		<artifactId>template</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -15,18 +15,6 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
-            <configuration>
-                <packagingExcludes>%regex[WEB-INF/lib/(?!primefaces).*.jar]</packagingExcludes>
-                <archive>
-                    <manifest>
-                        <addClasspath>true</addClasspath>
-                        <classpathPrefix>lib/</classpathPrefix>
-                    </manifest>
-                    <manifestEntries>
-                        <Class-Path>template-services-${project.version}.jar</Class-Path>
-                    </manifestEntries>
-                </archive>
-            </configuration>
         </plugin>
 
         </plugins>
@@ -44,7 +32,7 @@
         </dependency>
 
         <dependency>
-            <groupId>gr.javapapo</groupId>
+            <groupId>br.com.template</groupId>
             <artifactId>template-domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

@@ -1,28 +1,42 @@
 package br.com.template.dto;
 
+import java.util.Date;
+
 import br.com.template.anotations.EntityProperty;
+import br.com.template.domain.Sexo;
 
 public class FiltroEntidadeExemploDTO {
 	
-	@EntityProperty("id")
-	private Long id;
+	@EntityProperty("nome")
+    private String nome;
 	
-	@EntityProperty("descricao")
-    private String descricao;
+	@EntityProperty("dataNascimento")
+    private Date dataNascimento;
+	
+	@EntityProperty("sexo")
+	private Sexo sexo;
 
-	public Long getId() {
-		return id;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 }

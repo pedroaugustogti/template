@@ -1,4 +1,4 @@
-package br.com.template.dominio;
+package br.com.template.domain;
 
 public enum MensagemNegocio {
 	

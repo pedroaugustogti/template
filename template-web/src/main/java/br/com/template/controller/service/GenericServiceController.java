@@ -33,4 +33,9 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	public EntidadeBasica getById(Class<T> clazz, Serializable id, String... camposInitialize) {
 		return genericService.getById(clazz, id, camposInitialize);
 	}
+
+	@Interceptors(InterceptionDefaultMenssage.class)
+	public void excluir(T t) {
+		genericService.excluir(t);
+	}
 }

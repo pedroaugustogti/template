@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import br.com.template.dominio.MensagemNegocio;
+import br.com.template.domain.MensagemNegocio;
 
 public final class InitMessageProperties {
 	

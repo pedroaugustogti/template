@@ -55,4 +55,9 @@ public class GenericRepositoryImpl<T extends EntidadeBasica, ID extends Serializ
 	public List<T> listarTodos(Class<T> clazz, String...camposInitialize) {
 		return (List<T>) consultaReposiroty.inicializaCampo(camposInitialize, consultaReposiroty.getSession().createCriteria(clazz).list());
 	}
+
+	@Override
+	public void excluir(T t) {
+		em.remove(em.merge(t));
+	}
 }

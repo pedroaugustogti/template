@@ -37,4 +37,9 @@ public class GenericServiceImpl<T extends EntidadeBasica, ID extends Serializabl
 	public T getById(Class<T> clazz, ID id, String... camposInitialize) {
 		return reposiroty.getById(clazz, id, camposInitialize);
 	}
+
+	@Override
+	public void excluir(T t) {
+		reposiroty.excluir(t);
+	}
 }

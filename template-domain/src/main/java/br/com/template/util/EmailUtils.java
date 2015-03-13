@@ -7,8 +7,8 @@ import javax.ejb.Stateless;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.com.template.dominio.EmailEnum;
-import br.com.template.dominio.MensagemNegocio;
+import br.com.template.domain.EmailEnum;
+import br.com.template.domain.MensagemNegocio;
 import br.com.template.excecao.NegocioException;
 
 /**

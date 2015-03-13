@@ -9,7 +9,7 @@
     
     <parent>
         <artifactId>template</artifactId>
-        <groupId>gr.javapapo</groupId>
+        <groupId>br.com.template</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     
@@ -21,14 +21,14 @@
     <dependencies>
 
         <dependency>
-            <groupId>gr.javapapo</groupId>
+            <groupId>br.com.template</groupId>
             <artifactId>template-web</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
 
         <dependency>
-            <groupId>gr.javapapo</groupId>
+            <groupId>br.com.template</groupId>
             <artifactId>template-domain</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
@@ -46,15 +46,14 @@
                 <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <finalName>templateapp</finalName>
-                    <defaultJavaBundleDir>lib/</defaultJavaBundleDir>
                     <skinnyWars>true</skinnyWars>
                     <modules>
                         <webModule>
-                            <groupId>gr.javapapo</groupId>
+                            <groupId>br.com.template</groupId>
                             <artifactId>template-web</artifactId>
                         </webModule>
                         <ejbModule>
-                            <groupId>gr.javapapo</groupId>
+                            <groupId>br.com.template</groupId>
                             <artifactId>template-domain</artifactId>
                         </ejbModule>
                     </modules>

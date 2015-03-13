@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="js/primefaces-locale.js"/>  
+		<title>Cadastra Pessoa</title>
+	</h:head>
+
+	<h:body>	 
+	
+		<h:form >
+		
+			<p:messages id="messages" autoUpdate="true" closable="true" style="margin:0 auto; width:80%; text-align:center;"/>
+		
+		    <p:panel id="cadastro" header="Pessoa" style="margin:0 auto; width:80%; text-align:center;">
+		    
+		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		        
+	           		<p:outputLabel for="nome" value="Nome:" />
+	           		
+	            	<p:inputText id="nome" value="#{templateBeanCadastro.entidade.nome}" required="true" requiredMessage="Campo nome é de preenchimento Obrigatório!"
+					 	maxlength="45" style="width:250px"/>
+					 	
+			 		<h:message for="nome" style="color: red;" />	
+			 		
+			 		<p:outputLabel for="sexo" value="Sexo:" />
+			 		
+			 		<p:selectOneMenu id="sexo" value="#{templateBeanCadastro.entidade.sexo}" required="true" requiredMessage="Campo sexo é de preenchimento Obrigatório!" style="width:250px">
+			            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+			            <f:selectItem itemLabel="Masculino" itemValue="M" />
+			            <f:selectItem itemLabel="Feminino" itemValue="F" />
+       				</p:selectOneMenu>
+       				
+       				<h:message for="sexo" style="color: red;" />		
+       				
+       				<p:outputLabel for="data" value="Data de Nascimento:" />
+       				
+       				<p:calendar value="#{templateBeanCadastro.entidade.dataNascimento}" required="true" requiredMessage="Campo data de de preenchimento Obrigatório!" 
+							maxlength="10" id="data" style="width:250px"
+							pattern="dd/MM/yyyy" locale="pt_BR"/>
+							
+					<h:message for="data" style="color: red;" />		
+			 			
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+	        		<p:commandButton id="btnSalvar" 
+						value="Salvar" ajax="false"
+						action="#{templateBeanCadastro.salvar()}" />
+						
+					<p:commandButton id="btnCancelar" value="Cancelar"
+						ajax="false" action="consultarPessoa.xhtml"
+						immediate="true"/>
+						
+					<p:commandButton id="btnLimpar" value="Limpar"
+						ajax="false" action="cadastrarPessoa.xhtml"
+						update="formPrincipal" 
+						immediate="true"/>	
+		        </h:panelGrid>
+		        
+		    </p:panel>
+		</h:form>
+	</h:body>
+</html>
