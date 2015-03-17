@@ -11,6 +11,17 @@
         <module>template-web</module>
         <module>template-domain</module>
     </modules>
+    
+    <repositories>
+	 <repository>
+	  <id>jasperreports</id>
+	  <url>http://jasperreports.sourceforge.net/maven2</url>
+	 </repository>
+	 <repository>
+	  <id>jaspersoft-third-party</id>
+	  <url>http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/</url>
+	 </repository>
+	</repositories> 
 
     <properties>
         <!--  encoding-->
@@ -49,7 +60,6 @@
         <postgreslq.version>9.1-901-1.jdbc4</postgreslq.version>
 
     </properties>
-
 
     <dependencyManagement>
         <dependencies>
@@ -159,7 +169,7 @@
                 		<executable>C:\Program Files\Java\jdk1.7.0_60\bin\javac.exe</executable>
                     </configuration>
                 </plugin>
-
+                
                 <!-- maven ear plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

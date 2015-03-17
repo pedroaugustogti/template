@@ -14,7 +14,7 @@ import br.com.template.interceptors.InterceptionViewMenssage;
 @Interceptors(InterceptionViewMenssage.class)
 public class TemplateValidationView {
 	
-	private final int LIMITE_CARACTERES = 100;
+	private final int LIMITE_CARACTERES = 20;
 	
 	public void verificarExcessoCaracteres(String param) throws NegocioException{
 		

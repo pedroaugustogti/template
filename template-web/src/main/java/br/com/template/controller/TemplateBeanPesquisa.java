@@ -1,6 +1,3 @@
-/**
- * Disclaimer: this code is only for demo no production use
- */
 package br.com.template.controller;
 
 import java.io.Serializable;
@@ -12,13 +9,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.template.controller.service.GenericServiceController;
+import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.dto.FiltroEntidadeExemploDTO;
 import br.com.template.entidades.EntidadeExemplo;
+import br.com.template.excecao.NegocioException;
 import br.com.template.service.TemplateService;
 
 @ManagedBean(name="templateBeanPesquisa")
 @ViewScoped
-public class TemplateBeanPesquisa implements Serializable{
+public class TemplateBeanPesquisa extends AbstractManageBean implements Serializable{
 	
 	/**
 	 * 
@@ -41,6 +40,13 @@ public class TemplateBeanPesquisa implements Serializable{
 	public void init(){
 		
 		filtroEntidadeExemploDTO = new FiltroEntidadeExemploDTO();
+	}
+	
+	public void gerarRelatorio() throws NegocioException {
+		
+		TemplateBeanParametroRelatorio parametroRelatorio = new TemplateBeanParametroRelatorio(entidades);
+		
+		super.gerarRelatorio(RelatorioEnum.TEMPLATE, parametroRelatorio);
 	}
 	
 	public void pesquisar(){

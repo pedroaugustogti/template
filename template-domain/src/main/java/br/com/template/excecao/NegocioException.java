@@ -14,8 +14,8 @@ public class NegocioException extends Exception{
 	private String valor;
 	private TipoMensagem tipo;
 	
-	public NegocioException(MensagemNegocio msg) {
-		super(InitMessageProperties.getValue(msg));
+	public NegocioException(MensagemNegocio msg, Throwable cause) {
+		super(InitMessageProperties.getValue(msg), cause);
 		
 		valor = InitMessageProperties.getValue(msg);
 		tipo = msg.getTipo();
@@ -23,6 +23,10 @@ public class NegocioException extends Exception{
 		verificaErroInterno(msg);
 	}
 	
+	public NegocioException(MensagemNegocio msg, String... params) {
+		
+	}
+
 	private void verificaErroInterno(MensagemNegocio msg) {
 		
 		if (TipoMensagem.INTERNO.equals(msg.getTipo())){
