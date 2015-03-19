@@ -43,7 +43,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 			try {
 				binario =  JasperExportManager.exportReportToPdf(print);
 			} catch (Exception e) {
-				throw new NegocioException(MensagemNegocio.MEI003);
+				throw new NegocioException(MensagemNegocio.MEI003, e);
 			}
 		}
 		
@@ -84,7 +84,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 		try {
 			outputStream = response.getOutputStream();
 		} catch (Exception e) {
-			throw new NegocioException(MensagemNegocio.MEI004);
+			throw new NegocioException(MensagemNegocio.MEI004, e);
 		}
 		
 		return outputStream;
@@ -110,7 +110,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 
 		if (print == null) {
 			
-			throw new NegocioException(MensagemNegocio.MEI007, absolutePath(relatorio));
+			throw new NegocioException(MensagemNegocio.MEI007);
 		}
 			
 		try {
@@ -172,7 +172,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 			out.close();
 			
 		} catch (IOException ioe) {
-			throw new NegocioException(MensagemNegocio.MEI006);
+			throw new NegocioException(MensagemNegocio.MEI006, ioe);
 		}
 	}
 
@@ -196,7 +196,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 		    impressao = JasperFillManager.fillReport(relatorioCompilado, parametros, new JRBeanCollectionDataSource(dados));  
 			
 		} catch (JRException e) {
-			throw new NegocioException(MensagemNegocio.MEI008);
+			throw new NegocioException(MensagemNegocio.MEI008, e);
 		}
 		return impressao;
 	}

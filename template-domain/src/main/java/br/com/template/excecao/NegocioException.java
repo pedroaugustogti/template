@@ -6,9 +6,6 @@ import br.com.template.util.InitMessageProperties;
 
 public class NegocioException extends Exception{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6019618454815377751L;
 	
 	private String valor;
@@ -17,14 +14,24 @@ public class NegocioException extends Exception{
 	public NegocioException(MensagemNegocio msg, Throwable cause) {
 		super(InitMessageProperties.getValue(msg), cause);
 		
-		valor = InitMessageProperties.getValue(msg);
-		tipo = msg.getTipo();
+		init(msg);
+	}
+
+	public NegocioException(MensagemNegocio msg) {
+		super(InitMessageProperties.getValue(msg));
 		
-		verificaErroInterno(msg);
+		init(msg);
 	}
 	
-	public NegocioException(MensagemNegocio msg, String... params) {
+	private void init(MensagemNegocio msg) {
 		
+		initMessageProperties(msg);
+		verificaErroInterno(msg);
+	}
+
+	private void initMessageProperties(MensagemNegocio msg) {
+		valor = InitMessageProperties.getValue(msg);
+		tipo = msg.getTipo();
 	}
 
 	private void verificaErroInterno(MensagemNegocio msg) {

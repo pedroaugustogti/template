@@ -1,4 +1,4 @@
-package br.com.template.util.relatorio.parametro;
+package br.com.template.relatorio.parametro;
 
 public enum ParametroTemplateRelatorioEnum {
 

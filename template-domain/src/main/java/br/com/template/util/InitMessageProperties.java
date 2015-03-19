@@ -11,6 +11,10 @@ public final class InitMessageProperties {
 	private static final String ARQUIVO_CONFIGURACAO_MENSAGENS = "/msg-negocio.properties";
 	
 	private static Properties properties;
+	
+	private InitMessageProperties(){
+		//Evitando instanciação
+	}
 
 	static {
 		InputStream inStream;

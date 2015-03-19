@@ -11,13 +11,13 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
-        <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-        </plugin>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
 
-        </plugins>
+		</plugins>
 	</build>
 
 	<dependencies>
@@ -26,78 +26,15 @@
 			<artifactId>javaee-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>br.com.template</groupId>
-            <artifactId>template-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        
-<!--         <dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-core</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-aop</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-beans</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-context</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-expression</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-jdbc</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-orm</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.springframework</groupId> -->
-<!-- 		    <artifactId>spring-tx</artifactId> -->
-<!-- 		    <version>4.0.9.RELEASE</version> -->
-<!-- 		    <type>pom</type> -->
-<!-- 		</dependency> -->
-		
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-webmvc</artifactId> -->
-<!-- 			<version>4.0.9.RELEASE</version> -->
-<!-- 		</dependency> -->
-
+		<dependency>
+			<groupId>br.com.template</groupId>
+			<artifactId>template-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

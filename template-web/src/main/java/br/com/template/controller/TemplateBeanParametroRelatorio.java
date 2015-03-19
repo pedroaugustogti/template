@@ -7,8 +7,8 @@ import java.util.Map;
 
 import br.com.template.entidades.EntidadeExemplo;
 import br.com.template.excecao.NegocioException;
+import br.com.template.relatorio.parametro.ParametroTemplateRelatorioEnum;
 import br.com.template.util.relatorio.AbstractParametrosRelatorio;
-import br.com.template.util.relatorio.parametro.ParametroTemplateRelatorioEnum;
 
 public class TemplateBeanParametroRelatorio extends AbstractParametrosRelatorio{
 

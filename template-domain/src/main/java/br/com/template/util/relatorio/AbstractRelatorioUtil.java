@@ -37,7 +37,7 @@ public abstract class AbstractRelatorioUtil {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				throw new NegocioException(MensagemNegocio.MEI002);
+				throw new NegocioException(MensagemNegocio.MEI002, e);
 			}
 		}
 	}
