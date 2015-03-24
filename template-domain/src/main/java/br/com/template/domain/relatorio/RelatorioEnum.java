@@ -49,6 +49,6 @@ public enum RelatorioEnum implements RelatorioPath{
 
 	@Override
 	public String getPathRaiz() {
-		return "WEB-INF".concat(File.separator).concat("classes").concat(File.separator +"relatorios").concat(File.separator);
+		return PATH_RAIZ;
 	}
 }

@@ -12,6 +12,7 @@
   <build>
   	<finalName>${project.artifactId}</finalName>
   </build>
+  
   <dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -22,7 +23,7 @@
 		  <groupId>org.springframework.data</groupId>
 		  <artifactId>spring-data-jpa</artifactId>
 	  	</dependency>
-		
+	  	
 		<!-- DEPENDÃNCIAS HIBERNATE -->
 		<dependency>
 		   <groupId>org.hibernate</groupId>
@@ -56,6 +57,11 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>5.1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
 		</dependency>
   </dependencies>
 </project>

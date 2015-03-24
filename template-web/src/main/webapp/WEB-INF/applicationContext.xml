@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <bean id="autenticacaoDetailLDAP"
+        class="br.com.template.controller.login.AutenticacaoDetailLDAP">
+    </bean>
+
+    <bean id="authenticationProviderCustom"
+        class="br.com.template.controller.login.AuthenticationProviderCustom">
+    </bean>
+
+    <security:authentication-manager>
+        <security:authentication-provider ref="authenticationProviderCustom" />
+    </security:authentication-manager>
+
+    <security:http use-expressions="true">
+    
+        <security:intercept-url pattern="/faces/login.jsf" access="anonymous" />
+        <security:intercept-url pattern="/faces/css/**" access="anonymous" />
+        <security:intercept-url pattern="/faces/pages/**" access="authenticated" />
+        
+        <security:form-login login-page="/login.jsf" authentication-failure-url="/login.jsf?error=1"
+            default-target-url="/pages/consultarPessoa.jsf" authentication-details-source-ref="autenticacaoDetailLDAP"
+            username-parameter="username" password-parameter="password" />
+    </security:http>
+
+</beans>

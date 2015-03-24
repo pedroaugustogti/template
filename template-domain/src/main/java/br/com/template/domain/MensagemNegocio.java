@@ -2,7 +2,8 @@ package br.com.template.domain;
 
 public enum MensagemNegocio {
 	
-	MNG001(TipoMensagem.ALERTA), 
+	MNG001(TipoMensagem.ALERTA),
+	MNG002(TipoMensagem.ALERTA), 
 	
 	MEI001(TipoMensagem.INTERNO),
 	MEI002(TipoMensagem.INTERNO),

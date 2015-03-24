@@ -23,13 +23,7 @@
         <dependent-module archiveName="spring-context-3.2.9.RELEASE.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/springframework/spring-context/3.2.9.RELEASE/spring-context-3.2.9.RELEASE.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="spring-expression-3.2.9.RELEASE.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/springframework/spring-expression/3.2.9.RELEASE/spring-expression-3.2.9.RELEASE.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="spring-aop-3.2.9.RELEASE.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/springframework/spring-aop/3.2.9.RELEASE/spring-aop-3.2.9.RELEASE.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="aopalliance-1.0.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="spring-tx-3.2.9.RELEASE.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/springframework/spring-tx/3.2.9.RELEASE/spring-tx-3.2.9.RELEASE.jar">
@@ -159,6 +153,15 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="jackson-annotations-2.0.5.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/fasterxml/jackson/core/jackson-annotations/2.0.5/jackson-annotations-2.0.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-security-core-3.2.4.RELEASE.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-core/3.2.4.RELEASE/spring-security-core-3.2.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aopalliance-1.0.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-expression-3.2.8.RELEASE.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/org/springframework/spring-expression/3.2.8.RELEASE/spring-expression-3.2.8.RELEASE.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>

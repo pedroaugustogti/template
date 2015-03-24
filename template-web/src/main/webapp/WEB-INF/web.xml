@@ -6,11 +6,32 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
- 
-    <session-config>
-        <session-timeout>15</session-timeout>
-    </session-config>
+ 	<context-param>
+	    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+	    <param-value>true</param-value>
+	</context-param>
+	
+	<filter>
+	    <filter-name>springSecurityFilterChain</filter-name>
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
+	<listener>  
+  		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<session-config>
+	  <session-timeout>30</session-timeout>
+	</session-config>
+	
     <welcome-file-list>
-        	<welcome-file>faces/index.xhtml</welcome-file>
+        	<welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>
