@@ -1,24 +1,25 @@
 package br.com.template.controller.login;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.EJBException;
+import javax.interceptor.Interceptors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import br.com.template.domain.MensagemNegocio;
 import br.com.template.excecao.NegocioException;
+import br.com.template.interceptors.InterceptionViewMenssage;
+import br.com.template.login.service.AutorizacaoService;
 
-@Stateless
 public class AuthenticationProviderCustom implements AuthenticationProvider {
 	
-	@EJB
-	private UserDetailsService usuarioService;
+	@Autowired
+	private AutorizacaoService usuarioService;
 	
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
@@ -51,9 +52,17 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
         return res;
     }
 
+    @Interceptors(InterceptionViewMenssage.class)
 	private boolean autenticacaoComSucesso(final Authentication authentication) throws NegocioException {
 		
-		UserDetails userDetails = usuarioService.loadUserByUsername(authentication.getName());
+		UserDetails userDetails = null;
+		
+		try{
+			userDetails = usuarioService.loadUserByUsername(authentication.getName());
+		}catch(EJBException e){
+			throw new NegocioException(MensagemNegocio.MNG003, e);
+		}
+		
 		
 		if (!userDetails.getPassword().equals(authentication.getCredentials().toString())){
 			

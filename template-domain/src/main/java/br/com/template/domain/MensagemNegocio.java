@@ -4,6 +4,9 @@ public enum MensagemNegocio {
 	
 	MNG001(TipoMensagem.ALERTA),
 	MNG002(TipoMensagem.ALERTA), 
+	MNG003(TipoMensagem.ALERTA),
+	MNG004(TipoMensagem.ALERTA),
+	MNG005(TipoMensagem.ALERTA),
 	
 	MEI001(TipoMensagem.INTERNO),
 	MEI002(TipoMensagem.INTERNO),

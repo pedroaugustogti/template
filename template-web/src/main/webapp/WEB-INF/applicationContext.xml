@@ -2,10 +2,18 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee"
     xmlns:security="http://www.springframework.org/schema/security"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="br.com.*" />
+	
+	<jee:local-slsb id="autorizacaoService" jndi-name="java:module/AutorizacaoServiceImpl" 
+      business-interface="br.com.template.login.service.AutorizacaoService"/>
 
     <bean id="autenticacaoDetailLDAP"
         class="br.com.template.controller.login.AutenticacaoDetailLDAP">
@@ -14,7 +22,7 @@
     <bean id="authenticationProviderCustom"
         class="br.com.template.controller.login.AuthenticationProviderCustom">
     </bean>
-
+    
     <security:authentication-manager>
         <security:authentication-provider ref="authenticationProviderCustom" />
     </security:authentication-manager>

@@ -93,6 +93,18 @@ public class ConsultasDaoJpa<T> {
 		 
 		 return inicializaCampos(filtrarPesquisa(filtroDTO, entidade), camposInitialize);
 	 }
+	 
+    public T getPrimeiroRegistroPorFiltro(Object filtroDTO, Class<T> entidade) {
+    	
+    	List<T> list = filtrarPesquisa(filtroDTO, entidade);
+    	T primeiroRegistro = null;
+    	
+    	if (!list.isEmpty()){
+    		primeiroRegistro = list.get(0);
+    	}
+		 
+		return primeiroRegistro;
+	}
 	
 	@SuppressWarnings("unchecked")
     public List<T> filtrarPesquisa(Object filtroDTO, Class<T> entidade) {

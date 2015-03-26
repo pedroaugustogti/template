@@ -6,7 +6,6 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>template-domain</artifactId>
-  <packaging>ejb</packaging>
   <name>template-domain</name>
   <description>JPA entities for our project - domain model</description>
   <build>
@@ -19,10 +18,6 @@
 			<artifactId>javaee-api</artifactId>
             <scope>provided</scope>
 		</dependency>
-		<dependency>
-		  <groupId>org.springframework.data</groupId>
-		  <artifactId>spring-data-jpa</artifactId>
-	  	</dependency>
 	  	
 		<!-- DEPENDÃNCIAS HIBERNATE -->
 		<dependency>
@@ -62,6 +57,10 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
   </dependencies>
 </project>

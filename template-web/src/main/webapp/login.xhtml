@@ -4,75 +4,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title><ui:insert name="title">Spring-Security - Login</ui:insert>
+	
+	<title>
+		<ui:insert name="title">Login</ui:insert>
 	</title>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-	<!-- Template CSS - Do not modify -->
-	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.request.contextPath}/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.request.contextPath}/css/template.css" />
-
-	<!-- Oldies CSS and scripts -->
-	<!--[if lte IE 8]>
-		<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.request.contextPath}/css/template-ie.css" />
-		<script type="text/javascript"> activeHTML(); </script>
-		<![endif]-->
-	<!-- custom -->
-	<link rel="stylesheet" type="text/css"
-		href="#{facesContext.externalContext.request.contextPath}/css/classnotfound.css" />
 </h:head>
 
 <h:body>
-	<div>
-		<h:form id="loginFormId" prependId="false">
-			<div class="full-box" style="text-align: center">
-				<div class="child-box box-c3">
-					<h3>Login</h3>
-					<div class="fluid-row">
-						<div class="fluid-column fluid-c12">
-							<div class="forLabel" style="width: 30%">
-								<h:outputLabel for="username" value="User" />
-							</div>
-							<div class="forField" style="width: 65%">
-								<h:inputText id="username" required="true"
-									requiredMessage="Please enter username (or go to hell...)" />
-								<h:messages for="username" />
-							</div>
-						</div>
-						<div class="fluid-column fluid-c12">
-							<div class="forLabel" style="width: 30%">
-								<h:outputLabel for="password" value="Password" />
-							</div>
-							<div class="forField" style="width: 65%">
-								<h:inputSecret id="password" required="true"
-									requiredMessage="Please enter password (otherwise you'll die!!)"
-									name="password" />
-								<h:messages for="password" />
-							</div>
-						</div>
-						<div class="fluid-column fluid-c12">
-							<div class="forLabel" style="width: 30%">
-								<h:outputText value="Authentication" />
-							</div>
-							<div class="forField" style="width: 65%">
-								<h:selectBooleanCheckbox id="ldap" name="ldap" />
-								<h:outputLabel for="ldap" value="LDAP" />
-							</div>
-						</div>
-					</div>
-					<ui:fragment rendered="${!empty param['error']}">
-						<div>Connection failed: user and/or password are wrong.</div>
-					</ui:fragment>
-					<div id="loginBtnPanelId">
-						<h:commandButton id="btnLoginId" value="Login" type="submit"
-							action="${loginManager.doLogin()}" styleClass="loginPanelBtn" />
-					</div>
-				</div>
-			</div>
-		</h:form>
-	</div>
+
+	<h:form id="form" prependId="false">
+		
+		<p:messages id="messages" autoUpdate="true" closable="true" style="margin:0 auto; width:80%; text-align:center;"/>
+		
+		<br></br>
+		 <ui:fragment rendered="${!empty param['error']}">
+		 	<p:panel id="loginA" style="margin:0 auto; width:80%; text-align:center;">
+				Usuario ou/e senha estão incorretos.
+			</p:panel>
+		</ui:fragment>
+		
+	    <p:panel id="login" header="Login" style="margin:0 auto; width:80%; text-align:center;">
+	    
+	        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="username" value="Usuario:" />
+           		
+            	<p:inputText id="username" required="true" requiredMessage="Usuario é de preenchimento Obrigatório!" maxlength="45" style="width:250px"/>
+				 	
+		 		<h:message for="username" style="color: red;" />	
+		 		
+		 		<p:outputLabel for="password" value="Senha:" />
+		 		
+		 		<p:password id="password" required="true" requiredMessage="Senha é de preenchimento Obrigatório!" maxlength="45" style="width:250px" />
+						
+				<h:message for="password" style="color: red;" />		
+		 			
+	        </h:panelGrid>
+	        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+        		<p:commandButton id="btnLogin" 
+					value="Login" ajax="false"
+					action="#{loginController.doLogin()}" />
+					
+				<p:commandButton id="btnCadastrar" value="Cadastrar"
+					ajax="false" action="cadastrarUsuario.xhtml"
+					immediate="true"/>
+					
+	        </h:panelGrid>
+	        
+	    </p:panel>
+	</h:form>
 </h:body>
 </html>

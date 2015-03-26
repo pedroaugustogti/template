@@ -13,7 +13,6 @@ public class NegocioException extends Exception{
 	
 	public NegocioException(MensagemNegocio msg, Throwable cause) {
 		super(InitMessageProperties.getValue(msg), cause);
-		
 		init(msg);
 	}
 
@@ -21,6 +20,10 @@ public class NegocioException extends Exception{
 		super(InitMessageProperties.getValue(msg));
 		
 		init(msg);
+	}
+	
+	public NegocioException(Throwable cause) {
+		super(cause);
 	}
 	
 	private void init(MensagemNegocio msg) {

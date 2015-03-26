@@ -13,10 +13,10 @@ import javax.servlet.ServletResponse;
 
 @ManagedBean
 @RequestScoped
-public class LoginManager {
+public class LoginController {
 	
 	private static final String SPRING_SECURITY = "/j_spring_security_check";
-
+	
     public void doLogin() throws IOException, ServletException {
 
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();

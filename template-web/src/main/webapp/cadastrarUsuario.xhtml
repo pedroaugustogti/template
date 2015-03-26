@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="js/primefaces-locale.js"/>  
+		<title>Cadastrar Usuario</title>
+	</h:head>
+
+	<h:body>	 
+	
+		<h:form >
+		
+			<p:messages id="messages" autoUpdate="true" closable="true" style="margin:0 auto; width:80%; text-align:center;"/>
+		
+		    <p:panel id="cadastro" header="Pessoa" style="margin:0 auto; width:80%; text-align:center;">
+		    
+		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		        
+	           		<p:outputLabel for="usuario" value="Usuario:" />
+	           		
+	            	<p:inputText id="usuario" value="#{controllerCadastroUsuarioBean.usuario.usuario}" required="true" requiredMessage="Usuário é de preenchimento Obrigatório!"
+					 	maxlength="45" style="width:250px"/>
+					 	
+			 		<h:message for="usuario" style="color: red;" />	
+			 		
+		 			<p:outputLabel for="senha" value="Senha:" />
+	           		
+	            	<p:password id="senha" value="#{controllerCadastroUsuarioBean.usuario.senha}" required="true" requiredMessage="Senha é de preenchimento Obrigatório!"
+					 	maxlength="45" style="width:250px"/>
+					 	
+				 	<h:message for="senha" style="color: red;" />	
+					 	
+				 	<p:outputLabel for="confirmarSenha" value="Confirmar Senha:" />
+	           		
+	            	<p:inputText id="confirmarSenha" value="#{controllerCadastroUsuarioBean.confirmarSenha}" required="true" requiredMessage="Confirmar senha é de preenchimento Obrigatório!"
+					 	maxlength="45" style="width:250px"/>
+					 	
+			 		<h:message for="confirmarSenha" style="color: red;" />	
+			 		
+			 		<p:outputLabel for="permissao" value="Permissão:" />
+			 		
+			 		<p:selectManyCheckbox  id="permissao" value="#{controllerCadastroUsuarioBean.rolesSelecionadas}" layout="grid" columns="3">
+			            <f:selectItems value="#{controllerCadastroUsuarioBean.roles}" var="role" itemLabel="#{role}" itemValue="#{role}"/> 
+       				</p:selectManyCheckbox>
+			 			
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        		<p:commandButton id="btnSalvar" 
+						value="Salvar" ajax="false"
+						action="#{controllerCadastroUsuarioBean.salvar()}" />
+						
+					<p:commandButton id="btnCancelar" value="Cancelar"
+						ajax="false" action="login.xhtml"
+						immediate="true"/>
+						
+		        </h:panelGrid>
+		        
+		    </p:panel>
+		</h:form>
+	</h:body>
+</html>

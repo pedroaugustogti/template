@@ -1,10 +1,10 @@
 package br.com.template.login.service;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import javax.ejb.Local;
 
-import br.com.template.entidades.Usuario;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface AutorizacaoService {
+@Local
+public interface AutorizacaoService extends UserDetailsService{
 
-	public boolean isAutorizado(Usuario usuario, final String role) throws UsernameNotFoundException;
 }
