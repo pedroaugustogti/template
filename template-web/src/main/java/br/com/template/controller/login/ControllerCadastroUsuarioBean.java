@@ -7,15 +7,17 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.template.controller.AbstractManageBean;
 import br.com.template.controller.service.GenericServiceController;
 import br.com.template.controller.validation.view.ControllerCadastroUsuarioValidationView;
 import br.com.template.domain.Role;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
+import br.com.template.navegacao.Pagina;
 
 @ManagedBean
 @ViewScoped
-public class ControllerCadastroUsuarioBean {
+public class ControllerCadastroUsuarioBean extends AbstractManageBean{
 	
 	@EJB
 	private GenericServiceController<Usuario, Long> service;
@@ -80,5 +82,10 @@ public class ControllerCadastroUsuarioBean {
 
 	public void setRolesSelecionadas(String[] rolesSelecionadas) {
 		this.rolesSelecionadas = rolesSelecionadas;
+	}
+
+	@Override
+	protected Pagina getPaginaManageBean() {
+		return Pagina.CADASTRAR_USUARIO;
 	}
 }

@@ -10,18 +10,12 @@
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="br.com.*" />
+	<context:component-scan base-package="br.com.template.login.service.*" />
 	
 	<jee:local-slsb id="autorizacaoService" jndi-name="java:module/AutorizacaoServiceImpl" 
       business-interface="br.com.template.login.service.AutorizacaoService"/>
 
-    <bean id="autenticacaoDetailLDAP"
-        class="br.com.template.controller.login.AutenticacaoDetailLDAP">
-    </bean>
-
-    <bean id="authenticationProviderCustom"
-        class="br.com.template.controller.login.AuthenticationProviderCustom">
-    </bean>
+    <bean id="authenticationProviderCustom" class="br.com.template.controller.login.AuthenticationProviderCustom"/>
     
     <security:authentication-manager>
         <security:authentication-provider ref="authenticationProviderCustom" />
@@ -34,8 +28,7 @@
         <security:intercept-url pattern="/faces/pages/**" access="authenticated" />
         
         <security:form-login login-page="/login.jsf" authentication-failure-url="/login.jsf?error=1"
-            default-target-url="/pages/consultarPessoa.jsf" authentication-details-source-ref="autenticacaoDetailLDAP"
-            username-parameter="username" password-parameter="password" />
+            default-target-url="/pages/consultarPessoa.jsf" username-parameter="username" password-parameter="password" />
     </security:http>
 
 </beans>

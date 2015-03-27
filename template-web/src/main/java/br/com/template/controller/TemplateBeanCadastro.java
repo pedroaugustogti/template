@@ -3,28 +3,22 @@
  */
 package br.com.template.controller;
 
-import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.template.controller.service.GenericServiceController;
 import br.com.template.controller.validation.view.TemplateValidationView;
 import br.com.template.entidades.EntidadeExemplo;
 import br.com.template.excecao.NegocioException;
+import br.com.template.navegacao.Pagina;
 import br.com.template.service.TemplateService;
 
 @ManagedBean(name="templateBeanCadastro")
-@SessionScoped	
-public class TemplateBeanCadastro implements Serializable{
+@ViewScoped	
+public class TemplateBeanCadastro extends AbstractManageBean{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2387137209850478788L;
-
 	@EJB
 	private TemplateValidationView validationView;
 	
@@ -38,7 +32,6 @@ public class TemplateBeanCadastro implements Serializable{
 	
 	@PostConstruct
 	public void init(){
-		
 		entidade = new EntidadeExemplo();
 	}
 
@@ -56,5 +49,10 @@ public class TemplateBeanCadastro implements Serializable{
 
 	public void setEntidade(EntidadeExemplo entidade) {
 		this.entidade = entidade;
+	}
+
+	@Override
+	protected Pagina getPaginaManageBean() {
+		return Pagina.CADASTRAR_PESSOA;
 	}
 }

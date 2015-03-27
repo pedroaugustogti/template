@@ -1,6 +1,5 @@
 package br.com.template.controller;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,16 +12,13 @@ import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.dto.FiltroEntidadeExemploDTO;
 import br.com.template.entidades.EntidadeExemplo;
 import br.com.template.excecao.NegocioException;
+import br.com.template.navegacao.Pagina;
 import br.com.template.service.TemplateService;
 
 @ManagedBean(name="templateBeanPesquisa")
 @ViewScoped
-public class TemplateBeanPesquisa extends AbstractManageBean implements Serializable{
+public class TemplateBeanPesquisa extends AbstractManageBean{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2387137209850478788L;
 
 	@EJB
 	private GenericServiceController<EntidadeExemplo, Long> genericServiceExemplo;
@@ -73,5 +69,10 @@ public class TemplateBeanPesquisa extends AbstractManageBean implements Serializ
 
 	public List<EntidadeExemplo> getEntidades() {
 		return entidades;
+	}
+
+	@Override
+	protected Pagina getPaginaManageBean() {
+		return Pagina.CONSULTAR_PESSOA;
 	}
 }

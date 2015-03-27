@@ -29,7 +29,7 @@ public class EntidadeExemplo extends EntidadeBasica{
 	private static final long serialVersionUID = -767706364216917735L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private Long id;
 	

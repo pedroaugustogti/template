@@ -8,7 +8,7 @@ import java.util.Set;
 public enum Role {
 
 	ADMIN("Administrador"),
-	USUAIRO("Usuário");
+	USUARIO("Usuário");
 	
 	private String label;
 	
