@@ -44,7 +44,7 @@ public enum AutorizacaoEnum {
 			
 			for (GrantedAuthority role : permissoesUsuarioLogado){
 				
-				if (rolesDisponiveis(paginaAtual).contains(role.getAuthority())){
+				if (rolesDisponiveisParaPagina(paginaAtual).contains(role.getAuthority())){
 					usuarioComAcesso = Boolean.TRUE;
 					break;
 				}
@@ -70,7 +70,7 @@ public enum AutorizacaoEnum {
 		return permissaoAnonima;
 	}
 	
-	private static List<String> rolesDisponiveis(Pagina pagina){
+	private static List<String> rolesDisponiveisParaPagina(Pagina pagina){
 		
 		List<String> autorizacaoDisponivel = new ArrayList<String>();
 		

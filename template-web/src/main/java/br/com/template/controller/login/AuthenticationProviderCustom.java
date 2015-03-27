@@ -75,10 +75,10 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
 			throw new NegocioException(MensagemNegocio.MNG002);
 		}
 		
-		return adicionaUsuarioNaSessao(userDetails);
+		return adicionaPermissoesUsuarioNaSessao(userDetails);
 	}
 
-    private boolean adicionaUsuarioNaSessao(UserDetails userDetails) {
+    private boolean adicionaPermissoesUsuarioNaSessao(UserDetails userDetails) {
     	
     	Boolean isUsuarioNaSessao = Boolean.FALSE;
     	

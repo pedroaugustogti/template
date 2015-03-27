@@ -34,15 +34,13 @@ public abstract class AbstractManageBean extends AutorizacaoManageBean {
 		
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	
-    	List<SimpleGrantedAuthority> permissoes = permissoesUsuarioLogado();
-
-    	if (!AutorizacaoEnum.usuarioComAcesso(getPaginaManageBean(), permissoes) || !authentication.isAuthenticated()) {
+    	if (!AutorizacaoEnum.usuarioComAcesso(getPaginaManageBean(), permissoesUsuarioLogado()) || !authentication.isAuthenticated()) {
     		
     		String paginaLogin = getHttpRequest().getContextPath().concat(Pagina.LOGIN.getValor());
     		
     		externalContext().redirect(paginaLogin);
     		
-    		getHttpRequest().getSession().invalidate();
+    		getHttpSession().invalidate();
         }
 	}
 	
