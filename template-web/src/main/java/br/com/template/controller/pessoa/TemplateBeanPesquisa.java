@@ -1,5 +1,6 @@
-package br.com.template.controller;
+package br.com.template.controller.pessoa;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -7,13 +8,15 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.template.controller.service.GenericServiceController;
+import br.com.template.autorizacao.Pagina;
 import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.dto.FiltroEntidadeExemploDTO;
 import br.com.template.entidades.EntidadeExemplo;
 import br.com.template.excecao.NegocioException;
-import br.com.template.navegacao.Pagina;
+import br.com.template.framework.AbstractManageBean;
+import br.com.template.framework.GenericServiceController;
 import br.com.template.service.TemplateService;
+import br.com.template.util.container.AtributoSessao;
 
 @ManagedBean(name="templateBeanPesquisa")
 @ViewScoped
@@ -50,11 +53,18 @@ public class TemplateBeanPesquisa extends AbstractManageBean{
 		entidades = templateService.pesquisar(filtroEntidadeExemploDTO);
 	}
 	
+	public void redirecionaParaTelaAlterar(EntidadeExemplo pessoa) throws IOException, NegocioException{
+		
+		setAtributoSessao(AtributoSessao.OBJ_ALTERAR_PESSOA, pessoa);
+		
+		redirecionaPagina(Pagina.ALTERAR_PESSOA);
+	}
+	
 	public void excluir(){
 		genericServiceExemplo.excluir(entidadeSelecionada);
 		this.pesquisar();
 	}
-
+	
 	public FiltroEntidadeExemploDTO getFiltroEntidadeExemploDTO() {
 		return filtroEntidadeExemploDTO;
 	}

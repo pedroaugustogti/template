@@ -1,12 +1,12 @@
-package br.com.template.controller.validation.view;
+package br.com.template.controller.usuario;
 
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
-import br.com.template.interceptors.InterceptionViewMenssage;
+import br.com.template.framework.InterceptionViewMenssage;
 
 @Stateless
 @Interceptors(InterceptionViewMenssage.class)
@@ -17,7 +17,7 @@ public class ControllerCadastroUsuarioValidationView {
 		verificaSenhasInformadas(usuario, confirmarSenha);
 		
 		if (!usuario.getSenha().equals(confirmarSenha)){
-			throw new NegocioException(MensagemNegocio.MNG005);
+			throw new NegocioException(Mensagem.MNG005);
 		}
 	}
 
@@ -25,7 +25,7 @@ public class ControllerCadastroUsuarioValidationView {
 		
 		if (preCondicaoDiferentesNull(usuario, confirmarSenha)){
 			
-			throw new NegocioException(MensagemNegocio.MNG004);
+			throw new NegocioException(Mensagem.MNG004);
 		}
 	}
 

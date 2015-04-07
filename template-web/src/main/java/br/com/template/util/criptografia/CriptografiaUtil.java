@@ -1,6 +1,7 @@
 package br.com.template.util.criptografia;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -37,7 +38,7 @@ public final class CriptografiaUtil {
 	private static String randomKey() {
 		UUID uuid = UUID.randomUUID();  
 		String myRandom = uuid.toString();  
-		return myRandom.substring(0,HASH_16_BYTES);
+		return myRandom.substring(BigInteger.ZERO.intValue(), HASH_16_BYTES);
 	}
 	
 	
@@ -77,7 +78,7 @@ public final class CriptografiaUtil {
 	
 	private static Cipher cipher(final int encryptMode) throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException {
     	
-   	 IvParameterSpec iv = new IvParameterSpec(keyIvParameterSpec.getBytes(ENCODING));
+   	 	IvParameterSpec iv = new IvParameterSpec(keyIvParameterSpec.getBytes(ENCODING));
         SecretKeySpec skeySpec = new SecretKeySpec(keySecretSpec.getBytes(ENCODING),TIPO_CRIPTOGRAFIA_AES);
         Cipher cipher = Cipher.getInstance(ALGORITMO_CRIPTOGRAFICA);
         cipher.init(encryptMode, skeySpec, iv);

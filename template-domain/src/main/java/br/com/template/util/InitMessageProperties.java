@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 
 public final class InitMessageProperties {
 	
-	private static final String ARQUIVO_CONFIGURACAO_MENSAGENS = "/msg-negocio.properties";
+	private static final String ARQUIVO_CONFIGURACAO_MENSAGENS = "/messages.properties";
 	
 	private static Properties properties;
 	
@@ -31,7 +31,7 @@ public final class InitMessageProperties {
 		return properties;
 	}
 	
-	public static String getValue(MensagemNegocio mensagemNegocio) {
+	public static String getValue(Mensagem mensagemNegocio) {
 		return properties.getProperty(mensagemNegocio.name());
 	}
 }

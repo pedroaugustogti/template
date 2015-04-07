@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.domain.Role;
 import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Usuario;
@@ -35,7 +35,7 @@ public class AutorizacaoServiceImpl implements UserDetailsService {
 		Usuario ususario = consultaDao.getPrimeiroRegistroPorFiltro(filtro, Usuario.class);
 		
 		if (ususario == null){
-			throw new UsernameNotFoundException(MensagemNegocio.MNG003.name());
+			throw new UsernameNotFoundException(Mensagem.MNG003.name());
 		}
 		
 		Set<GrantedAuthority> authorities = buildUserAuthority(ususario.getRoles());

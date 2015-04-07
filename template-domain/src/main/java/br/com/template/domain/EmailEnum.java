@@ -1,5 +1,8 @@
 package br.com.template.domain;
 
+import javax.faces.application.ProjectStage;
+import javax.faces.context.FacesContext;
+
 public enum EmailEnum {
 	
 	EMAIL_TEMPLATE("emails/template/template.html","Assunto do Email","{url}");

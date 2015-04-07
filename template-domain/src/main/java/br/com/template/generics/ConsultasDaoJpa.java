@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Transient;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -23,15 +21,13 @@ import org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer;
 import org.springframework.core.GenericTypeResolver;
 
 import br.com.template.anotations.EntityProperty;
+import br.com.template.model.AbstractModel;
 import br.com.template.util.HibernateUtil;
 import br.com.template.util.UtilReflexao;
 
 @Stateless
-public class ConsultasDaoJpa<T> {
+public class ConsultasDaoJpa<T> extends AbstractModel{
 
-	@PersistenceContext
-	protected EntityManager em;
-	
 	protected Session session;
 	
 	public Criteria adicionarCriterioConsultar(Criteria criteria, Object entidade, String alias, boolean isPesquisaExata) {

@@ -1,4 +1,4 @@
-package br.com.template.interceptors;
+package br.com.template.framework;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;

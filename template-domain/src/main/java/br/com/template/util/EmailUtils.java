@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.template.domain.EmailEnum;
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.excecao.NegocioException;
 
 /**
@@ -66,7 +66,7 @@ public class EmailUtils {
 	private void verificaValorParametros(String[] valorParametros) throws NegocioException {
 		
 		if (valorParametros == null){
-			throw new NegocioException(MensagemNegocio.MEI001);
+			throw new NegocioException(Mensagem.MEI001);
 		}
 		
 	}

@@ -1,4 +1,4 @@
-package br.com.template.controller.login;
+package br.com.template.controller.usuario;
 
 import java.util.List;
 
@@ -7,13 +7,12 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.template.controller.AbstractManageBean;
-import br.com.template.controller.service.GenericServiceController;
-import br.com.template.controller.validation.view.ControllerCadastroUsuarioValidationView;
+import br.com.template.autorizacao.Pagina;
 import br.com.template.domain.Role;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
-import br.com.template.navegacao.Pagina;
+import br.com.template.framework.AbstractManageBean;
+import br.com.template.framework.GenericServiceController;
 
 @ManagedBean
 @ViewScoped
@@ -46,6 +45,7 @@ public class ControllerCadastroUsuarioBean extends AbstractManageBean{
 			
 			usuario.setRoles(Role.getRolesPorLabel(rolesSelecionadas));
 	    	service.salvar(usuario);
+	    	init();
 	    	
 		} catch (NegocioException e) {
 			e.printStackTrace();

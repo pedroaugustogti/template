@@ -13,10 +13,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.excecao.NegocioException;
-import br.com.template.interceptors.InterceptionViewMenssage;
+import br.com.template.framework.InterceptionViewMenssage;
 import br.com.template.login.service.AutorizacaoService;
+import br.com.template.util.container.AtributoSessao;
 import br.com.template.util.criptografia.CriptografiaUtil;
 
 import com.google.gson.Gson;
@@ -28,34 +29,35 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
 	
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-    	
-        Authentication res = null;
         
+    	Authentication auth = null;
+    	
 		try {
-			res = isValid(authentication);
 			
-			if (!res.isAuthenticated()) {
+			auth = isValid(authentication);
+			
+			if (!auth.isAuthenticated()) {
 				
-	            throw new BadCredentialsException("Bad credentials");
+	            throw new BadCredentialsException(Mensagem.MNG002.name());
 	        }
 			
 		} catch (NegocioException e) {
 			e.printStackTrace();
 		}
         
-        return res;
+        return auth;
     }
 
     private Authentication isValid(Authentication authentication) throws NegocioException {
     	
-        Authentication res = authentication;
+    	Authentication auth = null;
         
         if (autenticacaoComSucesso(authentication)) {
         	
-            res = createSuccessAuthentication(authentication);
+        	auth = createSuccessAuthentication(authentication);
         }
         
-        return res;
+        return auth;
     }
 
     @Interceptors(InterceptionViewMenssage.class)
@@ -66,19 +68,19 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
 		try{
 			userDetails = usuarioService.loadUserByUsername(authentication.getName());
 		}catch(EJBException e){
-			throw new NegocioException(MensagemNegocio.MNG003, e);
+			throw new NegocioException(Mensagem.MNG003, e);
 		}
 		
 		
 		if (!userDetails.getPassword().equals(authentication.getCredentials().toString())){
 			
-			throw new NegocioException(MensagemNegocio.MNG002);
+			throw new NegocioException(Mensagem.MNG002);
 		}
 		
 		return adicionaPermissoesUsuarioNaSessao(userDetails);
 	}
 
-    private boolean adicionaPermissoesUsuarioNaSessao(UserDetails userDetails) {
+    private boolean adicionaPermissoesUsuarioNaSessao(UserDetails userDetails) throws NegocioException {
     	
     	Boolean isUsuarioNaSessao = Boolean.FALSE;
     	
@@ -88,12 +90,12 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
     		String permissoesUsuario = CriptografiaUtil.criptografar(gson.toJson(userDetails.getAuthorities()));
     		RequestAttributes mapAtributos = RequestContextHolder.currentRequestAttributes();
     		
-    		mapAtributos.setAttribute(AtributoSessao.PERMISSOES_USUARIO.getChave(), permissoesUsuario, RequestAttributes.SCOPE_SESSION);
+    		mapAtributos.setAttribute(AtributoSessao.PERMISSOES_USUARIO.name(), permissoesUsuario, RequestAttributes.SCOPE_SESSION);
     		
     		isUsuarioNaSessao = Boolean.TRUE;
     		
     	}catch(Exception ex){
-    		ex.printStackTrace();
+    		throw new NegocioException(Mensagem.MEI011, ex);
     	}
     	
 		return isUsuarioNaSessao;

@@ -1,4 +1,4 @@
-package br.com.template.navegacao;
+package br.com.template.autorizacao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,8 @@ public enum AutorizacaoEnum {
 	ANONIMO(Pagina.LOGIN, 
 			Pagina.CADASTRAR_USUARIO),
 	
-	ADMINISTRADOR(Role.ADMIN, Pagina.CADASTRAR_PESSOA, 
+	ADMINISTRADOR(Role.ADMIN, Pagina.CADASTRAR_PESSOA,
+							  Pagina.ALTERAR_PESSOA,
 							  Pagina.CONSULTAR_PESSOA),
 							  
 	USUARIO(Role.USUARIO, Pagina.CONSULTAR_PESSOA);
@@ -32,26 +33,42 @@ public enum AutorizacaoEnum {
 		this.paginasComPermissao = paginasComPermissao;
 	}
 	
-	public static boolean usuarioComAcesso(Pagina paginaAtual, List<SimpleGrantedAuthority> permissoesUsuarioLogado) {
+	public static AutorizacaoEnum usuarioComAcesso(Pagina paginaAtual, List<SimpleGrantedAuthority> permissoesUsuarioLogado) {
 		
-		boolean usuarioComAcesso = Boolean.FALSE;
+		AutorizacaoEnum usuarioComAcesso = null;
 		
 		if (paginaComAcessoAnonimo(paginaAtual)){
 			
-			usuarioComAcesso = Boolean.TRUE;
+			usuarioComAcesso = AutorizacaoEnum.ANONIMO;
 			
 		}else if (permissoesUsuarioLogado != null){
 			
 			for (GrantedAuthority role : permissoesUsuarioLogado){
 				
 				if (rolesDisponiveisParaPagina(paginaAtual).contains(role.getAuthority())){
-					usuarioComAcesso = Boolean.TRUE;
+					usuarioComAcesso = autorizacaoPorRole(role.getAuthority());
 					break;
 				}
 			}
 		}
 		
 		return usuarioComAcesso;
+	}
+
+	private static AutorizacaoEnum autorizacaoPorRole(String role) {
+		
+		AutorizacaoEnum autorizacao = null;
+		
+		for (AutorizacaoEnum auth : values()){
+			
+			if (auth != AutorizacaoEnum.ANONIMO && auth.role.name().equals(role)){
+				
+				autorizacao = auth;
+				break;
+			}
+		}
+		
+		return autorizacao;
 	}
 
 	private static boolean paginaComAcessoAnonimo(Pagina paginaAtual) {

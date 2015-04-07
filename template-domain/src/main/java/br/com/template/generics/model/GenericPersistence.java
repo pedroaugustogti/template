@@ -1,11 +1,11 @@
-package br.com.template.generics.repository;
+package br.com.template.generics.model;
 
 import java.io.Serializable;
 import java.util.List;
 
 import br.com.template.generics.EntidadeBasica;
 
-public interface GenericRepository<T extends EntidadeBasica, ID extends Serializable> {
+public interface GenericPersistence<T extends EntidadeBasica, ID extends Serializable> {
 
 	void salvar(T t) ;
 

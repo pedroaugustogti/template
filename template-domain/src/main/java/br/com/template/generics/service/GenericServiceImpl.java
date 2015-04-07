@@ -9,13 +9,13 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import br.com.template.generics.EntidadeBasica;
-import br.com.template.generics.repository.GenericRepository;
+import br.com.template.generics.model.GenericPersistence;
 
 @Stateless
 public class GenericServiceImpl<T extends EntidadeBasica, ID extends Serializable> implements GenericService<T, ID>{
 	
 	@EJB
-	private GenericRepository<T, ID> reposiroty;
+	private GenericPersistence<T, ID> reposiroty;
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)

@@ -1,4 +1,4 @@
-package br.com.template.controller;
+package br.com.template.controller.pessoa;
 
 import java.util.ArrayList;
 import java.util.HashMap;

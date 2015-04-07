@@ -1,4 +1,4 @@
-package br.com.template.controller.service;
+package br.com.template.framework;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,7 +9,6 @@ import javax.interceptor.Interceptors;
 
 import br.com.template.generics.EntidadeBasica;
 import br.com.template.generics.service.GenericService;
-import br.com.template.interceptors.InterceptionDefaultMenssage;
 
 @Stateless
 public class GenericServiceController<T extends EntidadeBasica, ID extends Serializable> {

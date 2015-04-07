@@ -1,6 +1,6 @@
 package br.com.template.excecao;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.domain.TipoMensagem;
 import br.com.template.util.InitMessageProperties;
 
@@ -11,12 +11,12 @@ public class NegocioException extends Exception{
 	private String valor;
 	private TipoMensagem tipo;
 	
-	public NegocioException(MensagemNegocio msg, Throwable cause) {
+	public NegocioException(Mensagem msg, Throwable cause) {
 		super(InitMessageProperties.getValue(msg), cause);
 		init(msg);
 	}
 
-	public NegocioException(MensagemNegocio msg) {
+	public NegocioException(Mensagem msg) {
 		super(InitMessageProperties.getValue(msg));
 		
 		init(msg);
@@ -26,18 +26,18 @@ public class NegocioException extends Exception{
 		super(cause);
 	}
 	
-	private void init(MensagemNegocio msg) {
+	private void init(Mensagem msg) {
 		
 		initMessageProperties(msg);
 		verificaErroInterno(msg);
 	}
 
-	private void initMessageProperties(MensagemNegocio msg) {
+	private void initMessageProperties(Mensagem msg) {
 		valor = InitMessageProperties.getValue(msg);
 		tipo = msg.getTipo();
 	}
 
-	private void verificaErroInterno(MensagemNegocio msg) {
+	private void verificaErroInterno(Mensagem msg) {
 		
 		if (TipoMensagem.INTERNO.equals(msg.getTipo())){
 			super.printStackTrace();

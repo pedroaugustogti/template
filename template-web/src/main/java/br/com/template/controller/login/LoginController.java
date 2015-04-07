@@ -8,8 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
-import br.com.template.controller.AbstractManageBean;
-import br.com.template.navegacao.Pagina;
+import br.com.template.autorizacao.Pagina;
+import br.com.template.framework.AbstractManageBean;
 
 @ManagedBean
 @RequestScoped

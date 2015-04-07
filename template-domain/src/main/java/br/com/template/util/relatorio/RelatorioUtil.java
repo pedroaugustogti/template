@@ -20,7 +20,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.domain.relatorio.HeaderContentDisposition;
 import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.domain.relatorio.RelatorioHeaderConfigEnum;
@@ -43,7 +43,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 			try {
 				binario =  JasperExportManager.exportReportToPdf(print);
 			} catch (Exception e) {
-				throw new NegocioException(MensagemNegocio.MEI003, e);
+				throw new NegocioException(Mensagem.MEI003, e);
 			}
 		}
 		
@@ -73,7 +73,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 	private void verificaRelatorioInformado(RelatorioEnum relatorio) throws NegocioException {
 		
 		if (relatorio == null){
-			throw new NegocioException(MensagemNegocio.MEI005);
+			throw new NegocioException(Mensagem.MEI005);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 		try {
 			outputStream = response.getOutputStream();
 		} catch (Exception e) {
-			throw new NegocioException(MensagemNegocio.MEI004, e);
+			throw new NegocioException(Mensagem.MEI004, e);
 		}
 		
 		return outputStream;
@@ -110,7 +110,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 
 		if (print == null) {
 			
-			throw new NegocioException(MensagemNegocio.MEI007);
+			throw new NegocioException(Mensagem.MEI007);
 		}
 			
 		try {
@@ -172,7 +172,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 			out.close();
 			
 		} catch (IOException ioe) {
-			throw new NegocioException(MensagemNegocio.MEI006, ioe);
+			throw new NegocioException(Mensagem.MEI006, ioe);
 		}
 	}
 
@@ -196,7 +196,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 		    impressao = JasperFillManager.fillReport(relatorioCompilado, parametros, new JRBeanCollectionDataSource(dados));  
 			
 		} catch (JRException e) {
-			throw new NegocioException(MensagemNegocio.MEI008, e);
+			throw new NegocioException(Mensagem.MEI008, e);
 		}
 		return impressao;
 	}

@@ -1,10 +1,10 @@
-package br.com.template.interceptors;
+package br.com.template.framework;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 import br.com.template.domain.TipoMensagem;
 import br.com.template.excecao.NegocioException;
 import br.com.template.util.InitMessageProperties;
@@ -31,7 +31,7 @@ public abstract class AbstractInterceptionMessage {
 		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(severity,mensagem, null));
 	}
 
-	protected void enviaMensagemDefault(MensagemNegocio mensagemNegocio) {
+	protected void enviaMensagemDefault(Mensagem mensagemNegocio) {
 		
 		enviaMensagem(InitMessageProperties.getValue(mensagemNegocio), FacesMessage.SEVERITY_INFO);
 	}

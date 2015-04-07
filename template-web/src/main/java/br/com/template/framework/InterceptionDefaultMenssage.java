@@ -1,9 +1,9 @@
-package br.com.template.interceptors;
+package br.com.template.framework;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import br.com.template.domain.MensagemNegocio;
+import br.com.template.domain.Mensagem;
 
 public class InterceptionDefaultMenssage extends AbstractInterceptionMessage{
 
@@ -14,7 +14,7 @@ public class InterceptionDefaultMenssage extends AbstractInterceptionMessage{
 		
 		try {
 			result = context.proceed();
-			enviaMensagemDefault(MensagemNegocio.MDF001);
+			enviaMensagemDefault(Mensagem.MDF001);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

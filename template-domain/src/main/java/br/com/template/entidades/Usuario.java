@@ -29,7 +29,7 @@ public class Usuario extends EntidadeBasica{
 	private static final long serialVersionUID = 7181106172249020200L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "usuario", unique = true, nullable = false, length = 45)

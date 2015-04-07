@@ -19,14 +19,14 @@
 		        
 	           		<p:outputLabel for="nome" value="#{msg['MSI009']}" />
 	           		
-	            	<p:inputText id="nome" value="#{templateBeanCadastro.entidade.nome}" required="true" requiredMessage="#{msg['MSI034']}"
+	            	<p:inputText id="nome" value="#{templateBeanAlterar.entidade.nome}" required="true" requiredMessage="#{msg['MSI034']}"
 					 	maxlength="45" style="width:250px"/>
 					 	
 			 		<h:message for="nome" style="color: red;" />	
 			 		
 			 		<p:outputLabel for="sexo" value="#{msg['MSI010']}" />
 			 		
-			 		<p:selectOneMenu id="sexo" value="#{templateBeanCadastro.entidade.sexo}" required="true" requiredMessage="#{msg['MSI035']}" style="width:250px">
+			 		<p:selectOneMenu id="sexo" value="#{templateBeanAlterar.entidade.sexo}" required="true" requiredMessage="#{msg['MSI035']}" style="width:250px">
 			            <f:selectItem itemLabel="#{msg['MSI011']}" noSelectionOption="true"/>
 			            <f:selectItem itemLabel="#{msg['MSI012']}" itemValue="#{msg['MSI014']}" />
 			            <f:selectItem itemLabel="#{msg['MSI013']}" itemValue="#{msg['MSI015']}" />
@@ -36,7 +36,7 @@
        				
        				<p:outputLabel for="data" value="#{msg['MSI016']}" />
        				
-       				<p:calendar value="#{templateBeanCadastro.entidade.dataNascimento}" required="true" requiredMessage="#{msg['MSI036']}" 
+       				<p:calendar value="#{templateBeanAlterar.entidade.dataNascimento}" required="true" requiredMessage="#{msg['MSI036']}" 
 							maxlength="10" id="data" style="width:250px"
 							pattern="dd/MM/yyyy" locale="pt_BR"/>
 							
@@ -47,14 +47,14 @@
 		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
 	        		<p:commandButton id="btnSalvar" 
 						value="#{msg['MSI037']}" ajax="false"
-						action="#{templateBeanCadastro.salvar()}" />
+						action="#{templateBeanAlterar.alterar()}" />
 						
 					<p:commandButton id="btnCancelar" value="#{msg['MSI038']}"
 						ajax="false" action="consultarPessoa.xhtml"
 						immediate="true"/>
 						
 					<p:commandButton id="btnLimpar" value="#{msg['MSI039']}"
-						ajax="false" action="cadastrarPessoa.xhtml"
+						ajax="false" action="alterarPessoa.xhtml"
 						update="formPrincipal" 
 						immediate="true"/>	
 		        </h:panelGrid>

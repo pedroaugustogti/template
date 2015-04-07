@@ -1,64 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/template/templateDefault.xhtml">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-
-<h:head>
+	<ui:define name="title">#{msg['MSI001']}</ui:define>
 	
-	<title>
-		<ui:insert name="title">Login</ui:insert>
-	</title>
-	
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</h:head>
+	<ui:define name="body">	 
 
-<h:body>
-
-	<h:form id="form" prependId="false">
-		
-		<p:messages id="messages" autoUpdate="true" closable="true" style="margin:0 auto; width:80%; text-align:center;"/>
-		
-		<br></br>
-		 <ui:fragment rendered="${!empty param['error']}">
-		 	<p:panel id="loginA" style="margin:0 auto; width:80%; text-align:center;">
-				Usuario ou/e senha estão incorretos.
-			</p:panel>
-		</ui:fragment>
-		
-	    <p:panel id="login" header="Login" style="margin:0 auto; width:80%; text-align:center;">
-	    
-	        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
-	        
-           		<p:outputLabel for="username" value="Usuario:" />
-           		
-            	<p:inputText id="username" required="true" requiredMessage="Usuario é de preenchimento Obrigatório!" maxlength="45" style="width:250px"/>
-				 	
-		 		<h:message for="username" style="color: red;" />	
-		 		
-		 		<p:outputLabel for="password" value="Senha:" />
-		 		
-		 		<p:password id="password" required="true" requiredMessage="Senha é de preenchimento Obrigatório!" maxlength="45" style="width:250px" />
+		<h:form id="form" prependId="false">
+			
+			<br></br>
+			 <ui:fragment rendered="${!empty param['error']}">
+			 	<p:panel id="loginA" style="margin:0 auto; width:80%; text-align:center;">
+			 	
+			 		#{msg['MSI002']}
+					
+				</p:panel>
+			</ui:fragment>
+			
+		    <p:panel id="login" header="#{msg['MSI001']}" style="margin:0 auto; width:80%; text-align:center;">
+		    
+		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		        
+	           		<p:outputLabel for="username" value="#{msg['MSI003']}:"/> 
+	           		
+	            	<p:inputText id="username" required="true" requiredMessage="#{msg['MSI004']}" maxlength="45" style="width:250px"/>
+					 	
+			 		<h:message for="username" style="color: red;" />	
+			 		
+			 		<p:outputLabel for="password" value="#{msg['MSI005']}" />
+			 		
+			 		<p:password id="password" required="true" requiredMessage="#{msg['MSI006']}" maxlength="45" style="width:250px" />
+							
+					<h:message for="password" style="color: red;" />		
+			 			
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        		<p:commandButton id="btnLogin" 
+						value="#{msg['MSI001']}" ajax="false" 
+						action="#{loginController.doLogin()}" />
 						
-				<h:message for="password" style="color: red;" />		
-		 			
-	        </h:panelGrid>
-	        
-	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
-        		<p:commandButton id="btnLogin" 
-					value="Login" ajax="false"
-					action="#{loginController.doLogin()}" />
-					
-				<p:commandButton id="btnCadastrar" value="Cadastrar"
-					ajax="false" action="cadastrarUsuario.xhtml"
-					immediate="true"/>
-					
-	        </h:panelGrid>
-	        
-	    </p:panel>
-	</h:form>
-</h:body>
-</html>
+					<p:commandButton id="btnCadastrar" value="#{msg['MSI007']}"
+						ajax="false" action="cadastrarUsuario.xhtml"
+						immediate="true"/>
+						
+		        </h:panelGrid>
+		    </p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

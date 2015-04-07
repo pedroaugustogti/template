@@ -1,24 +1,21 @@
-package br.com.template.generics.repository;
+package br.com.template.generics.model;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.hibernate.LockOptions;
 
 import br.com.template.generics.ConsultasDaoJpa;
 import br.com.template.generics.EntidadeBasica;
+import br.com.template.model.AbstractModel;
 
 @Stateless
-public class GenericRepositoryImpl<T extends EntidadeBasica, ID extends Serializable> implements GenericRepository<T, ID> {
+public class GenericPersistenceImpl<T extends EntidadeBasica, ID extends Serializable>
+					extends AbstractModel implements GenericPersistence<T, ID> {
 	
-	@PersistenceContext
-	protected EntityManager em;
-
 	@EJB
 	private ConsultasDaoJpa<T> consultaReposiroty;
 
