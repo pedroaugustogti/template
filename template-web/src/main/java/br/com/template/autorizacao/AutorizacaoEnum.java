@@ -8,31 +8,73 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import br.com.template.domain.Role;
 
+/**
+ * 
+ * @author pedro.oliveira
+ *
+ *	<p> Enum utilizado para autorizar aceasso as páginas xhtml/jsf </p>
+ *
+ *	<p> O papel desse enum é associar o enum Role.java para ter acesso a vários enum Pagina.java</p>
+ *
+ *	<p> Utilizado na classe AutorizacaoManageBean.java e na sub classe AbstractManageBean.java </p>
+ *
+ *	<p> Obs.: Caso não precise de Role.java para acessar a página, estas devem ser definidas na autorização AutorizacaoEnum.ANONIMO.</p>
+ */
 public enum AutorizacaoEnum {
 
+	/**
+	 * ANONIMO - Recebe várias páginas que possuem acesso público, ou seja, não precisa de usário logado para serem acessadas.
+	 */
 	ANONIMO(Pagina.LOGIN, 
 			Pagina.CADASTRAR_USUARIO),
 	
-	ADMINISTRADOR(Role.ADMIN, Pagina.CADASTRAR_PESSOA,
-							  Pagina.ALTERAR_PESSOA,
-							  Pagina.CONSULTAR_PESSOA),
+	/**
+	 * ADMINISTRADOR - Tem acesso a todas as páginas com a Role.ADMIN.
+	 */
+	ADMINISTRADOR(Role.ADMIN, Pagina.TODAS),
 							  
-	USUARIO(Role.USUARIO, Pagina.CONSULTAR_PESSOA);
+	/**
+	 * USUARIO - Recebe acesso apenas na página Pagina.CONSULTAR_PESSOA com a Role.USUARIO.
+	 */
+	USUARIO(Role.USUARIO, Pagina.CONSULTAR_PESSOA),
+	
+	DIRETOR(Role.DIRETOR, Pagina.CONSULTAR_PESSOA, Pagina.CADASTRAR_PESSOA);
 	
 	private Pagina[] paginasComPermissao;
 	private Role role;
 	
+	/**
+	 * 
+	 * @param paginasComPermissao
+	 * 
+	 * Construtor referente ao enum ANONIMO
+	 */
 	private AutorizacaoEnum(Pagina... paginasComPermissao){
 		
 		this.paginasComPermissao = paginasComPermissao;
 	}
 	
+	/**
+	 * 
+	 * @param paginasComPermissao
+	 * 
+	 * Construtor referente a todas as autorizações que tenham alguma Role.java
+	 */
 	private AutorizacaoEnum(Role role, Pagina... paginasComPermissao){
 		
 		this.role = role;
 		this.paginasComPermissao = paginasComPermissao;
 	}
 	
+	/**
+	 * <p>Verifica se página possui acesso anônimo.</p>
+	 * 
+	 * <p>Se usuario estiver logado, verifica se página que está tentando ser acessada está dentro das permissões do usuário.</p>
+	 * 
+	 * @param paginaAtual - Página do ManageBean em execução
+	 * @param permissoesUsuarioLogado - Roles do usuário obtidas a partir do Spring Security ({@code List<SimpleGrantedAuthority>.java})
+	 * @return Autorização do Usuário
+	 */
 	public static AutorizacaoEnum usuarioComAcesso(Pagina paginaAtual, List<SimpleGrantedAuthority> permissoesUsuarioLogado) {
 		
 		AutorizacaoEnum usuarioComAcesso = null;
@@ -96,7 +138,7 @@ public enum AutorizacaoEnum {
 			
 			for (Pagina paginaDisponivel : autorizacao.paginasComPermissao){
 				
-				if (paginaDisponivel.equals(pagina)){
+				if (paginaDisponivel.equals(pagina) || paginaDisponivel.equals(Pagina.TODAS)){
 					
 					autorizacaoDisponivel.add(autorizacao.role.name());
 					continue novaAutorizacao;

@@ -3,13 +3,35 @@ package br.com.template.autorizacao;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 
+ * @author pedro.oliveira
+ * 
+ * <p>Enum reposável por associar AutorizacaoEnum.java (Que já possui as Role.java de autorização para acesso a cada Pagina.java) a cada funcionalidade.</p>
+ * 
+ *
+ */
 public enum FuncionalidadeEnum {
 
+	/**
+	 * ADMINISTRADOR - Acesso a todas as funcionalidades
+	 */
 	ADMINISTRADOR(AutorizacaoEnum.ADMINISTRADOR, TipoFuncionalidadeEnum.TODAS),
 	
+	/**
+	 * USUARIO - Restringe o acesso do AutorizacaoEnum.USUARIO para apenas algumas funcionalidades
+	 */
 	USUARIO(AutorizacaoEnum.USUARIO, TipoFuncionalidadeEnum.PESQUISAR_PESSOA, 
 									 TipoFuncionalidadeEnum.GERAR_RELATORIO_CONSULTA,
-									 TipoFuncionalidadeEnum.VISUALIZAR_PESSOA);
+									 TipoFuncionalidadeEnum.VISUALIZAR_PESSOA),
+	
+    /**
+	 * DIRETOR - Restringe o acesso do AutorizacaoEnum.DIRETOR para apenas algumas funcionalidades
+	 */
+	DIRETOR(AutorizacaoEnum.DIRETOR, TipoFuncionalidadeEnum.PESQUISAR_PESSOA, 
+									 TipoFuncionalidadeEnum.GERAR_RELATORIO_CONSULTA,
+									 TipoFuncionalidadeEnum.VISUALIZAR_PESSOA,
+									 TipoFuncionalidadeEnum.EXCLUIR_PESSOA);
 
 	private AutorizacaoEnum autorizacao;
 	
@@ -21,6 +43,14 @@ public enum FuncionalidadeEnum {
 		this.funcionalidades = funcionalidades;
 	}
 	
+	/**
+	 * Verifica se o tipoFuncionalidade(TipoFuncionalidadeEnum) solicitada está dentro das que tem o {@code auth}(AutorizacaoEnum) do usuario logado. 
+	 * 
+	 * 
+	 * @param auth variavel de instância dentro do AbstractManageBean, inicializada pelo usuario logado
+	 * @param tipoFuncionalidade funcionalidade que solicita acesso 
+	 * @return true caso o {@code tipoFuncionalidade} esteja dentre as permitidas no {@code auth}
+	 */
 	public static boolean verificaAutorizacaoComAcessoNaFuncionalidade(AutorizacaoEnum auth, TipoFuncionalidadeEnum tipoFuncionalidade) {
 		
 		boolean funcionalidadeLiberada = Boolean.FALSE;
@@ -45,13 +75,5 @@ public enum FuncionalidadeEnum {
 		}
 		
 		return contemFuncionalidade;
-	}
-
-	public AutorizacaoEnum getAutorizacao() {
-		return autorizacao;
-	}
-
-	public TipoFuncionalidadeEnum[] getFuncionalidades() {
-		return funcionalidades;
 	}
 }

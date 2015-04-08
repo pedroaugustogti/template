@@ -21,7 +21,7 @@ import br.com.template.generics.EntidadeBasica;
 
 @Entity
 @Table(name="Exemplo")
-public class EntidadeExemplo extends EntidadeBasica{
+public class Pessoa extends EntidadeBasica{
 
 	/**
 	 * 

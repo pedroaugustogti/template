@@ -11,7 +11,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.template.autorizacao.Pagina;
 import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.dto.FiltroEntidadeExemploDTO;
-import br.com.template.entidades.EntidadeExemplo;
+import br.com.template.entidades.Pessoa;
 import br.com.template.excecao.NegocioException;
 import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
@@ -20,20 +20,20 @@ import br.com.template.util.container.AtributoSessao;
 
 @ManagedBean(name="templateBeanPesquisa")
 @ViewScoped
-public class TemplateBeanPesquisa extends AbstractManageBean{
+public class PessoaControllerPesquisa extends AbstractManageBean{
 	
 
 	@EJB
-	private GenericServiceController<EntidadeExemplo, Long> genericServiceExemplo;
+	private GenericServiceController<Pessoa, Long> genericServiceExemplo;
 	
 	@EJB
 	private TemplateService templateService;
 	
-	private EntidadeExemplo entidadeSelecionada;
+	private Pessoa entidadeSelecionada;
 	
 	private FiltroEntidadeExemploDTO filtroEntidadeExemploDTO;
 	
-	private List<EntidadeExemplo> entidades;
+	private List<Pessoa> entidades;
 	
 	@PostConstruct
 	public void init(){
@@ -43,7 +43,7 @@ public class TemplateBeanPesquisa extends AbstractManageBean{
 	
 	public void gerarRelatorio() throws NegocioException {
 		
-		TemplateBeanParametroRelatorio parametroRelatorio = new TemplateBeanParametroRelatorio(entidades);
+		PessoaRelatorioParametro parametroRelatorio = new PessoaRelatorioParametro(entidades);
 		
 		super.gerarRelatorio(RelatorioEnum.TEMPLATE, parametroRelatorio);
 	}
@@ -53,7 +53,7 @@ public class TemplateBeanPesquisa extends AbstractManageBean{
 		entidades = templateService.pesquisar(filtroEntidadeExemploDTO);
 	}
 	
-	public void redirecionaParaTelaAlterar(EntidadeExemplo pessoa) throws IOException, NegocioException{
+	public void redirecionaParaTelaAlterar(Pessoa pessoa) throws IOException, NegocioException{
 		
 		setAtributoSessao(AtributoSessao.OBJ_ALTERAR_PESSOA, pessoa);
 		
@@ -69,15 +69,15 @@ public class TemplateBeanPesquisa extends AbstractManageBean{
 		return filtroEntidadeExemploDTO;
 	}
 
-	public EntidadeExemplo getEntidadeSelecionada() {
+	public Pessoa getEntidadeSelecionada() {
 		return entidadeSelecionada;
 	}
 
-	public void setEntidadeSelecionada(EntidadeExemplo entidadeSelecionada) {
+	public void setEntidadeSelecionada(Pessoa entidadeSelecionada) {
 		this.entidadeSelecionada = entidadeSelecionada;
 	}
 
-	public List<EntidadeExemplo> getEntidades() {
+	public List<Pessoa> getEntidades() {
 		return entidades;
 	}
 

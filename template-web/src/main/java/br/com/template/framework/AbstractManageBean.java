@@ -22,12 +22,29 @@ import br.com.template.domain.Mensagem;
 import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.excecao.NegocioException;
 import br.com.template.util.container.AtributoSessao;
-import br.com.template.util.relatorio.AbstractParametrosRelatorio;
+import br.com.template.util.relatorio.AbstractRelatorioParametro;
 import br.com.template.util.relatorio.RelatorioUtil;
 
+/**
+ * 
+ * @author pedro.oliveira
+ * 
+ * <p>Classe Pai de todos os ManagesBean do projeto</p>
+ * 
+ * <p>Possui métodos auxiliares para facilitar o manuseio do contexto do JSF nos manage Beans</p>
+ * 
+ * <p>Possui métodos pré-codificados para abstrar a implementação no ManageBean filho Ex.: gerarRelatorio e os métodos de autorização.</p>
+ *
+ */
 public abstract class AbstractManageBean extends AutorizacaoManageBean {
 	
 	private AutorizacaoEnum autorizacao;
+	
+	@Override
+	public boolean autorizaFuncionalidade(TipoFuncionalidadeEnum tipoFuncionalidade){
+		
+		return FuncionalidadeEnum.verificaAutorizacaoComAcessoNaFuncionalidade(autorizacao, tipoFuncionalidade);
+	}
 	
 	@PostConstruct
 	@Override
@@ -42,17 +59,62 @@ public abstract class AbstractManageBean extends AutorizacaoManageBean {
         }
 	}
 	
-	public boolean autorizaFuncionalidade(TipoFuncionalidadeEnum tipoFuncionalidade){
+	/**
+	 * Método utilizado para saber qual página do ManageBean filho está acessando para realizar o permissionamento adequado.
+	 * 
+	 * @return {@link Pagina}
+	 */
+	protected abstract Pagina getPaginaManageBean();
+	
+	/**
+	 * Redireciona a tela do usuário para a página passada no parametro.
+	 * 
+	 * @param {@link Pagina} 
+	 * @throws NegocioException
+	 */
+	public void redirecionaPagina(Pagina pagina) throws NegocioException{
 		
-		return FuncionalidadeEnum.verificaAutorizacaoComAcessoNaFuncionalidade(autorizacao, tipoFuncionalidade);
+		String caminhoPagina = getHttpRequest().getContextPath().concat(pagina.getValor());
+		
+		adicionaMensagensNaSessao();
+		
+		try {
+			externalContext().redirect(caminhoPagina);
+		} catch (IOException e) {
+			throw new NegocioException(Mensagem.MEI009, e);
+		}
 	}
-
+	
+	/**
+	 * Redireciona para tela {@linkPagina.LOGIN} e invalida a sessão do usuário.
+	 * 
+	 * @throws NegocioException
+	 */
 	public void logout() throws NegocioException {
 		
 		redirecionaPagina(Pagina.LOGIN);
 		getHttpSession().invalidate();
 	}
 	
+	@Override
+	protected HttpSession getHttpSession(){
+		return getHttpRequest().getSession(Boolean.TRUE);
+	}
+	
+	/**
+	 * <p>Quando uma tela é redirecionada para outra, as mensagens informativas para o usuário podem se perder nessa transição.</p>
+	 * 
+	 * <p>Nesse caso esse método deve ser acionado atráves da tela JSF no qual você deseja mostrar as mensagens não renderizadas.</p>
+	 * 
+	 * <p>Exemplo: (Exemplo implementado na pagina consultarPessoa.xhtml)</p>
+	 * 
+	 * <ul>
+	 * 	<li> 
+	 * 		f:event listener="#{manageBean.renderizaMensagensDaSessao()}" type="preRenderView"  
+	 *  </li>
+	 * </ul>
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	public void renderizaMensagensDaSessao() {
 		
@@ -69,52 +131,40 @@ public abstract class AbstractManageBean extends AutorizacaoManageBean {
 			limparAtributoDaSessao(AtributoSessao.MENSAGEM);
 		}
 	}
-
-	protected abstract Pagina getPaginaManageBean();
 	
+	/**
+	 * 
+	 * @return Contexto JSF da instância em execução.
+	 */
 	protected FacesContext context(){
 		return FacesContext.getCurrentInstance();
 	}
 	
+	/**
+	 * 
+	 * @return Contexto Externo JSF da instância em execução.
+	 */
 	protected ExternalContext externalContext() {
 		return context().getExternalContext();
 	}
 	
+	/**
+	 * 
+	 * @return HttpServletResponse a partir do contexto JSF.
+	 */
 	protected HttpServletResponse getHttpResponse(){
 		return (HttpServletResponse) externalContext().getResponse();
 	}
 
-	
+	/**
+	 * 
+	 * @return HttpServletRequest a partir do contexto JSF.
+	 */
 	protected HttpServletRequest getHttpRequest(){
 		return (HttpServletRequest) externalContext().getRequest();
 	}
 	
-	@Override
-	protected HttpSession getHttpSession(){
-		return getHttpRequest().getSession(Boolean.TRUE);
-	}
-	
-	protected void redirecionaPagina(Pagina pagina) throws NegocioException{
-		
-		String caminhoPagina = getHttpRequest().getContextPath().concat(pagina.getValor());
-		
-		adicionaMensagensNaSessao();
-		
-		try {
-			externalContext().redirect(caminhoPagina);
-		} catch (IOException e) {
-			throw new NegocioException(Mensagem.MEI009, e);
-		}
-	}
-	
-	private void adicionaMensagensNaSessao() {
-		
-		if (!context().getMessageList().isEmpty()){
-			setAtributoSessao(AtributoSessao.MENSAGEM, context().getMessageList());
-		}
-	}
-
-	protected void gerarRelatorio(RelatorioEnum relatorio, AbstractParametrosRelatorio parametros) throws NegocioException{
+	protected void gerarRelatorio(RelatorioEnum relatorio, AbstractRelatorioParametro parametros) throws NegocioException{
 		
 		RelatorioUtil relatorioUtil = new RelatorioUtil(getHttpRequest(),getHttpResponse());
 		
@@ -124,15 +174,22 @@ public abstract class AbstractManageBean extends AutorizacaoManageBean {
 		context().responseComplete();
 	}
 	
-	public Object getAtributoSessao(AtributoSessao attSessao){  
+	protected Object getAtributoSessao(AtributoSessao attSessao){  
         return  getHttpSession().getAttribute(attSessao.name());  
     }  
       
-	public void setAtributoSessao(AtributoSessao attSessao, Object value){  
+	protected void setAtributoSessao(AtributoSessao attSessao, Object value){  
         getHttpSession().setAttribute(attSessao.name(), value);
     }
 
-	public void limparAtributoDaSessao(AtributoSessao name) {
+	protected void limparAtributoDaSessao(AtributoSessao name) {
 		setAtributoSessao(name, null);
 	} 
+	
+	private void adicionaMensagensNaSessao() {
+		
+		if (!context().getMessageList().isEmpty()){
+			setAtributoSessao(AtributoSessao.MENSAGEM, context().getMessageList());
+		}
+	}
 }

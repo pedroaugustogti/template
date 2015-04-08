@@ -45,20 +45,11 @@
 		        </h:panelGrid>
 		        
 		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
-	        		<p:commandButton id="btnSalvar" 
-						value="#{msg['MSI037']}" ajax="false"
-						action="#{templateBeanCadastro.salvar()}" />
-						
-					<p:commandButton id="btnCancelar" value="#{msg['MSI038']}"
-						ajax="false" action="consultarPessoa.xhtml"
-						immediate="true"/>
-						
-					<p:commandButton id="btnLimpar" value="#{msg['MSI039']}"
-						ajax="false" action="cadastrarPessoa.xhtml"
-						update="formPrincipal" 
-						immediate="true"/>	
-		        </h:panelGrid>
 		        
+	        		<p:commandButton id="btnSalvar"	value="#{msg['MSI037']}" action="#{templateBeanCadastro.salvar()}"/>
+					<p:commandButton id="btnCancelar" value="#{msg['MSI038']}" action="#{templateBeanCadastro.redirecionaPagina('CONSULTAR_PESSOA')}" ajax="false"/>
+					<p:commandButton id="btnLimpar" value="#{msg['MSI039']}" action="#{templateBeanCadastro.redirecionaPagina('CADASTRAR_PESSOA')}" ajax="false" />	
+		        </h:panelGrid>
 		    </p:panel>
 		</h:form>
 	</ui:define>

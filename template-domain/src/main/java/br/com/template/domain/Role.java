@@ -9,23 +9,18 @@ import br.com.template.util.InitMessageProperties;
 
 public enum Role {
 
-	ADMIN(Mensagem.MSI003),
-	USUARIO(Mensagem.MSI043);
+	ADMIN(InitMessageProperties.getValue(Mensagem.MSI043)),
+	USUARIO(InitMessageProperties.getValue(Mensagem.MSI003)), 
+	DIRETOR(InitMessageProperties.getValue(Mensagem.MSI044));
 	
-	private Mensagem msg;
 	private String label;
 	
-	private Role(Mensagem msg){
-		this.msg = msg;
-		this.label = InitMessageProperties.getValue(msg);
+	private Role(String label){
+		this.label = label;
 	}
 
 	public String getLabel() {
 		return label;
-	}
-	
-	public Mensagem getMsg() {
-		return msg;
 	}
 
 	public static List<String> getLabelRoles(){

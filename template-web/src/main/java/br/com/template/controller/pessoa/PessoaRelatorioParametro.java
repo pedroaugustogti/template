@@ -5,27 +5,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import br.com.template.entidades.EntidadeExemplo;
+import br.com.template.entidades.Pessoa;
 import br.com.template.excecao.NegocioException;
 import br.com.template.relatorio.parametro.ParametroTemplateRelatorioEnum;
-import br.com.template.util.relatorio.AbstractParametrosRelatorio;
+import br.com.template.util.relatorio.AbstractRelatorioParametro;
 
-public class TemplateBeanParametroRelatorio extends AbstractParametrosRelatorio{
+public class PessoaRelatorioParametro extends AbstractRelatorioParametro{
 
 	private List<?> listDetailRelatorio;
 
-	public TemplateBeanParametroRelatorio(List<EntidadeExemplo> listDetailRelatorio) {
+	public PessoaRelatorioParametro(List<Pessoa> listDetailRelatorio) {
 		
 		this.listDetailRelatorio = converteLista(listDetailRelatorio);
 	}
 
-	private List<?> converteLista(List<EntidadeExemplo> list) {
+	private List<?> converteLista(List<Pessoa> list) {
 		
-		List<BeanRelatorio> listRelatorio = new ArrayList<>();
+		List<PessoaRelatorioBean> listRelatorio = new ArrayList<>();
 		
-		for (EntidadeExemplo entidade: list){
+		for (Pessoa entidade: list){
 			
-			BeanRelatorio bean = new BeanRelatorio(entidade.getNome(), entidade.getSexo().getValue(), entidade.getDataNascimento());
+			PessoaRelatorioBean bean = new PessoaRelatorioBean(entidade.getNome(), entidade.getSexo().getValue(), entidade.getDataNascimento());
 			
 			listRelatorio.add(bean);
 		}

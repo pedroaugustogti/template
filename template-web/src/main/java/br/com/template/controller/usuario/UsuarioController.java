@@ -16,7 +16,7 @@ import br.com.template.framework.GenericServiceController;
 
 @ManagedBean
 @ViewScoped
-public class ControllerCadastroUsuarioBean extends AbstractManageBean{
+public class UsuarioController extends AbstractManageBean{
 	
 	@EJB
 	private GenericServiceController<Usuario, Long> service;
@@ -29,7 +29,7 @@ public class ControllerCadastroUsuarioBean extends AbstractManageBean{
 	private String[] rolesSelecionadas;
 	
 	@EJB
-	private ControllerCadastroUsuarioValidationView validationView;
+	private UsuarioValidadorView validationView;
 	
 	@PostConstruct
 	public void init(){

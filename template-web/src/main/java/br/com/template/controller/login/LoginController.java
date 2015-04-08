@@ -11,6 +11,15 @@ import javax.servlet.ServletException;
 import br.com.template.autorizacao.Pagina;
 import br.com.template.framework.AbstractManageBean;
 
+/**
+ * 
+ * @author pedro.oliveira
+ * 
+ * <p>Classe responsável por ser o filtro do primeiro acesso interno dentro do sistema</p>
+ * <p>Ao tentar logar no sistema a ação passa por esse manage bean e é passado a requisição para o Spring Security realizar a autenticação.</p>
+ * 
+ * <p>Completando a resposta, o contexto do Spring Security vai enviar a requisição para o método do autenticador customizado do projeto AuthenticationProviderCustom.java método authenticate(Authentication)</p>
+ */
 @ManagedBean
 @RequestScoped
 public class LoginController extends AbstractManageBean{

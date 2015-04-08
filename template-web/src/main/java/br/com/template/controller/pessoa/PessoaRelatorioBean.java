@@ -2,13 +2,13 @@ package br.com.template.controller.pessoa;
 
 import java.util.Date;
 
-public class BeanRelatorio{
+public class PessoaRelatorioBean{
 		
 	private String nome;
 	private String sexo;
 	private Date dataNascimento;
 	
-	public BeanRelatorio(String nome, String sexo, Date dataNascimento) {
+	public PessoaRelatorioBean(String nome, String sexo, Date dataNascimento) {
 		this.nome = nome;
 		this.sexo = sexo;
 		this.dataNascimento = dataNascimento;

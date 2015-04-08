@@ -38,11 +38,13 @@
   		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+	<!-- Tempo de sessão em minutos -->
 	<session-config>
 	  <session-timeout>30</session-timeout>
 	</session-config>
 	
+	<!-- Página inicial por default do sistema -->
     <welcome-file-list>
-        	<welcome-file>index.html</welcome-file>
+       	<welcome-file>index.html</welcome-file>
     </welcome-file-list>
 </web-app>

@@ -10,7 +10,7 @@ import br.com.template.framework.InterceptionViewMenssage;
 
 @Stateless
 @Interceptors(InterceptionViewMenssage.class)
-public class ControllerCadastroUsuarioValidationView {
+public class UsuarioValidadorView {
 	
 	public void confirmaSenha(Usuario usuario, String confirmarSenha) throws NegocioException {
 		

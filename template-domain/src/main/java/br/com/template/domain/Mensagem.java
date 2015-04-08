@@ -41,7 +41,8 @@ public enum Mensagem {
 	//MSI = Mensagens de Interface
 	
 	MSI003(TipoMensagem.ESTATICO),
-	MSI043(TipoMensagem.ESTATICO);
+	MSI043(TipoMensagem.ESTATICO), 
+	MSI044(TipoMensagem.ESTATICO);
 	
 	private TipoMensagem tipo;
 	

@@ -12,7 +12,7 @@ import br.com.template.framework.InterceptionViewMenssage;
 
 @Stateless
 @Interceptors(InterceptionViewMenssage.class)
-public class TemplateValidationView {
+public class PessoaValidadorView {
 	
 	private final int LIMITE_CARACTERES = 20;
 	

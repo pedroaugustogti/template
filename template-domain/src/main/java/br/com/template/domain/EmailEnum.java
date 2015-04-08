@@ -1,7 +1,5 @@
 package br.com.template.domain;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.context.FacesContext;
 
 public enum EmailEnum {
 	

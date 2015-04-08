@@ -50,7 +50,7 @@ public class RelatorioUtil extends AbstractRelatorioUtil{
 		return binario;
 	}
 
-	public void gerarRelatorio(RelatorioEnum relatorio, AbstractParametrosRelatorio parametros) throws NegocioException{
+	public void gerarRelatorio(RelatorioEnum relatorio, AbstractRelatorioParametro parametros) throws NegocioException{
 		
 		Map<String, Object> params = addParametros(parametros.getParametrosRelatorio());
 		Collection<?> dados = parametros.getDataSourceList();

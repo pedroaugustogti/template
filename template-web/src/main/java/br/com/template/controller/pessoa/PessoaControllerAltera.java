@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.template.autorizacao.Pagina;
 import br.com.template.domain.Mensagem;
-import br.com.template.entidades.EntidadeExemplo;
+import br.com.template.entidades.Pessoa;
 import br.com.template.excecao.NegocioException;
 import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
@@ -18,24 +18,24 @@ import br.com.template.util.container.AtributoSessao;
 
 @ManagedBean(name="templateBeanAlterar")
 @ViewScoped	
-public class TemplateBeanAlterar extends AbstractManageBean{
+public class PessoaControllerAltera extends AbstractManageBean{
 	
 	@EJB
-	protected TemplateValidationView validationView;
+	protected PessoaValidadorView validationView;
 	
 	@EJB
-	protected GenericServiceController<EntidadeExemplo, Long> genericServiceExemplo;
+	protected GenericServiceController<Pessoa, Long> genericServiceExemplo;
 	
-	private EntidadeExemplo entidade;
+	private Pessoa entidade;
 
 	@PostConstruct
 	public void init() throws NegocioException{
 		
 		Object entidadeParaEditar = getAtributoSessao(AtributoSessao.OBJ_ALTERAR_PESSOA);
 		
-		if (entidadeParaEditar != null && entidadeParaEditar instanceof EntidadeExemplo){
+		if (entidadeParaEditar != null && entidadeParaEditar instanceof Pessoa){
 			
-			entidade = (EntidadeExemplo) entidadeParaEditar;
+			entidade = (Pessoa) entidadeParaEditar;
 		}else{
 			throw new NegocioException(Mensagem.MEI010);
 		}
@@ -52,7 +52,7 @@ public class TemplateBeanAlterar extends AbstractManageBean{
 		limparAtributoDaSessao(AtributoSessao.OBJ_ALTERAR_PESSOA);
 	}
 	
-	public EntidadeExemplo getEntidade() {
+	public Pessoa getEntidade() {
 		return entidade;
 	}
 

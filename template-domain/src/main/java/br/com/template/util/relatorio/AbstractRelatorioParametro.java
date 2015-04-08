@@ -5,7 +5,7 @@ import java.util.Map;
 
 import br.com.template.excecao.NegocioException;
 
-public abstract class AbstractParametrosRelatorio {
+public abstract class AbstractRelatorioParametro {
 
 	protected abstract Map<String,Object> getParametrosRelatorio() throws NegocioException;
 	
