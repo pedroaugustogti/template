@@ -14,9 +14,6 @@ import br.com.template.excecao.NegocioException;
 import br.com.template.util.container.AtributoSessao;
 import br.com.template.util.criptografia.CriptografiaUtil;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 /**
  * 
  * @author pedro.oliveira
@@ -40,7 +37,6 @@ public abstract class AutorizacaoManageBean {
 	 * @return true para acesso liberado e false no contrário
 	 */
 	public abstract boolean autorizaFuncionalidade(TipoFuncionalidadeEnum tipoFuncionalidade);
-	
 	
 	/**
 	 * Método vérifica se a ROLE do usuário logado está com acesso pré-definido no {@link AutorizacaoEnum}, caso contrário deve-se invalidar a sessão do usuário.
@@ -71,13 +67,10 @@ public abstract class AutorizacaoManageBean {
     	
     	if (atributoSessaoPermissoes != null){
     		
-    		String permissoesCriptografada = atributoSessaoPermissoes.toString();
-    		
-    		String permissoesDescriptografada = CriptografiaUtil.descriptografar(permissoesCriptografada);
-        	
-    		permissoesUsuarioLogado = new Gson().fromJson(permissoesDescriptografada, new TypeToken<List<SimpleGrantedAuthority>>(){}.getType());
+    		permissoesUsuarioLogado = CriptografiaUtil.descriptografarList(atributoSessaoPermissoes, SimpleGrantedAuthority.class);
     	}
     	
     	return permissoesUsuarioLogado;
 	}
+	
 }

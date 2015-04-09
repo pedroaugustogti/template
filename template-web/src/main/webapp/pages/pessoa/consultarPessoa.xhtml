@@ -79,7 +79,7 @@
 								<f:convertDateTime dateStyle="default"/>
 							</h:outputText>
 				        </p:column>
-				        <p:column style="width:40px;text-align: center;margin:0 auto;">
+				        <p:column style="width:40px;text-align: center;margin:0 auto;" rendered="#{templateBeanPesquisa.autorizaFuncionalidade('VISUALIZAR_PESSOA')}">
 				             <p:commandButton oncomplete="PF('infoPessoa').show()" icon="ui-icon-search" title="#{msg['MSI019']}" update=":form">
 				                <f:setPropertyActionListener value="#{pessoa}" target="#{templateBeanPesquisa.entidadeSelecionada}" />
 				            </p:commandButton>

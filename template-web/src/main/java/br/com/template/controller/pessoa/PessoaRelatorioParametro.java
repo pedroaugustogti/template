@@ -12,14 +12,11 @@ import br.com.template.util.relatorio.AbstractRelatorioParametro;
 
 public class PessoaRelatorioParametro extends AbstractRelatorioParametro{
 
-	private List<?> listDetailRelatorio;
-
 	public PessoaRelatorioParametro(List<Pessoa> listDetailRelatorio) {
-		
-		this.listDetailRelatorio = converteLista(listDetailRelatorio);
+		super(converteLista(listDetailRelatorio));
 	}
 
-	private List<?> converteLista(List<Pessoa> list) {
+	private static List<?> converteLista(List<Pessoa> list) {
 		
 		List<PessoaRelatorioBean> listRelatorio = new ArrayList<>();
 		
@@ -41,10 +38,5 @@ public class PessoaRelatorioParametro extends AbstractRelatorioParametro{
 		params.put(ParametroTemplateRelatorioEnum.TITULO.chave(), ParametroTemplateRelatorioEnum.TITULO.getValor());
 		
 		return params;
-	}
-
-	@Override
-	protected List<?> getDataSourceList() {
-		return listDetailRelatorio;
 	}
 }

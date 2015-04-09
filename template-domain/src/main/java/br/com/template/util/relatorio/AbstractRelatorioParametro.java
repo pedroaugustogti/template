@@ -6,8 +6,16 @@ import java.util.Map;
 import br.com.template.excecao.NegocioException;
 
 public abstract class AbstractRelatorioParametro {
+	
+	private List<?> dataSourceList;
+	
+	public AbstractRelatorioParametro(List<?> dataSourceList){
+		this.dataSourceList = dataSourceList;
+	}
 
 	protected abstract Map<String,Object> getParametrosRelatorio() throws NegocioException;
 	
-	protected abstract List<?> getDataSourceList() throws NegocioException;
+	protected List<?> getDataSourceList() {
+		return dataSourceList;
+	}
 }

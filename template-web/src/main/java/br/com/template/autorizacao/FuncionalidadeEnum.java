@@ -28,10 +28,8 @@ public enum FuncionalidadeEnum {
     /**
 	 * DIRETOR - Restringe o acesso do AutorizacaoEnum.DIRETOR para apenas algumas funcionalidades
 	 */
-	DIRETOR(AutorizacaoEnum.DIRETOR, TipoFuncionalidadeEnum.PESQUISAR_PESSOA, 
-									 TipoFuncionalidadeEnum.GERAR_RELATORIO_CONSULTA,
-									 TipoFuncionalidadeEnum.VISUALIZAR_PESSOA,
-									 TipoFuncionalidadeEnum.EXCLUIR_PESSOA);
+	DIRETOR(AutorizacaoEnum.DIRETOR, TipoFuncionalidadeEnum.PESQUISAR_PESSOA,
+									 TipoFuncionalidadeEnum.CADASTRAR_PESSOA);
 
 	private AutorizacaoEnum autorizacao;
 	

@@ -21,8 +21,6 @@ import br.com.template.login.service.AutorizacaoService;
 import br.com.template.util.container.AtributoSessao;
 import br.com.template.util.criptografia.CriptografiaUtil;
 
-import com.google.gson.Gson;
-
 /**
  * 
  * @author pedro.oliveira
@@ -99,10 +97,9 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
     	
     	try{
     		
-    		Gson gson = new Gson();
-    		String permissoesUsuario = CriptografiaUtil.criptografar(gson.toJson(userDetails.getAuthorities()));
-    		RequestAttributes mapAtributos = RequestContextHolder.currentRequestAttributes();
+    		String permissoesUsuario = CriptografiaUtil.criptografar(userDetails.getAuthorities());
     		
+    		RequestAttributes mapAtributos = RequestContextHolder.currentRequestAttributes();
     		mapAtributos.setAttribute(AtributoSessao.PERMISSOES_USUARIO.name(), permissoesUsuario, RequestAttributes.SCOPE_SESSION);
     		
     		isUsuarioNaSessao = Boolean.TRUE;

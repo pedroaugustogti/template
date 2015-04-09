@@ -9,6 +9,21 @@ import br.com.template.domain.TipoMensagem;
 import br.com.template.excecao.NegocioException;
 import br.com.template.util.InitMessageProperties;
 
+/**
+ * 
+ * @author pedro.oliveira
+ * 
+ * <p>Classe pai de todos os interceptors de mensagens </p>
+ * 
+ * Funcionalidades:
+ * 
+ * <ul>
+ * 	<li>Enviar mensagens a tela do usuario através da exeção {@link NegocioException}</li>
+ * 	<li>Enviar mensagens a tela do usuario pelo tipo da mensagem</li>
+ *  <li>Envia mensagem automática que estiver como tipo DEFAULT</li>
+ * </ul>
+ *
+ */
 public abstract class AbstractInterceptionMessage {
 
 	protected void enviaMensagemPorTipo(NegocioException e) {
@@ -32,7 +47,6 @@ public abstract class AbstractInterceptionMessage {
 	}
 
 	protected void enviaMensagemDefault(Mensagem mensagemNegocio) {
-		
 		enviaMensagem(InitMessageProperties.getValue(mensagemNegocio), FacesMessage.SEVERITY_INFO);
 	}
 }
