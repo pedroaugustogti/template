@@ -8,7 +8,7 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="template-web"/>
-        <property name="java-output-path" value="/template-web/target/classes"/>
         <property name="component.exclusion.patterns"/>
+        <property name="java-output-path" value="/template-web/target/classes"/>
     </wb-module>
 </project-modules>
