@@ -10,16 +10,18 @@ public class NegocioException extends Exception{
 	
 	private String valor;
 	private TipoMensagem tipo;
+	private Mensagem mensagemEnum;
 	
 	public NegocioException(Mensagem msg, Throwable cause) {
 		super(InitMessageProperties.getValue(msg), cause);
 		init(msg);
+		this.mensagemEnum = msg;
 	}
 
 	public NegocioException(Mensagem msg) {
 		super(InitMessageProperties.getValue(msg));
-		
 		init(msg);
+		this.mensagemEnum = msg;
 	}
 	
 	public NegocioException(Throwable cause) {
@@ -50,5 +52,9 @@ public class NegocioException extends Exception{
 
 	public TipoMensagem getTipo() {
 		return tipo;
+	}
+
+	public Mensagem getMensagemEnum() {
+		return mensagemEnum;
 	}
 }

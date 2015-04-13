@@ -17,7 +17,7 @@
 	<jee:local-slsb id="autorizacaoService" jndi-name="java:module/AutorizacaoServiceImpl" 
       business-interface="br.com.template.login.service.AutorizacaoService"/>
 
-	<!-- Da autonomia a classe 'AuthenticationProviderCustom' realizar a autenticação do spring de forma customizada -->
+	<!-- Da autonomia a classe 'AuthenticationProviderCustom.java' realizar a autenticação do spring de forma customizada -->
     <bean id="authenticationProviderCustom" class="br.com.template.controller.login.AuthenticationProviderCustom"/>
     
     <security:authentication-manager>

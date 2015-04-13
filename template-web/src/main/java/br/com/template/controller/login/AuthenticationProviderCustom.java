@@ -59,7 +59,7 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
      * 
      * <ul>
      * 	<li>Verifica se usuário existe na base de dados</li>
-     * 	<li>Verifica se senha do usuário está de acordo com a senha igual a informada no formulário</li>
+     * 	<li>Verifica se a senha do usuário no banco de dados é igual a informada no formulário</li>
      *  <li>Adiciona as permissões do usuário em um atributo de sessão (HttpSession)</li>
      * </ul>
      * 
