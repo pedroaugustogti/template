@@ -10,8 +10,7 @@ import br.com.template.util.InitMessageProperties;
 public enum Role {
 
 	ADMIN(InitMessageProperties.getValue(Mensagem.MSI043)),
-	USUARIO(InitMessageProperties.getValue(Mensagem.MSI003)), 
-	DIRETOR(InitMessageProperties.getValue(Mensagem.MSI044));
+	USUARIO(InitMessageProperties.getValue(Mensagem.MSI003));
 	
 	private String label;
 	

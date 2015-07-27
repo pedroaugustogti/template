@@ -36,9 +36,7 @@ public enum AutorizacaoEnum {
 	/**
 	 * USUARIO - Recebe acesso apenas na página Pagina.CONSULTAR_PESSOA com a Role.USUARIO.
 	 */
-	USUARIO(Role.USUARIO, Pagina.CONSULTAR_PESSOA),
-	
-	DIRETOR(Role.DIRETOR, Pagina.CONSULTAR_PESSOA, Pagina.CADASTRAR_PESSOA);
+	USUARIO(Role.USUARIO, Pagina.CONSULTAR_PESSOA);
 	
 	private Pagina[] paginasComPermissao;
 	private Role role;

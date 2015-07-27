@@ -2,13 +2,18 @@ package br.com.template.controller.login;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
 import br.com.template.autorizacao.Pagina;
+import br.com.template.domain.Role;
+import br.com.template.entidades.Usuario;
 import br.com.template.framework.AbstractManageBean;
+import br.com.template.framework.GenericServiceController;
 
 /**
  * 
@@ -24,6 +29,27 @@ import br.com.template.framework.AbstractManageBean;
 public class LoginController extends AbstractManageBean{
 	
 	private static final String SPRING_SECURITY = "/j_spring_security_check";
+	
+	//Remover quando banco de dados estiver montado
+	@EJB
+	private GenericServiceController<Usuario, Long> service;
+	
+	//Remover método quando banco de dados estiver montado
+	@PostConstruct
+	public void criarUsuarioAdminAutomaticamente(){
+		
+		if (service.listarTodos(Usuario.class).isEmpty()){
+			
+			//Alterar trecho de código
+			Usuario usuario = new Usuario();
+			String[] roleAdmin = {Role.ADMIN.getLabel()};
+			usuario.setRoles(Role.getRolesPorLabel(roleAdmin));
+			usuario.setSenha("admin");
+			usuario.setUsuario("admin");
+			service.salvar(usuario);
+		}
+		
+	}
 	
     public void doLogin() throws IOException, ServletException {
 

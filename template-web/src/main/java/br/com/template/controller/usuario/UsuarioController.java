@@ -35,6 +35,7 @@ public class UsuarioController extends AbstractManageBean{
 	public void init(){
 		usuario = new Usuario();
 		roles = Role.getLabelRoles();
+		
 	}
 
     public void salvar() {
@@ -44,6 +45,7 @@ public class UsuarioController extends AbstractManageBean{
 			validationView.confirmaSenha(usuario, confirmarSenha);
 			
 			usuario.setRoles(Role.getRolesPorLabel(rolesSelecionadas));
+			
 	    	service.salvar(usuario);
 	    	init();
 	    	
