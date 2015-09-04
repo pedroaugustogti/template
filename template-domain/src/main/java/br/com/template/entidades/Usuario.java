@@ -14,13 +14,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.template.domain.Role;
+import br.com.template.domain.Situacao;
 import br.com.template.generics.EntidadeBasica;
  
 @Entity
-@Table(name = "tb_usuario")
+@Table(name = "usuario")
 public class Usuario extends EntidadeBasica{
  
 	/**
@@ -29,27 +31,33 @@ public class Usuario extends EntidadeBasica{
 	private static final long serialVersionUID = 7181106172249020200L;
 
 	@Id
+	@Column(name = "id_usuario")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "usuario", unique = true, nullable = false, length = 45)
+	@Column(name = "usario", unique = true, nullable = false, length = 45)
 	private String usuario;
 	
 	@Column(name = "senha", nullable = false, length = 60)
 	private String senha;
 	
-	@Column(name = "ativo", nullable = false)
-	private boolean ativo;
+	@Column(name="situacao")
+	@Enumerated(EnumType.STRING)
+	private Situacao situacao;
 	
 	@ElementCollection(targetClass=Role.class)
     @Enumerated(EnumType.STRING) 
-    @CollectionTable(name="tb_usuario_role", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name="tb_usuario_role", joinColumns = @JoinColumn(name = "id_usuario"))
     @Column(name="role", nullable = false) 
 	private Set<Role> roles;
 	
+	@OneToOne
+	@JoinColumn(name="id_usuario")
+	private Funcionario funcionario;
+	
 	public Usuario(){
 		roles = new HashSet<Role>(BigInteger.ZERO.intValue());
-		ativo = Boolean.TRUE;
+		situacao = Situacao.ATIVO;
 	}
 
 	public Long getId() {
@@ -76,12 +84,12 @@ public class Usuario extends EntidadeBasica{
 		this.senha = senha;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public Situacao getSituacao() {
+		return situacao;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 
 	public Set<Role> getRoles() {
@@ -90,5 +98,13 @@ public class Usuario extends EntidadeBasica{
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 }

@@ -9,8 +9,10 @@ import br.com.template.util.InitMessageProperties;
 
 public enum Role {
 
-	ADMIN(InitMessageProperties.getValue(Mensagem.MSI043)),
-	USUARIO(InitMessageProperties.getValue(Mensagem.MSI003));
+	ADMIN(InitMessageProperties.getValue(Mensagem.MSA001)),
+	GARCOM(InitMessageProperties.getValue(Mensagem.MSA002)),
+	COZINHEIRO(InitMessageProperties.getValue(Mensagem.MSA003)),
+	GERENTE(InitMessageProperties.getValue(Mensagem.MSA004));
 	
 	private String label;
 	
@@ -46,6 +48,21 @@ public enum Role {
 					
 					listRoles.add(role);
 				}
+			}
+		}
+		
+		return listRoles;
+	}
+
+	public static Set<Role> getRolesPorCargo(Cargo cargo) {
+		
+		Set<Role> listRoles = new HashSet<Role>();
+		
+		for (Role role : values()){
+			
+			if (role.name().equals(cargo.name())){
+				
+				listRoles.add(role);
 			}
 		}
 		

@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+
+		<p:selectOneRadio id="tipo"
+			value="#{painelProduto.filtroProdutoDTO.tipoProduto}">
+			<f:selectItem itemLabel="Comida" itemValue="C" />
+			<f:selectItem itemLabel="Bebida" itemValue="B" />
+		</p:selectOneRadio>
+
+		<p:outputLabel for="tipo" value="#{msg['MSI057']}" />
+
+		<p:inputTextarea id="descricao"
+			value="#{painelProduto.filtroProdutoDTO.descricao}" maxlength="100"
+			style="width:250px" />
+
+	</h:panelGrid>
+
+</ui:composition>

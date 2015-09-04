@@ -44,7 +44,7 @@ public class AutorizacaoServiceImpl implements UserDetailsService {
 	}
 
 	private User buildUserForAuthentication(Usuario user, Set<GrantedAuthority> authorities) {
-		return new User(user.getUsuario(), user.getSenha(), user.isAtivo(), Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, authorities);
+		return new User(user.getUsuario(), user.getSenha(), Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, authorities);
 	}
 
 	private Set<GrantedAuthority> buildUserAuthority(Set<Role> roles) {

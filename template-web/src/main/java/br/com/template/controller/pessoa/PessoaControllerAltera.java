@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.template.autorizacao.Pagina;
+import br.com.localone.autorizacao.Pagina;
 import br.com.template.domain.Mensagem;
 import br.com.template.entidades.Pessoa;
 import br.com.template.excecao.NegocioException;

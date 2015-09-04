@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI164']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:panel id="pesquisa" header="#{msg['MSI164']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+		    <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+				<p:outputLabel for="cargo" value="#{msg['MSI107']}" />
+		
+				<p:selectOneMenu id="cargo"
+					value="#{painelFuncionarioSalario.filtroFuncionarioDTO.cargo}">
+					
+					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+					<f:selectItems value="#{painelFuncionarioSalario.filtroFuncionarioDTO.cargos}" />
+				</p:selectOneMenu>
+		
+				<p:outputLabel for="nome" value="#{msg['MSI106']}" />
+		
+				<p:inputTextarea id="nome"
+					value="#{painelFuncionarioSalario.filtroFuncionarioDTO.nome}" maxlength="100"
+					style="width:250px" />
+		
+			</h:panelGrid>
+		    
+		    <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+		
+				<p:commandButton id="btnPesquisar" value="#{msg['MG16']}"
+					action="#{painelFuncionarioSalario.pesquisar()}" update="@form" />
+				<p:commandButton id="btnLimpar" value="#{msg['MG17']}"
+					action="#{painelFuncionarioSalario.inicio()}" update="@form" />
+			</h:panelGrid>
+
+			<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+			
+      	</p:panel>
+		    
+	    <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+	    	
+	    	 <p:dataTable id="gridFuncionario" var="funcionario" value="#{painelFuncionarioSalario.listFuncionario}" emptyMessage="#{msg['MG19']}">
+		        
+		        <p:column headerText="#{msg['MSI123']}">
+		            <h:outputText value="#{funcionario.id}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI107']}">
+		            <h:outputText value="#{funcionario.cargo.label}" /> 
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI106']}">
+		            <h:outputText value="#{funcionario.pessoa.nome}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI108']}">
+		            <h:outputText value="#{funcionario.pessoa.cpf}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MG11']}" style="width:80px;text-align: center;margin:0 auto;">
+			        	
+		        	<p:commandButton icon="ui-icon-locked" action="#{painelFuncionarioSalario.ativarFuncionario(funcionario)}" update="gridFuncionario" rendered="#{funcionario.situacao == 'INATIVO'}"/>
+		        	<p:commandButton icon="ui-icon-unlocked" action="#{painelFuncionarioSalario.inativarFuncionario(funcionario)}" update="gridFuncionario" rendered="#{funcionario.situacao == 'ATIVO'}"/>
+		        </p:column>
+		        
+		        <p:column style="width:40px;text-align: center;margin:0 auto;" rendered="#{painelFuncionarioSalario.autorizaFuncionalidade('ALTERAR_FUNCIONARIO')}">
+		             <p:commandButton icon="ui-icon-refresh" title="#{msg['MG20']}" action="#{painelFuncionarioSalario.redirecionaParaTelaAlterar(funcionario)}"/>
+		        </p:column>
+		        
+		        <p:column style="width:40px;text-align: center; margin:0 auto;"  rendered="#{painelFuncionarioSalario.autorizaFuncionalidade('EXCLUIR_FUNCIONARIO')}">
+		             <p:commandButton oncomplete="PF('confirmaExclusao').show()" icon="ui-icon-trash" title="#{msg['MG21']}" update="gridFuncionario">
+		                <f:setPropertyActionListener value="#{funcionario}" target="#{painelFuncionarioSalario.funcionario}" />
+		            </p:commandButton>
+		        </p:column>
+		    </p:dataTable>
+	    </p:panel>
+		    
+	    <p:dialog id="alertaExclusao" header="#{msg['MG22']}" widgetVar="confirmaExclusao" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+	        <p:outputPanel id="confirmaExclusao" style="text-align:center; border:none !important;">
+	            <p:panelGrid style="border:none !important;">
+	 
+	                <p:row>
+			            <p:column colspan="2">#{msg['MG23']}</p:column>
+			        </p:row>
+			        
+			        <p:row>
+			        	<p:column>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" action="#{painelFuncionarioSalario.excluir()}" value="#{msg['MG21']}" update="gridFuncionario"></p:commandButton>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" value="#{msg['MG13']}"></p:commandButton>
+			            </p:column>
+			        </p:row>
+
+	            </p:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
+		
+	</ui:define>
+</ui:composition>

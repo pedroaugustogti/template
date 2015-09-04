@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI140']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="cadastro" header="#{msg['MSI140']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="4" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="funcionario" value="#{msg['MSI106']}" />
+		
+				<p:selectOneMenu id="funcionario"
+					value="#{cadastroUsuario.usuario.funcionario.id}">
+					
+					<p:ajax event="change" listener="#{cadastroUsuario.carregaFuncionario()}" update="cargo"></p:ajax>
+					
+					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+					<f:selectItems value="#{cadastroUsuario.selectItemsUsuario}" />
+				</p:selectOneMenu>
+           		
+           		<p:outputLabel for="cargo" value="#{msg['MSI107']}" />
+            	<p:inputText id="cargo" value="#{cadastroUsuario.usuario.funcionario.cargo.label}" readonly="true"/>
+	        </h:panelGrid>
+	        
+	        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		        
+           		<p:outputLabel for="usuario" value="#{msg['MSI135']}:" />
+           		
+            	<p:inputText id="usuario" value="#{cadastroUsuario.usuario.usuario}" maxlength="45" style="width:250px"/>
+				 	
+		 		<h:message for="usuario" style="color: red;" />	
+		 		
+	 			<p:outputLabel for="senha" value="#{msg['MSI136']}:" />
+           		
+            	<p:password id="senha" value="#{cadastroUsuario.usuario.senha}" maxlength="45" style="width:250px"/>
+				 	
+			 	<h:message for="senha" style="color: red;" />	
+				 	
+			 	<p:outputLabel for="confirmarSenha" value="#{msg['MSI137']}" />
+           		
+			 	<p:password id="confirmarSenha" value="#{cadastroUsuario.confirmarSenha}" maxlength="45" style="width:250px"/>
+		 		
+		 		<h:message for="confirmarSenha" style="color: red;" />	
+		 		
+	        </h:panelGrid>
+	        
+	        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroUsuario.redirecionaPagina('PAINEL_USUARIO')}" ajax="false" />	
+				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroUsuario.cadastrar()}" update="cadastro"/>
+				
+	        </h:panelGrid>
+	        
+	    </p:panel>	 
+	</ui:define>
+</ui:composition>

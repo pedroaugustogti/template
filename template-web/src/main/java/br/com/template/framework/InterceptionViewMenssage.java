@@ -91,6 +91,9 @@ public class InterceptionViewMenssage extends AbstractInterceptionMessage{
 			
 			//Após tratar as mensagens, relança a exeção para cortar o fluxo de execução.
 			if (erro){
+				
+				cause.printStackTrace();
+				
 				throw new NegocioException(cause);
 			}
 		}

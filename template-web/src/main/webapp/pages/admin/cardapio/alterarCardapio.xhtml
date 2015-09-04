@@ -1,0 +1,185 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI072']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="alterar" header="#{msg['MSI075']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="1" style="margin:0 auto;" >
+	        
+           		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+           		
+           		<p:selectOneRadio id="tipo" value="#{alterarCardapio.cardapio.tipoProduto}" style="margin:0 auto; text-align:center;">
+           			<f:selectItem itemLabel="Comida" itemValue="C"/>
+           			<f:selectItem itemLabel="Bebida" itemValue="B"/>
+           		</p:selectOneRadio>
+           		
+           		<br/>
+   				
+   				<p:outputLabel for="cardapio" value="#{msg['MSI075']}" />
+   				<p:inputText id="cardapio" value="#{alterarCardapio.cardapio.descricao}" size="40"></p:inputText>
+   				
+			</h:panelGrid>
+			
+			<p:separator></p:separator>
+			
+			<p:panel id="tempoMedioPreparo" header="#{msg['MSI079']}" style="margin:0 auto; width:80%; text-align:center;">
+   				
+   				<h:panelGrid columns="3" style="margin:0 auto;">
+   					
+   					<h:panelGrid columns="1" style="margin:0 auto;">
+   					
+   						<p:outputLabel for="hora" value="#{msg['MG04']}" />
+           		
+		           		<p:selectOneMenu id="hora" value="#{alterarCardapio.cardapio.tempoPreparo.hora}">
+		           			<f:selectItems value="#{alterarCardapio.selectItemsHora}"/>
+		           		</p:selectOneMenu>
+		           	</h:panelGrid>	
+		           		
+   					<h:panelGrid columns="1" style="margin:0 auto;">
+   						
+   						<p:outputLabel for="minuto" value="#{msg['MG05']}" />
+           		
+		           		<p:selectOneMenu id="minuto" value="#{alterarCardapio.cardapio.tempoPreparo.minuto}">
+		           			<f:selectItems value="#{alterarCardapio.selectItemsMinuto}"/>
+		           		</p:selectOneMenu>
+   					</h:panelGrid>
+   					
+   					<h:panelGrid columns="1" style="margin:0 auto;">
+   						
+   						<p:outputLabel for="segundo" value="#{msg['MG06']}" />
+           		
+		           		<p:selectOneMenu id="segundo" value="#{alterarCardapio.cardapio.tempoPreparo.segundo}">
+		           			<f:selectItems value="#{alterarCardapio.selectItemsSegundo}"/> 
+		           		</p:selectOneMenu>
+   					</h:panelGrid>
+   				</h:panelGrid>
+			</p:panel>
+			
+			<p:separator></p:separator>
+   				
+			<p:panel id="painelCadastroIngrediente" header="#{msg['MSI078']}" style="margin:0 auto; width:80%;" >
+			
+				<h:panelGrid columns="1" style="margin:0 auto;">
+					
+					<h:panelGrid columns="2" style="margin:0 auto;">
+						<p:inputText id="ingredienteSelecionado" value="#{alterarCardapio.ingredientePainel.ingrediente.estoque.produto.descricao}" readonly="true"></p:inputText>
+						<p:commandButton id="btnPesquisarEstoque" value="#{msg['MG16']}" onclick="PF('estoque').show()"/>
+					</h:panelGrid>
+					
+					<p:outputLabel for="quantidadeParaUso" value="#{msg['MG07']}" />
+				
+					<p:panel id="quantidadeParaUso" style="margin:0 auto;">
+						
+						<p:inputText value="#{alterarCardapio.ingredientePainel.ingrediente.quantidade}" maxlength="4" size="4" onkeypress="somenteNumero(this,numero)"></p:inputText>
+						
+						<br/><br/>
+						
+						<p:selectOneMenu id="subMedida" value="#{alterarCardapio.ingredientePainel.ingrediente.medida}" rendered="#{alterarCardapio.ingredientePainel.ingrediente.estoque.medida != null}">
+	            			<f:selectItems value="#{alterarCardapio.ingredientePainel.filtroEstoqueDTO.subMedidas}"/>
+	 					</p:selectOneMenu>
+	   				</p:panel>
+	   				
+				</h:panelGrid>
+				
+				<br/>
+        			
+       			<p:commandButton value="#{msg['MG08']}" action="#{alterarCardapio.ingredientePainel.adicionarIngrediente}" update="@form"></p:commandButton>
+           		
+           		<p:separator></p:separator>
+           		
+           		<p:dataTable id="gridIngrediente" var="ingrediente" value="#{alterarCardapio.ingredientePainel.ingredientes}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI080']}">
+			            <h:outputText value="#{ingrediente.estoque.produto.descricao}" />
+			        </p:column>
+			        <p:column headerText="#{msg['MG07']}">
+			            <h:outputText value="#{ingrediente.quantidade}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI068']}">
+			            <h:outputText value="#{ingrediente.medida.label}" />
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center; margin:0 auto;">
+			             <p:commandButton action="#{alterarCardapio.ingredientePainel.excluirIngrediente(ingrediente)}"  icon="ui-icon-trash" title="#{msg['MG21']}" update="gridIngrediente">
+			            </p:commandButton>
+			        </p:column>
+			    </p:dataTable>
+			</p:panel>
+			
+			<p:separator></p:separator>
+			
+			<p:panel style="margin:0 auto; width:80%; text-align:center;" >
+				
+				<h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        		
+	        		<p:outputLabel for="valorSugerido" value="#{msg['MSI148']}" rendered="#{not empty alterarCardapio.ingredientePainel.ingredientes}"/>	
+					<p:inputText id="valorSugerido" value="#{alterarCardapio.ingredientePainel.valorSugerido}" readonly="true" maxlength="10" size="10" rendered="#{not empty alterarCardapio.ingredientePainel.ingredientes}"></p:inputText>
+					
+					<p:outputLabel for="preco" value="#{msg['MSI067']}" />	
+					<p:inputText id="preco" value="#{alterarCardapio.cardapio.precoFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10"></p:inputText>
+					
+		        </h:panelGrid>
+			</p:panel>
+				
+			<h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltarCardapio" value="#{msg['MG01']}" action="#{alterarCardapio.redirecionaPagina('PAINEL_CARDAPIO')}" ajax="false" />	
+				<p:commandButton id="btnCadastrarCardapio" value="#{msg['MG02']}" action="#{alterarCardapio.alterar()}" update="alterar"/>
+				
+	        </h:panelGrid>
+		</p:panel>
+		
+		<p:dialog id="infoEstoque" widgetVar="estoque" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
+	            
+	            <h:panelGrid columns="1" style="border:none !important;">
+	            
+		            <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+						<p:outputLabel for="tipoEstoque" value="#{msg['MSI054']}" />
+				
+						<p:selectOneRadio id="tipoEstoque"	value="#{painelEstoque.filtroEstoqueDTO.tipoProduto}">
+							<f:selectItem itemLabel="Comida" itemValue="C" />
+							<f:selectItem itemLabel="Bebida" itemValue="B" />
+						</p:selectOneRadio>
+				
+						<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+				
+						<p:inputTextarea id="descricao"	value="#{painelEstoque.filtroEstoqueDTO.descricao}" maxlength="100"
+							style="width:250px" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+					 	<p:commandButton action="#{painelEstoque.pesquisar()}" value="#{msg['MG16']}" update="pesquisaEstoque"></p:commandButton>
+					 </h:panelGrid>
+					
+					<p:separator></p:separator>
+					
+					<p:dataTable id="pesquisaEstoque" var="estoque" value="#{painelEstoque.listEstoque}" emptyMessage="#{msg['MG19']}">
+							        
+				        <p:column headerText="#{msg['MSI057']}">
+				            <h:outputText value="#{estoque.produto.descricao}" />
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MG25']}">
+				        
+				        	<p:commandButton oncomplete="PF('estoque').hide()" value="#{msg['MG25']}" ajax="false" action="#{alterarCardapio.ingredientePainel.selecionaEstoque(estoque)}" update="@form"></p:commandButton>
+				        </p:column>
+				        
+		         	</p:dataTable>
+	           </h:panelGrid>
+	           
+	           <p:separator></p:separator>
+	           
+	           <p:commandButton oncomplete="PF('estoque').hide()" value="#{msg['MG24']}"></p:commandButton>
+	    </p:dialog>	 
+		
+	</ui:define>
+</ui:composition>

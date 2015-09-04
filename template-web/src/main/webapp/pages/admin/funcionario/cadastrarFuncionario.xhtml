@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI122']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="cadastro" header="#{msg['MSI122']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="4" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="cargo" value="#{msg['MSI107']}" />
+		
+				<p:selectOneMenu id="cargo"	value="#{cadastroFuncionario.funcionario.cargo}">
+					
+					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+					<f:selectItems value="#{cadastroFuncionario.filtroFuncionarioDTO.cargos}" />
+				</p:selectOneMenu>
+           		
+           		<p:outputLabel for="nome" value="#{msg['MSI106']}" />
+            	<p:inputText id="nome" value="#{cadastroFuncionario.funcionario.pessoa.nome}"/>
+            	
+            	<p:outputLabel for="cpf" value="#{msg['MSI108']}" />
+            	<p:inputMask mask="999.999.999-99" id="cpf" value="#{cadastroFuncionario.funcionario.pessoa.cpf}"/>
+				 	
+				<p:outputLabel for="dataAdmissao" value="#{msg['MSI110']}" />
+            	<p:calendar id="dataAdmissao"  value="#{cadastroFuncionario.funcionario.dataAdmissao}"  
+							maxlength="10" style="width:250px"
+							pattern="dd/MM/yyyy" locale="pt_BR"/>
+            	
+            	
+				<p:outputLabel for="estado" value="#{msg['MSI113']}" />
+				<p:selectOneMenu id="estado"
+					value="#{cadastroFuncionario.funcionario.pessoa.endereco.estado}">
+					
+					<p:ajax event="change" listener="#{cadastroFuncionario.montaCidadesPorEstado()}" update="cidade"></p:ajax>
+					
+					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+					<f:selectItems value="#{cadastroFuncionario.filtroFuncionarioDTO.estados}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="cidade" value="#{msg['MSI114']}" />
+				<p:selectOneMenu id="cidade" disabled="#{cadastroFuncionario.funcionario.pessoa.endereco.estado == null}"
+					value="#{cadastroFuncionario.funcionario.pessoa.endereco.cidade}">
+					
+					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+					<f:selectItems value="#{cadastroFuncionario.cidades}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="cep" value="#{msg['MSI119']}" />
+            	<p:inputMask mask="99999-999" id="cep" value="#{cadastroFuncionario.funcionario.pessoa.endereco.cep}"/>
+				
+				<p:outputLabel for="rua" value="#{msg['MSI115']}" />
+            	<p:inputText id="rua" value="#{cadastroFuncionario.funcionario.pessoa.endereco.rua}"/>
+            	
+            	<p:outputLabel for="conjunto" value="#{msg['MSI116']}" />
+            	<p:inputText id="conjunto" value="#{cadastroFuncionario.funcionario.pessoa.endereco.conjunto}"/>
+            	
+            	<p:outputLabel for="bairro" value="#{msg['MSI117']}" />
+            	<p:inputText id="bairro" value="#{cadastroFuncionario.funcionario.pessoa.endereco.bairro}"/>
+            	
+            	<p:outputLabel for="complemento" value="#{msg['MSI118']}" />
+            	<p:inputText id="complemento" value="#{cadastroFuncionario.funcionario.pessoa.endereco.complemento}"/>
+				
+				<p:outputLabel for="telFixo" value="#{msg['MSI120']}" />
+            	<p:inputMask mask="(99)-9999-9999" id="telFixo" value="#{cadastroFuncionario.funcionario.telFixo}"/>
+            	
+            	<p:outputLabel for="celular" value="#{msg['MSI121']}" />
+            	<p:inputMask mask="(99)-9999-9999" id="celular" value="#{cadastroFuncionario.funcionario.celular}"/>
+				
+				<p:outputLabel for="salario" value="#{msg['MSI111']}" />
+   				<p:inputText id="salario" value="#{cadastroFuncionario.funcionario.salarioFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10"></p:inputText>
+            	
+	        </h:panelGrid>
+	        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroFuncionario.redirecionaPagina('PAINEL_FUNCIONARIO')}" ajax="false" />	
+				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroFuncionario.cadastrar()}" update="cadastro"/>
+				
+	        </h:panelGrid>
+	        
+	    </p:panel>	 
+	</ui:define>
+</ui:composition>

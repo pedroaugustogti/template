@@ -58,7 +58,11 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	 */
 	@Interceptors(InterceptionDefaultMenssage.class)
 	public void salvar(T t) {
-		genericService.salvar(t);
+		genericService.salvar(merge(t));
+	}
+	
+	public void salvarSemMensagem(T t) {
+		genericService.salvar(merge(t));
 	}
 
 	/**
@@ -166,5 +170,9 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	@Interceptors(InterceptionDefaultMenssage.class)
 	public void excluir(T t) {
 		genericService.excluir(t);
+	}
+
+	public T merge(T t) {
+		return genericService.merge(t);
 	}
 }

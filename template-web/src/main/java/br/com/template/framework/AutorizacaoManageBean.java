@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import br.com.template.autorizacao.AutorizacaoEnum;
-import br.com.template.autorizacao.TipoFuncionalidadeEnum;
+import br.com.localone.autorizacao.AutorizacaoEnum;
+import br.com.localone.autorizacao.TipoFuncionalidadeEnum;
 import br.com.template.controller.login.AuthenticationProviderCustom;
 import br.com.template.excecao.NegocioException;
 import br.com.template.util.container.AtributoSessao;

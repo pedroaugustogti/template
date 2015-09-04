@@ -18,4 +18,6 @@ public interface GenericPersistence<T extends EntidadeBasica, ID extends Seriali
 	List<T> listarTodos(Class<T> class1, String... camposInitialize);
 
 	void excluir(T id);
+	
+	T merge(T t);
 }

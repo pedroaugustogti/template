@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/template/templateDefault.xhtml">
+
+	<ui:define name="title">#{msg['MSI097']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:poll autoStart="true" interval="1" update="painelEntrega" ></p:poll>
+		
+			<p:panel id="painelEntrega" header="#{msg['MSI098']}" style="border:none !important;" >
+	 			
+	 			<p:dataTable var="pedido" value="#{painelGarcomEntrega.listPedidosConcluidos}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI090']}" >
+			            <h:outputText value="#{pedido.comanda.mesa.numMesa}"/>
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI075']}" >
+			            <h:outputText value="#{pedido.cardapio.descricao}"/>
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MG11']}" >
+			            <h:outputText value="#{pedido.situacao.label}"/>
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI105']}" >
+			            <h:outputText value="#{pedido.comanda.mesa.funcionario.pessoa.nome}"/>
+			        </p:column>
+			        
+			         <p:column headerText="#{msg['MSI104']}" >
+			            <h:outputText value="#{pedido.horarioSolicitacao}">
+			            	<f:convertDateTime dateStyle="default" pattern="HH:mm:ss"/>
+			            </h:outputText>
+			        </p:column>
+			        
+			        <p:column >
+			            <p:commandButton value="#{msg['MSI102']}" action="#{painelGarcomEntrega.efetuarEntregaPedido(pedido)}"/>
+			        </p:column>
+			        
+		         </p:dataTable>
+		        
+			</p:panel>	
+	
+	</ui:define>
+</ui:composition>

@@ -16,5 +16,7 @@ public interface GenericService<T extends EntidadeBasica, ID extends Serializabl
 	T getById(Class<T> clazz, ID id, String... camposInitialize);
 
 	void excluir(T id);
+	
+	T merge(T id);
 
 }

@@ -64,4 +64,8 @@ public @interface EntityProperty {
 	 *
 	 */
 	String value();
+	
+	public abstract boolean pesquisaExata() default false;
+	
+	public abstract boolean ignoraCaseSensitive() default false;
 }

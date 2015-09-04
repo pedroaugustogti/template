@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/template/templateDefault.xhtml">
+
+	<ui:define name="title">#{msg['MSI089']}</ui:define>
+
+	<ui:define name="body">
+		
+		<p:panel header="#{msg['MSI093']}" style="width:80%; margin:0 auto;text-align:center;">
+	 
+	 		<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+	 		
+	 			<p:outputLabel for="cpf" value="#{msg['MSI163']}" />
+				<p:inputMask mask="999.999.999-99" id="cpf" value="#{painelCliente.cpfCliente}" size="11"/>
+				
+		 		<p:outputLabel for="localone" value="#{msg['MSI094']}" />
+				<p:inputText id="localone" value="#{painelCliente.filtroMesaDTO.codigo}" size="3" maxlength="3"/>
+	 		</h:panelGrid>
+            
+	        
+        	<p:commandButton  action="#{painelCliente.entrar()}" value="#{msg['MG14']}" ></p:commandButton>
+		</p:panel>	
+	
+	</ui:define>
+</ui:composition>

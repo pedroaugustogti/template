@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel id="cadastro" header="#{msg['MSI062']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+           		
+           		<p:selectOneRadio id="tipo" value="#{cadastroDespesa.despesa.tipoDespesa}">
+           			<f:selectItems value="#{painelDespesa.filtroDespesaDTO.tipoDespesas}"/>
+           		</p:selectOneRadio>
+           		
+           		<p:outputLabel for="tipo" value="#{msg['MSI057']}" />
+           		
+            	<p:inputTextarea id="descricao" value="#{cadastroDespesa.despesa.descricao}" 
+				 	maxlength="100" style="width:250px"/>
+				 	
+	        </h:panelGrid>
+	        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+				<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroDespesa.redirecionaPagina('PAINEL_DESPESA')}"/>	
+				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroDespesa.cadastrar()}" update="cadastro"/>
+	        </h:panelGrid>
+	    </p:panel>
+</ui:composition>

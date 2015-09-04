@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI072']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="cadastro" header="#{msg['MSI071']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="produto" value="#{msg['MSI051']}" />
+           		
+		 		<h:panelGrid id="produto" columns="2" cellpadding="10" style="margin:0 auto;">
+	           			
+           			<p:inputText value="#{alterarEstoque.estoque.produto.descricao}" readonly="true"></p:inputText>
+           			<p:commandButton id="btnPesquisarProduto" value="#{msg['MG16']}" onclick="PF('produto').show()"/>
+           		</h:panelGrid>
+   				
+   				<p:outputLabel for="medida" value="#{msg['MSI068']}" />
+			 		
+		 		<p:selectOneMenu id="medida" value="#{alterarEstoque.estoque.medida}" >
+		 			
+		 			<p:ajax event="change" listener="#{alterarEstoque.montaSubMedida()}" update="quantidadeReposicao"></p:ajax>
+		 		
+		            <f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+		            <f:selectItems value="#{alterarEstoque.filtroEstoqueDTO.medidas}" var="medida" itemLabelEscaped="#{medida.label}" itemValue="#{medida.value}" />
+   				</p:selectOneMenu>
+   				
+   				<p:outputLabel for="preco" value="#{msg['MSI067']}" />
+   				<p:inputText id="preco" value="#{alterarEstoque.estoque.precoFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10"></p:inputText>
+   				
+   				<p:outputLabel for="quantidade" value="#{msg['MSI066']}" />
+   				<p:inputText id="quantidade" value="#{alterarEstoque.estoque.quantidade}" maxlength="4" size="4" onkeypress="somenteNumero(this,numero)"></p:inputText>
+   				
+   				<p:outputLabel for="quantidadeReposicao" value="#{msg['MSI069']}" />
+   				
+   				<p:panel id="quantidadeReposicao" style="margin:0 auto;">
+					
+					<p:inputText value="#{alterarEstoque.estoque.qntReposicao}" maxlength="4" size="4" onkeypress="somenteNumero(this,numero)"></p:inputText>
+					
+					<br/><br/>
+					
+					<p:selectOneMenu id="subMedida" value="#{alterarEstoque.estoque.medidaReposicao}" rendered="#{alterarEstoque.estoque.medidaReposicao != null}">
+            			<f:selectItems value="#{alterarEstoque.filtroEstoqueDTO.subMedidas}"/>
+ 					</p:selectOneMenu>
+   				</p:panel>
+        	</h:panelGrid>
+			        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltarEstoque" value="#{msg['MG01']}" action="#{alterarEstoque.redirecionaPagina('PAINEL_ESTOQUE')}" ajax="false" />	
+				<p:commandButton id="btnCadastrarEstoque" value="#{msg['MG02']}" action="#{alterarEstoque.alterar()}" update="cadastro"/>
+				
+	        </h:panelGrid>
+			        
+	    </p:panel>
+	    
+	    <p:dialog id="infoProduto" widgetVar="produto" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
+	            <h:panelGrid columns="1" style="border:none !important;">
+	            
+		            <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+						<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+				
+						<p:selectOneRadio id="tipo"	value="#{painelProduto.filtroProdutoDTO.tipoProduto}">
+							<f:selectItem itemLabel="Comida" itemValue="C" />
+							<f:selectItem itemLabel="Bebida" itemValue="B" />
+						</p:selectOneRadio>
+				
+						<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+				
+						<p:inputTextarea id="descricao"	value="#{painelProduto.filtroProdutoDTO.descricao}" maxlength="100"
+							style="width:250px" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+					 	<p:commandButton action="#{painelProduto.pesquisar()}" value="#{msg['MG16']}" update="produtos"></p:commandButton>
+					 </h:panelGrid>
+					
+					<p:separator></p:separator>
+					
+					<p:dataTable id="produtos" var="produto" value="#{painelProduto.listProduto}" emptyMessage="#{msg['MG19']}">
+							        
+				        <p:column headerText="#{msg['MSI054']}">
+				            <h:outputText value="#{produto.tipoProduto.label}" />
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MSI057']}">
+				            <h:outputText value="#{produto.descricao}" />
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MG25']}">
+				        
+				        	<p:commandButton oncomplete="PF('produto').hide()" value="#{msg['MG25']}" ajax="false" action="#{alterarEstoque.selecionaProduto(produto)}" update="@form"></p:commandButton>
+				        </p:column>
+				        
+		         	</p:dataTable>
+	           </h:panelGrid>
+	           
+	           <p:separator></p:separator>
+	           
+	           <p:commandButton oncomplete="PF('produto').hide()" value="#{msg['MG24']}"></p:commandButton>
+	    </p:dialog>	 
+	</ui:define>
+</ui:composition>

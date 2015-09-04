@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI072']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="cadastro" header="#{msg['MSI160']}" style="margin:0 auto; width:80%; text-align:center;" >
+		     
+		     <h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+		     
+           		<p:outputLabel for="despesa" value="#{msg['MSI157']}" />
+           		
+		 		<h:panelGrid id="despesa" columns="2" cellpadding="10" style="margin:0 auto;">
+	           			
+           			<p:inputText value="#{alterarDespesaEntrada.despesaEntrada.despesa.descricao}" readonly="true"></p:inputText>
+           			<p:commandButton id="btnPesquisarDespesa" value="#{msg['MG16']}" onclick="PF('despesa').show()"/>
+           			
+           		</h:panelGrid>
+   				
+   				<p:outputLabel for="data" value="#{msg['MSI161']}" />
+   				<p:calendar value="#{alterarDespesaEntrada.despesaEntrada.data}"  
+						maxlength="10" id="data" style="width:250px"
+						pattern="dd/MM/yyyy" locale="pt_BR"/>
+   				
+   				<p:outputLabel for="preco" value="#{msg['MSI067']}" />
+   				<p:inputText id="preco" value="#{alterarDespesaEntrada.despesaEntrada.precoFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10"></p:inputText>
+   				
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltarDespesaEntrada" value="#{msg['MG01']}" action="#{alterarDespesaEntrada.redirecionaPagina('PAINEL_DESPESA_ENTRADA')}" ajax="false" />	
+				<p:commandButton id="btnCadastrarDespesaEntrada" value="#{msg['MG18']}" action="#{alterarDespesaEntrada.alterar()}" update="cadastro"/>
+				
+	        </h:panelGrid>
+			        </h:panelGrid>
+	    </p:panel>
+	    
+	    <p:dialog id="infoDespesa" widgetVar="despesa" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
+	            <h:panelGrid columns="1" style="border:none !important;">
+	            
+		            <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+						<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+				
+						<p:selectOneRadio id="tipo"	value="#{painelDespesa.filtroDespesaDTO.tipoDespesa}">
+							<f:selectItems value="#{painelDespesa.filtroDespesaDTO.tipoDespesas}" />
+						</p:selectOneRadio>
+				
+						<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+				
+						<p:inputTextarea id="descricao"	value="#{painelDespesa.filtroDespesaDTO.descricao}" maxlength="100"
+							style="width:250px" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+					 	<p:commandButton action="#{painelDespesa.pesquisar()}" value="#{msg['MG16']}" update="despesas"></p:commandButton>
+					 </h:panelGrid>
+					
+					<p:separator></p:separator>
+					
+					<p:dataTable id="despesas" var="despesa" value="#{painelDespesa.listDespesa}" emptyMessage="#{msg['MG19']}">
+							        
+				        <p:column headerText="#{msg['MSI054']}">
+				            <h:outputText value="#{despesa.tipoDespesa.label}" />
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MSI057']}">
+				            <h:outputText value="#{despesa.descricao}" />
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MG25']}">
+				        
+				        	<p:commandButton oncomplete="PF('despesa').hide()" value="#{msg['MG25']}" ajax="false" action="#{alterarDespesaEntrada.selecionaDespesa(despesa)}" update="@form"></p:commandButton>
+				        </p:column>
+				        
+		         	</p:dataTable>
+	           </h:panelGrid>
+	           
+	           <p:separator></p:separator>
+	           
+	           <p:commandButton oncomplete="PF('despesa').hide()" value="#{msg['MG24']}"></p:commandButton>
+	    </p:dialog>	 
+	</ui:define>
+</ui:composition>

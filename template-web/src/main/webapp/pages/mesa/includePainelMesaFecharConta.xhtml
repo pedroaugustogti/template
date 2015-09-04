@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="infoConta" widgetVar="conta" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;">
+        <p:outputPanel autoUpdate="true" id="conta" style="text-align:center; border:none !important;">
+            
+            <p:panel header="#{msg['MSI150']}: #{painelMesaFecharConta.mesa.funcionario.pessoa.nome}" style="border:none !important;">
+ 
+				<p:dataTable id="contaDetalhada" var="pedido" value="#{painelMesaFecharConta.listPedidos}" emptyMessage="#{msg['MG19']}"
+					>
+						        
+			        <p:column headerText="#{msg['MSI098']}">
+			            <h:outputText value="#{pedido.cardapio.descricao}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MG11']}">
+			            <h:outputText value="#{pedido.situacao.label}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI067']}">
+			            <h:outputText value="#{pedido.cardapio.precoFormat}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MG07']}">
+			            <h:outputText value="#{pedido.quantidade}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI151']}">
+			            <h:outputText value="#{pedido.subTotal}" />
+			        </p:column>
+			        
+			        <p:column rendered="#{painelMesa.autorizaFuncionalidade('CANCELAR_PEDIDO')}">
+			            <p:commandButton value="#{msg['MG26']}" oncomplete="PF('infoCancelamento').show();">
+			            	<f:setPropertyActionListener value="#{pedido}" target="#{painelMesaFecharConta.pedido}" />
+			            </p:commandButton>
+			        </p:column>
+			        
+		         </p:dataTable>
+		          
+            </p:panel>
+            
+<!--             <p:separator style="margin:0 auto; width:80%; text-align:center;" rendered="#{painelMesaFecharConta.mesa.comanda != null}"></p:separator> -->
+            
+<!--             <p:selectBooleanCheckbox value="#{painelMesaFecharConta.parcialSelecionado}" rendered="#{painelMesaFecharConta.mesa.comanda != null}"> -->
+<!--          		<p:ajax event="change" listener="#{painelMesaFecharConta.parcial()}" update="conta"></p:ajax> -->
+<!--          	</p:selectBooleanCheckbox> -->
+<!--             <p:outputLabel value="#{msg['MSI155']}" style="font-weight: bold;" rendered="#{painelMesaFecharConta.mesa.comanda != null}"/> -->
+<!--          	<p:outputLabel value=":" rendered="#{painelMesaFecharConta.parcialSelecionado}"/> -->
+<!--          	<p:inputText value="#{painelMesaFecharConta.parcialFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10" rendered="#{painelMesaFecharConta.parcialSelecionado}"></p:inputText> -->
+<!--             <p:commandButton action="#{painelMesaFecharConta.adicionarParcial()}" value="#{msg['MG08']}" update="conta" rendered="#{painelMesaFecharConta.parcialSelecionado}"></p:commandButton> -->
+            
+<!--             <p:separator style="margin:0 auto; width:80%; text-align:center;" rendered="#{painelMesaFecharConta.parcialSelecionado}"></p:separator> -->
+            <br/>
+            
+            <p:outputLabel value="#{msg['MSI156']}" style="font-weight: bold;" rendered="#{painelMesaFecharConta.parcialSelecionado and painelMesaFecharConta.mesa.comanda.parcial != null}"/>
+         	<p:outputLabel value=": R$"  rendered="#{painelMesaFecharConta.parcialSelecionado  and painelMesaFecharConta.mesa.comanda.parcial != null}" style="font-weight: bold; color: green;"/>
+         	<p:outputLabel id="valorParcial" value="#{painelMesaFecharConta.mesa.comanda.parcialFormat}" style="font-weight: bold; color: green;" rendered="#{painelMesaFecharConta.parcialSelecionado and painelMesaFecharConta.mesa.comanda.parcial != null}"/>
+            
+            <p:separator style="margin:0 auto; width:80%; text-align:center;" rendered="#{painelMesaFecharConta.parcialSelecionado}"></p:separator>
+            <p:separator style="margin:0 auto; width:80%; text-align:center;"/>
+            
+            <p:selectBooleanCheckbox value="#{painelMesaFecharConta.taxaServicoSelecionada}">
+         		<p:ajax event="change" listener="#{painelMesaFecharConta.taxaServico()}" update="taxa"></p:ajax>
+         	</p:selectBooleanCheckbox>
+         	
+            <p:outputLabel value="#{msg['MSI149']}" style="font-weight: bold;"/>
+         	<p:outputLabel value=":" />
+         	<p:outputLabel id="taxa" value="#{painelMesaFecharConta.taxaServicoFormat}" style="font-weight: bold; color: green;"/>
+            
+            <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+            <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+            
+            <p:outputLabel value="#{msg['MSI132']}" style="font-weight: bold;" rendered="#{!painelMesaFecharConta.taxaServicoSelecionada}"/>
+            <p:outputLabel value="#{msg['MSI154']}" style="font-weight: bold;" rendered="#{painelMesaFecharConta.taxaServicoSelecionada}"/>
+         	<p:outputLabel value=":" />
+         	<p:outputLabel value="#{painelMesaFecharConta.valorTotalFormat}" style="font-weight: bold; color: red;"/>
+            
+            <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+            <br/>
+            
+            
+            <p:commandButton oncomplete="PF('conta').hide()" actionListener="#{painelMesaFecharConta.fecharConta()}" action="#{painelMesa.pesquisar()}" value="#{msg['MSI130']}" update="@form"></p:commandButton>
+            <p:commandButton oncomplete="PF('conta').hide()" value="#{msg['MG24']}"></p:commandButton>
+        </p:outputPanel>
+    </p:dialog>
+    
+    <p:dialog id="cancelamento" widgetVar="infoCancelamento" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+        
+        <p:outputPanel style="text-align:center; border:none !important;">
+ 			<h:panelGrid columns="1" style="border:none !important;">
+ 			
+	 			<p:outputLabel value="#{msg['MSI153']}" />
+				<p:inputTextarea id="motivo" style="width:250px;" value="#{painelMesaFecharConta.pedido.motivoCancelamento}" />
+			
+ 			</h:panelGrid>
+            
+            <br/>
+            
+            <p:commandButton action="#{painelMesaFecharConta.cancelaPedido()}" value="#{msg['MG18']}" update="@form"></p:commandButton>
+            <p:commandButton oncomplete="PF('infoCancelamento').hide()" value="#{msg['MG13']}"></p:commandButton>
+        </p:outputPanel>
+    </p:dialog>
+		    
+</ui:composition>

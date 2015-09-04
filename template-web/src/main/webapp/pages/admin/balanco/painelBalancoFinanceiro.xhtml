@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI142']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:panel id="painelFiltro" header="#{msg['MSI142']}" style="width:80%; margin:0 auto;text-align:center;">
+		
+			<h:panelGrid columns="5" cellpadding="10" style="margin:0 auto;">
+			
+				<p:outputLabel for="periodoDe" value="#{msg['MSI143']}" />
+		       				
+				<p:calendar value="#{painelBalanco.dataInicioPesquisa}"  
+						maxlength="10" id="periodoDe" style="width:250px"
+						pattern="dd/MM/yyyy" locale="pt_BR"/>
+						
+				<p:outputLabel for="ate" value="#{msg['MSI144']}" />
+				
+				<p:calendar value="#{painelBalanco.dataFimPesquisa}"  
+						maxlength="10" id="ate" style="width:250px"
+						pattern="dd/MM/yyyy" locale="pt_BR"/>
+						
+				<p:commandButton id="btnPesquisar" value="#{msg['MG16']}" action="#{painelBalanco.pesquisar()}" update="painelBalanco"/>
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+		
+		<p:panel id="painelBalanco" style="border:none !important;width:80%; margin:0 auto;text-align:center;">
+		
+			<p:accordionPanel id="acordin" value="#{painelBalanco.balancoAnual.listBalancoAno}" var="ano" activeIndex="-1" >
+			
+				<p:ajax event="tabChange" listener="#{painelBalanco.balancoMensal.acordionMesesPorAno(ano)}" update="@form"></p:ajax>
+				<p:ajax event="tabChange" listener="#{painelBalanco.balancoDespesa.calculaDespesaAnual(painelBalanco.balancoMensal)}" update="tituloAno"></p:ajax>
+				
+				<p:tab title="#{ano}" >
+				
+					<p:panel id="tituloAno" header="Faturamento Anual" style=" margin:0 auto;text-align:center;">
+							
+						<h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;text-align:left;">
+									
+						 	<h:outputText value="Receita:" style="font-weight: bold;"/>
+						  	<h:outputText value="#{painelBalanco.balancoAnual.faturamentoAnual}" />
+						  	
+						  	<h:outputText value="Despesa:" style="font-weight: bold;"/>
+						  	<h:outputText value="#{painelBalanco.balancoDespesa.despesaAnual}" />
+						</h:panelGrid>
+						
+						<p:commandButton value="Detalhar" action="#{painelBalanco.detalheAnual()}"></p:commandButton>
+					</p:panel>
+				
+					<p:accordionPanel id="mesacord" value="#{painelBalanco.balancoMensal.listBalancoMes}" var="mes" activeIndex="-1">
+					
+						<p:ajax event="tabChange" listener="#{painelBalanco.balancoDiario.acordionDiasPorMesAno(mes,ano)}" update="@form"></p:ajax>
+						<p:ajax event="tabChange" listener="#{painelBalanco.balancoDespesa.calculaDespesaMensal(painelBalanco.balancoDiario)}" update="tituloMes"></p:ajax>
+						
+						<p:tab title="#{mes}">
+						
+							<p:panel id="tituloMes" header="Faturamento Mensal" style=" margin:0 auto;text-align:center;">
+							
+								<h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;text-align:left;">
+									
+								 	<h:outputText value="Receita:" style="font-weight: bold;"/>
+								  	<h:outputText value="#{painelBalanco.balancoMensal.faturamentoMensal}" />
+								  	
+								  	<h:outputText value="Despesa:" style="font-weight: bold;"/>
+								  	<h:outputText value="#{painelBalanco.balancoDespesa.despesaMensal}" />
+								
+								</h:panelGrid>
+								
+								<p:commandButton value="Detalhar" action="#{painelBalanco.detalheMensal()}"></p:commandButton>
+							</p:panel>
+						
+							<p:dataTable id="balancoDiario" var="balanco" value="#{painelBalanco.balancoDiario.listBalancoDia}" emptyMessage="#{msg['MG19']}">
+							        
+						        <p:column headerText="Dia do mês">
+						            <h:outputText value="#{balanco.diaMes}" />
+						        </p:column>
+						        
+						        <p:column headerText="Dia da Semana">
+						            <h:outputText value="#{balanco.diaDaSemana}" >
+									</h:outputText>
+						        </p:column>
+						        
+						        <p:column headerText="Faturado">
+						            <h:outputText value="#{balanco.valorFaturado}" />
+						        </p:column>
+						        
+						         <p:column>
+						            <p:commandButton value="Detalhar" action="#{painelBalanco.detalheDiario(balanco.chave)}"></p:commandButton>
+						        </p:column>
+						        
+					         </p:dataTable>
+						
+						</p:tab>
+						
+					</p:accordionPanel>
+					
+				</p:tab>
+				
+			</p:accordionPanel>
+				
+		</p:panel>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/template/templateLogin.xhtml">
+
+	<ui:define name="title">#{msg['MSI075']}</ui:define>
+
+	<ui:define name="body">
+		<h:form id="form">
+			<p:panel style="border:none !important; ">
+			
+				<p:panelGrid columns="1" style="margin:0 auto;">
+					
+					<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+	
+					<p:selectOneRadio id="tipo"
+						value="#{menuCliente.filtroCardapioDTO.tipoProduto}">
+						
+						<p:ajax event="change" listener="#{menuCliente.pesquisaCardapio()}" update="grid" ></p:ajax>
+						
+						<f:selectItems value="#{menuCliente.filtroCardapioDTO.tipoProdutos}" />
+					</p:selectOneRadio>
+					
+				</p:panelGrid>
+			
+		 	</p:panel>
+		 	
+		 	 <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+			    	
+		    	 <p:dataTable id="gridCardapio" var="cardapio" value="#{menuCliente.listCardapio}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI075']}" >
+			            <h:outputText value="#{cardapio.descricao}" style="background:gray;"  rendered="#{cardapio.pedidoClienteMenu}"/>
+			            <h:outputText value="#{cardapio.descricao}" rendered="#{!cardapio.pedidoClienteMenu}"/>
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI054']}">
+			            <h:outputText value="#{cardapio.tipoProduto.label}" style="background:gray;"  rendered="#{cardapio.pedidoClienteMenu}"/>
+			            <h:outputText value="#{cardapio.tipoProduto.label}" rendered="#{!cardapio.pedidoClienteMenu}"/>
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI067']}">
+			            <h:outputText value="#{cardapio.preco}" style="background:gray;"  rendered="#{cardapio.pedidoClienteMenu}"/>
+			            <h:outputText value="#{cardapio.preco}" rendered="#{!cardapio.pedidoClienteMenu}"/>
+			        </p:column>
+			        
+			        <p:column >
+		            	<p:commandButton oncomplete="PF('informarQuantidade').show()" value="#{msg['MG08']}" title="#{msg['MG08']}" update="gridCardapio">
+			                <f:setPropertyActionListener value="#{cardapio}" target="#{menuCliente.cardapioSelecionado}" />
+			            </p:commandButton>
+			        </p:column>
+		         </p:dataTable>
+		    </p:panel>
+		    
+		    <p:panel id="rodape" style="margin:0 auto; width:80%; text-align:center;">
+		    
+		    	<p:commandButton action="#{menuCliente.finalizarPedido()}" value="#{msg['MSI096']}" update=":form" rendered="#{not empty menuCliente.listPedidos}"></p:commandButton>
+		    	<p:commandButton oncomplete="PF('comanda').show()" action="#{menuCliente.atualizaComanda()}" value="#{msg['MSI095']}" update=":form" rendered="#{not empty menuCliente.comanda.listPedido}"></p:commandButton>
+		    
+		    </p:panel>
+		
+		</h:form>
+	    
+	    <p:dialog id="alertaQuantidade" header="#{msg['MSI081']}" widgetVar="informarQuantidade" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+	        <p:outputPanel id="informarQuantidade" style="text-align:center; border:none !important;">
+	        
+	        	<h:form id="formAdicionarCardapio">
+		            <p:panelGrid style="border:none !important;">
+		 
+		                <p:row>
+		                	<p:column>
+			                	<p:outputLabel for="quantidade" value="#{msg['MG07']}" />
+					            <p:inputText id="quantidade" value="#{menuCliente.quantidadeSelecionada}" ></p:inputText>
+							</p:column>
+				        </p:row>
+				        
+				        <p:row>
+				        	<p:column>
+					            <p:commandButton oncomplete="PF('informarQuantidade').hide()" action="#{menuCliente.adicionarPedido()}" value="#{msg['MG08']}" update=":form,@form"></p:commandButton>
+					            <p:commandButton oncomplete="PF('informarQuantidade').hide()" value="#{msg['MG13']}"></p:commandButton>
+				            </p:column>
+				        </p:row>
+	
+		            </p:panelGrid>
+	            </h:form>
+	        </p:outputPanel>
+	    </p:dialog>
+	    
+	    <p:dialog id="alertaComanda" widgetVar="comanda" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+	        <p:outputPanel id="comanda" style="text-align:center; border:none !important;">
+	        
+	        	<h:form id="formComanda">
+	        	
+		            <p:panelGrid style="border:none !important;">
+		 
+		                <p:row>
+			    			<p:column>
+						    	 <p:dataTable id="gridCardapio" var="pedido" value="#{menuCliente.comanda.listPedido}" emptyMessage="#{msg['MG19']}">
+							        
+							        <p:column headerText="#{msg['MSI075']}">
+							            <h:outputText value="#{pedido.cardapio.descricao}" />
+							        </p:column>
+							        
+							        <p:column headerText="#{msg['MG11']}">
+							            <h:outputText value="#{pedido.situacao.label}" />
+							        </p:column>
+						         </p:dataTable>
+					         </p:column>
+				        </p:row>
+				        
+				        <p:row>
+				        	<p:column>
+					            <p:commandButton oncomplete="PF('comanda').hide()" value="#{msg['MG13']}"></p:commandButton>
+					            <p:commandButton action="#{menuCliente.atualizaComanda()}" update=":form,@form" value="#{msg['MG15']}"></p:commandButton>
+				            </p:column>
+				            
+				        </p:row>
+	
+		            </p:panelGrid>
+	            </h:form>
+	        </p:outputPanel>
+	    </p:dialog>
+
+	</ui:define>
+</ui:composition>

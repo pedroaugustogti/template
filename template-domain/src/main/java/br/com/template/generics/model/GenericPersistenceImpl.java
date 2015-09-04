@@ -27,6 +27,9 @@ public class GenericPersistenceImpl<T extends EntidadeBasica, ID extends Seriali
 		} else {
 			em.merge(t);
 		}
+		
+		em.flush();
+		em.clear();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -55,6 +58,11 @@ public class GenericPersistenceImpl<T extends EntidadeBasica, ID extends Seriali
 
 	@Override
 	public void excluir(T t) {
-		em.remove(em.merge(t));
+		em.remove(merge(t));
+	}
+
+	@Override
+	public T merge(T t) {
+		return em.merge(t);
 	}
 }

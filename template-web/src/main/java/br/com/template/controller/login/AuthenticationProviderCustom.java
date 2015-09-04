@@ -101,6 +101,7 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
     		
     		RequestAttributes mapAtributos = RequestContextHolder.currentRequestAttributes();
     		mapAtributos.setAttribute(AtributoSessao.PERMISSOES_USUARIO.name(), permissoesUsuario, RequestAttributes.SCOPE_SESSION);
+    		mapAtributos.setAttribute(AtributoSessao.USUARIO.name(), userDetails.getUsername(), RequestAttributes.SCOPE_SESSION);
     		
     		isUsuarioNaSessao = Boolean.TRUE;
     		
