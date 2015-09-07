@@ -26,6 +26,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		filtro.setUsuario(username);
 		
-		return reposiroty.getPrimeiroRegistroPorFiltro(filtro, Usuario.class);
+		return reposiroty.primeiroRegistroPorFiltro(filtro, Usuario.class);
 	}
 }

@@ -2,6 +2,8 @@ package br.com.localone.service;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import br.com.template.dto.FiltroFuncionarioDTO;
 import br.com.template.entidades.Funcionario;
 
@@ -11,6 +13,7 @@ import br.com.template.entidades.Funcionario;
  * 
  *
  */
+@Local
 public interface FuncionarioService {
 
 	/**

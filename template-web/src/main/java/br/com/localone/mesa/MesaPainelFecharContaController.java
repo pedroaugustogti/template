@@ -18,6 +18,7 @@ import br.com.template.domain.Situacao;
 import br.com.template.domain.SituacaoMesa;
 import br.com.template.domain.SituacaoPedido;
 import br.com.template.entidades.Balanco;
+import br.com.template.entidades.Comanda;
 import br.com.template.entidades.Funcionario;
 import br.com.template.entidades.Mesa;
 import br.com.template.entidades.Pedido;
@@ -43,6 +44,9 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 	
 	@EJB
 	private PedidoService pedidoService;
+	
+	@EJB
+	private GenericServiceController<Comanda, Long> serviceComanda;
 	
 	@EJB
 	private GenericServiceController<Pedido, Long> servicePedido;
@@ -139,7 +143,7 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 		
 		for (Pedido pedido: mesa.getComanda().getListPedido()){
 			
-			valorTotal += (pedido.getQuantidade() * pedido.getCardapio().getPreco());
+			valorTotal += pedido.getCardapio().getPreco();
 		}
 		
 		if (parcial != null){

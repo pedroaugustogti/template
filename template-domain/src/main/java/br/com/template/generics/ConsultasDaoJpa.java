@@ -91,9 +91,16 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 		 return inicializaCampos(filtrarPesquisa(filtroDTO, entidade), camposInitialize);
 	 }
 	 
-    public T getPrimeiroRegistroPorFiltro(Object filtroDTO, Class<T> entidade) {
+    public T primeiroRegistroPorFiltro(Object filtroDTO, Class<T> entidade, String...camposInitialize) {
     	
-    	List<T> list = filtrarPesquisa(filtroDTO, entidade);
+    	List<T> list = null;
+    	
+    	if (camposInitialize ==null){
+    		list = filtrarPesquisa(filtroDTO, entidade);
+    	}else{
+    		list = filtrarPesquisa(filtroDTO, entidade, camposInitialize);
+    	}
+    	
     	T primeiroRegistro = null;
     	
     	if (!list.isEmpty()){
@@ -103,18 +110,6 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 		return primeiroRegistro;
 	}
     
-    public T getPrimeiroRegistroPorFiltro(Object filtroDTO, Class<T> entidade,String...camposInitialize) {
-    	
-    	List<T> list = filtrarPesquisa(filtroDTO, entidade,camposInitialize);
-    	T primeiroRegistro = null;
-    	
-    	if (!list.isEmpty()){
-    		primeiroRegistro = list.get(0);
-    	}
-		 
-		return primeiroRegistro;
-	}
-	
 	@SuppressWarnings("unchecked")
     public List<T> filtrarPesquisa(Object filtroDTO, Class<T> entidade) {
 		

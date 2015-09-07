@@ -15,8 +15,8 @@
 		        
 	           		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
 	           		
-	           		<p:selectOneRadio id="tipo" value="#{painelCardapio.filtroCardapioDTO.tipoProduto}">
-	           			<f:selectItems value="#{painelCardapio.filtroCardapioDTO.tipoProdutos}" var="tipoProduto" itemLabelEscaped="#{tipoProduto.label}" itemValue="#{tipoProduto.value}" />
+	           		<p:selectOneRadio id="tipo" value="#{painelCardapio.filtroCardapioDTO.categoria}">
+	           			<f:selectItems value="#{painelCardapio.filtroCardapioDTO.categoriaMenu}" />
 	           		</p:selectOneRadio>
 	           		
 	           		<p:outputLabel for="cardapio" value="#{msg['MSI075']}" />

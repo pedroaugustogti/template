@@ -15,9 +15,8 @@
 	        
            		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
            		
-           		<p:selectOneRadio id="tipo" value="#{alterarCardapio.cardapio.tipoProduto}" style="margin:0 auto; text-align:center;">
-           			<f:selectItem itemLabel="Comida" itemValue="C"/>
-           			<f:selectItem itemLabel="Bebida" itemValue="B"/>
+           		<p:selectOneRadio id="tipo" value="#{alterarCardapio.cardapio.categoriaMenu}" style="margin:0 auto; text-align:center;">
+           			<f:selectItems value="#{painelCardapio.filtroCardapioDTO.categoriaMenu}"/>
            		</p:selectOneRadio>
            		
            		<br/>

@@ -19,5 +19,10 @@ public class CardapioServiceImpl implements CardapioService{
 	public List<Cardapio> pesquisar(FiltroCardapioDTO filtro) {
 		return reposiroty.filtrarPesquisa(filtro, Cardapio.class);
 	}
+	
+	@Override
+	public List<Cardapio> pesquisar(FiltroCardapioDTO filtro, String...camposInitialize) {
+		return reposiroty.filtrarPesquisa(filtro, Cardapio.class, camposInitialize);
+	}
 
 }

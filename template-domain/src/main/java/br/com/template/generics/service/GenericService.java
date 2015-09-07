@@ -3,8 +3,11 @@ package br.com.template.generics.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.Local;
+
 import br.com.template.generics.EntidadeBasica;
 
+@Local
 public interface GenericService<T extends EntidadeBasica, ID extends Serializable> {
 
 	void salvar(T t) ;

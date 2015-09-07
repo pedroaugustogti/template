@@ -1,24 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:jee="http://www.springframework.org/schema/jee"
     xmlns:security="http://www.springframework.org/schema/security"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
 	<!-- Escaneia anotações do spring em todos os arquivos dentro do pacote 'br.com.template.login.service' -->
 	<context:annotation-config />
-	<context:component-scan base-package="br.com.template.login.service.*" />
+	<mvc:annotation-driven />
+	<context:component-scan base-package="br.*" />
 	
 	<!-- Faz a integração de contextos do Spring com EJB, fazendo com que a interface local EJB 'AutorizacaoService' seja injetada via Spring com @Autowired -->
 	<jee:local-slsb id="autorizacaoService" jndi-name="java:module/AutorizacaoServiceImpl" 
       business-interface="br.com.template.login.service.AutorizacaoService"/>
+      
+         <jee:local-slsb id="funcionarioService" jndi-name="java:module/FuncionarioServiceImpl" 
+      	business-interface="br.com.localone.service.FuncionarioService"/>
+      	
+   	<jee:local-slsb id="genericService" jndi-name="java:module/GenericServiceImpl" 
+      	business-interface="br.com.template.generics.service.GenericService"/>
+      	
+   	<jee:local-slsb id="cardapioService" jndi-name="java:module/CardapioServiceImpl" 
+      	business-interface="br.com.localone.service.CardapioService"/>
+      	
+     <jee:local-slsb id="pedidoService" jndi-name="java:module/PedidoServiceImpl" 
+      	business-interface="br.com.localone.service.PedidoService"/>	
 
+     <jee:local-slsb id="comandaService" jndi-name="java:module/ComandaServiceImpl" 
+      	business-interface="br.com.localone.service.ComandaService"/> 	
+      	
+   	 <jee:local-slsb id="usuarioService" jndi-name="java:module/UsuarioServiceImpl" 
+      	business-interface="br.com.localone.service.UsuarioService"/>
+      	
+   	<jee:local-slsb id="mesaService" jndi-name="java:module/MesaServiceImpl" 
+      	business-interface="br.com.localone.service.MesaService"/>
+      	
 	<!-- Da autonomia a classe 'AuthenticationProviderCustom.java' realizar a autenticação do spring de forma customizada -->
     <bean id="authenticationProviderCustom" class="br.com.template.controller.login.AuthenticationProviderCustom"/>
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
     
     <security:authentication-manager>
         <security:authentication-provider ref="authenticationProviderCustom" />

@@ -15,6 +15,6 @@ public class ComandaServiceImpl implements ComandaService{
 
 	@Override
 	public Comanda getComandaMesa(FiltroComandaDTO filtro) {
-		return reposiroty.getPrimeiroRegistroPorFiltro(filtro, Comanda.class,"listPedido","listPedido.cardapio");
+		return reposiroty.primeiroRegistroPorFiltro(filtro, Comanda.class);
 	}
 }

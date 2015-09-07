@@ -24,14 +24,6 @@
 			            <h:outputText value="#{pedido.cardapio.precoFormat}" />
 			        </p:column>
 			        
-			        <p:column headerText="#{msg['MG07']}">
-			            <h:outputText value="#{pedido.quantidade}" />
-			        </p:column>
-			        
-			        <p:column headerText="#{msg['MSI151']}">
-			            <h:outputText value="#{pedido.subTotal}" />
-			        </p:column>
-			        
 			        <p:column rendered="#{painelMesa.autorizaFuncionalidade('CANCELAR_PEDIDO')}">
 			            <p:commandButton value="#{msg['MG26']}" oncomplete="PF('infoCancelamento').show();">
 			            	<f:setPropertyActionListener value="#{pedido}" target="#{painelMesaFecharConta.pedido}" />

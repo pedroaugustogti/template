@@ -5,13 +5,13 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import br.com.template.anotations.EntityProperty;
+import br.com.template.domain.CategoriaMenu;
 import br.com.template.domain.Situacao;
-import br.com.template.domain.TipoProduto;
 
 public class FiltroCardapioDTO {
 
-	@EntityProperty("tipoProduto")
-	private TipoProduto tipoProduto;
+	@EntityProperty("categoriaMenu")
+	private CategoriaMenu categoria;
 	
 	@EntityProperty("descricao")
 	private String descricaoPrato;
@@ -22,18 +22,18 @@ public class FiltroCardapioDTO {
 	@EntityProperty(value="descricao", pesquisaExata=true, ignoraCaseSensitive=true)
 	private String descricaoExata;
 	
-	private List<SelectItem> tipoProdutos;
+	private List<SelectItem> categoriaMenu;
 	
 	public FiltroCardapioDTO(){
-		tipoProdutos = TipoProduto.selectItems();
+		categoriaMenu = CategoriaMenu.selectItems();
 	}
 
-	public TipoProduto getTipoProduto() {
-		return tipoProduto;
+	public CategoriaMenu getCategoria() {
+		return categoria;
 	}
 
-	public void setTipoProduto(TipoProduto tipoProduto) {
-		this.tipoProduto = tipoProduto;
+	public void setCategoria(CategoriaMenu categoria) {
+		this.categoria = categoria;
 	}
 
 	public String getDescricaoPrato() {
@@ -44,12 +44,8 @@ public class FiltroCardapioDTO {
 		this.descricaoPrato = descricaoPrato;
 	}
 
-	public List<SelectItem> getTipoProdutos() {
-		return tipoProdutos;
-	}
-
-	public void setTipoProdutos(List<SelectItem> tipoProdutos) {
-		this.tipoProdutos = tipoProdutos;
+	public List<SelectItem> getCategoriaMenu() {
+		return categoriaMenu;
 	}
 
 	public Situacao getSituacao() {

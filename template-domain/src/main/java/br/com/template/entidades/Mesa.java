@@ -45,7 +45,7 @@ public class Mesa extends EntidadeBasica{
 	@Column(name="cpf_cliente")
 	private String cpfCliente;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="id_comanda")
 	private Comanda comanda;
 	

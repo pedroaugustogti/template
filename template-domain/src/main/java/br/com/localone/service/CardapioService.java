@@ -19,4 +19,6 @@ public interface CardapioService {
 	 * @return
 	 */
 	List<Cardapio> pesquisar(FiltroCardapioDTO filtro);
+
+	List<Cardapio> pesquisar(FiltroCardapioDTO filtro, String... camposInitialize);
 }

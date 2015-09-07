@@ -19,4 +19,14 @@ public class MesaServiceImpl implements MesaService{
 	public List<Mesa> pesquisar(FiltroMesaDTO filtro) {
 		return reposiroty.filtrarPesquisa(filtro, Mesa.class);
 	}
+	
+	@Override
+	public Mesa mesaPorCodigo(String codigo, String...camposInitialize) {
+		
+		FiltroMesaDTO filtro = new FiltroMesaDTO();
+		
+		filtro.setCodigo(codigo);
+		
+		return reposiroty.primeiroRegistroPorFiltro(filtro, Mesa.class,camposInitialize);
+	}
 }

@@ -19,8 +19,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.com.template.domain.CategoriaMenu;
 import br.com.template.domain.Situacao;
-import br.com.template.domain.TipoProduto;
 import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
 
@@ -38,9 +38,9 @@ public class Cardapio extends EntidadeBasica{
 	@Column(name="id_cardapio")
 	private Long id;
 	
-	@Column(name="tipo")
+	@Column(name="categoria")
 	@Enumerated(EnumType.STRING)
-	private TipoProduto tipoProduto;
+	private CategoriaMenu categoriaMenu;
 	
 	@Column(name="descricao", unique=true)
 	private String descricao;
@@ -88,12 +88,12 @@ public class Cardapio extends EntidadeBasica{
 		this.id = id;
 	}
 
-	public TipoProduto getTipoProduto() {
-		return tipoProduto;
+	public CategoriaMenu getCategoriaMenu() {
+		return categoriaMenu;
 	}
 
-	public void setTipoProduto(TipoProduto tipoProduto) {
-		this.tipoProduto = tipoProduto;
+	public void setCategoriaMenu(CategoriaMenu categoriaMenu) {
+		this.categoriaMenu = categoriaMenu;
 	}
 
 	public String getDescricao() {

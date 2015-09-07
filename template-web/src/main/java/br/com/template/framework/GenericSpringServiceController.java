@@ -3,9 +3,8 @@ package br.com.template.framework;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import br.com.template.generics.EntidadeBasica;
 import br.com.template.generics.service.GenericService;
@@ -30,13 +29,13 @@ import br.com.template.generics.service.GenericService;
  * @param <ID> deve ser a chave primária da entidade (Objeto que implemente {@link Serializable})
  */
 
-@Stateless
-public class GenericServiceController<T extends EntidadeBasica, ID extends Serializable> {
+@Controller
+public class GenericSpringServiceController<T extends EntidadeBasica, ID extends Serializable> {
 	
 	/**
 	 * Possui os mesmos métodos desta classe, mas sem a opção do Interceptor para enviar mensagens para tela do usuário.
 	 */
-	@EJB
+	@Autowired
 	private GenericService<T, Serializable> genericService;
 
 	/**
@@ -57,7 +56,6 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	 * 
 	 * @param t deve ser referência de uma entidade filha da {@link EntidadeBasica}
 	 */
-	@Interceptors(InterceptionDefaultMenssage.class)
 	public void salvar(T t) {
 		genericService.salvar(merge(t));
 	}
@@ -168,7 +166,6 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	 * 
 	 * @param t deve ser referência de uma entidade filha da {@link EntidadeBasica}
 	 */
-	@Interceptors(InterceptionDefaultMenssage.class)
 	public void excluir(T t) {
 		genericService.excluir(t);
 	}

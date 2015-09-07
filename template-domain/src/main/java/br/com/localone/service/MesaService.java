@@ -19,4 +19,6 @@ public interface MesaService {
 	 * @return
 	 */
 	List<Mesa> pesquisar(FiltroMesaDTO filtro);
+
+	Mesa mesaPorCodigo(String codigo, String... camposInitialize);
 }

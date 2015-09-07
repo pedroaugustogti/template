@@ -34,7 +34,7 @@ public class CardapioValidacao extends AbstractValidacao{
 
 	private void campoObrigatorio(Cardapio cardapio) throws NegocioException {
 		
-		if (cardapio.getTipoProduto() == null){
+		if (cardapio.getCategoriaMenu() == null){
 			throw new NegocioException(Mensagem.MNG008);
 		}
 		

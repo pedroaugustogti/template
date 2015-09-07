@@ -14,11 +14,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import br.com.template.domain.SituacaoPedido;
 import br.com.template.generics.EntidadeBasica;
-import br.com.template.util.DinheiroUtil;
 
 @Entity
 @Table(name="pedido")
@@ -33,9 +31,6 @@ public class Pedido extends EntidadeBasica{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_pedido")
 	private Long id;
-	
-	@Column(name="quantidade")
-	private Integer quantidade;
 	
 	@Column(name="motivo_cancelamento")
 	private String motivoCancelamento;
@@ -68,23 +63,6 @@ public class Pedido extends EntidadeBasica{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horarioConclusao;
 	
-	@Transient
-	private String subTotal;
-	
-	public String getSubTotal() {
-
-		double subTotalDouble = 0.0;
-		
-		if (getCardapio() != null){
-			
-			subTotalDouble = getCardapio().getPreco() * getQuantidade();
-			
-			subTotal = DinheiroUtil.doubleEmReal(subTotalDouble);
-		}
-		
-		return subTotal;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -131,14 +109,6 @@ public class Pedido extends EntidadeBasica{
 
 	public void setHorarioConclusao(Date horarioConclusao) {
 		this.horarioConclusao = horarioConclusao;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public String getMotivoCancelamento() {
