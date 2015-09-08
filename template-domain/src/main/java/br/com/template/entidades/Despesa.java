@@ -16,7 +16,7 @@ import br.com.template.domain.TipoDespesa;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="despesa")
+@Table(name="tb_despesa")
 public class Despesa extends EntidadeBasica{
 
 	/**

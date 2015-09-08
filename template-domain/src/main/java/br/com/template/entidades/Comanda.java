@@ -21,7 +21,7 @@ import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
 
 @Entity
-@Table(name="comanda")
+@Table(name="tb_comanda")
 public class Comanda extends EntidadeBasica{
 
 	/**

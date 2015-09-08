@@ -23,7 +23,7 @@ import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
 
 @Entity
-@Table(name="funcionario")
+@Table(name="tb_funcionario")
 public class Funcionario extends EntidadeBasica{
 
 	/**

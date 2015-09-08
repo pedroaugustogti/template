@@ -20,7 +20,7 @@ import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
 
 @Entity
-@Table(name="Estoque")
+@Table(name="tb_estoque")
 public class Estoque extends EntidadeBasica{
 
 	/**

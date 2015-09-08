@@ -19,7 +19,7 @@ import br.com.template.domain.SituacaoPedido;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="pedido")
+@Table(name="tb_pedido")
 public class Pedido extends EntidadeBasica{
 
 	/**

@@ -25,7 +25,7 @@ import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
 
 @Entity
-@Table(name="cardapio")
+@Table(name="tb_cardapio")
 public class Cardapio extends EntidadeBasica{
 
 	/**

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="ocio_cozinha")
+@Table(name="tb_ocio_cozinha")
 public class Ocio extends EntidadeBasica{
 
 	private static final long serialVersionUID = -767706364216917735L;

@@ -21,7 +21,7 @@ import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
 
 @Entity
-@Table(name="despesa_entrada")
+@Table(name="tb_despesa_entrada")
 public class DespesaEntrada extends EntidadeBasica{
 
 	/**

@@ -19,7 +19,7 @@ import br.com.template.domain.SituacaoMesa;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="mesa")
+@Table(name="tb_mesa")
 public class Mesa extends EntidadeBasica{
 
 	/**

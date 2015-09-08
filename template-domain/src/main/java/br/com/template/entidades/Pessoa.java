@@ -23,7 +23,7 @@ import br.com.template.domain.Sexo;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="pessoa")
+@Table(name="tb_pessoa")
 public class Pessoa extends EntidadeBasica{
 
 	/**

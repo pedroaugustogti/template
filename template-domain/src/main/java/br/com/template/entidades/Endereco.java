@@ -19,7 +19,7 @@ import br.com.template.domain.Estado;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="endereco")
+@Table(name="tb_endereco")
 public class Endereco extends EntidadeBasica{
 
 	/**

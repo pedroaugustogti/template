@@ -19,7 +19,7 @@
 	<jee:local-slsb id="autorizacaoService" jndi-name="java:module/AutorizacaoServiceImpl" 
       business-interface="br.com.template.login.service.AutorizacaoService"/>
       
-         <jee:local-slsb id="funcionarioService" jndi-name="java:module/FuncionarioServiceImpl" 
+    <jee:local-slsb id="funcionarioService" jndi-name="java:module/FuncionarioServiceImpl" 
       	business-interface="br.com.localone.service.FuncionarioService"/>
       	
    	<jee:local-slsb id="genericService" jndi-name="java:module/GenericServiceImpl" 

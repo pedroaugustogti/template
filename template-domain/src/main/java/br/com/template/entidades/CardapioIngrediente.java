@@ -19,7 +19,7 @@ import br.com.template.domain.Medida;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="ingrediente_cardapio")
+@Table(name="tb_ingrediente_cardapio")
 public class CardapioIngrediente extends EntidadeBasica{
 
 	/**
@@ -29,7 +29,7 @@ public class CardapioIngrediente extends EntidadeBasica{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id_ingrediente_cardapio")
 	private Long id;
 	
 	@ManyToOne

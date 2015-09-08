@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="tempo_ocio_cozinha")
+@Table(name="tb_tempo_ocio_cozinha")
 public class TempoOcioso extends EntidadeBasica{
 
 	/**

@@ -16,7 +16,7 @@ import br.com.template.domain.TipoProduto;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="Produto")
+@Table(name="tb_produto")
 public class Produto extends EntidadeBasica{
 
 	/**

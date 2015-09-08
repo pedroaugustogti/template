@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="balanco")
+@Table(name="tb_balanco")
 public class Balanco extends EntidadeBasica{
 
 	/**

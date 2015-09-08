@@ -4,18 +4,24 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 
 import br.com.template.domain.Medida;
 import br.com.template.entidades.CardapioIngrediente;
 import br.com.template.entidades.Estoque;
 import br.com.template.entidades.Pedido;
 import br.com.template.framework.GenericServiceController;
+import br.com.template.framework.EmailDTO;
 
 @Stateless
 public class CozinhaPainelControleEstoque {
 	
 	@EJB
 	private GenericServiceController<Estoque, Long> serviceEstoque;
+	
+	@Inject
+	private Event<EmailDTO> eventEmail;
 	
 	public void reduzEstoque(final Pedido pedido) {
 		
@@ -55,13 +61,19 @@ public class CozinhaPainelControleEstoque {
 		}
 		
 		if (qntEstoqueAtualizada <= estoque.getQntReposicao()){
-			enviaNotificacaoParaReporEstoque();
+			enviaNotificacaoParaReporEstoque(estoque);
 		}
 		
 		return qntEstoqueAtualizada;
 	}
 
-	private void enviaNotificacaoParaReporEstoque() {
-		//envia email
+	private void enviaNotificacaoParaReporEstoque(Estoque estoque) {
+		
+		EmailDTO emailDTO = new EmailDTO();
+		
+		emailDTO.setTo("pedroaugusto.gti@gmail.com"); 
+		emailDTO.setSubject("[Local One] - Estoque de "+estoque.getProduto().getDescricao()+" em baixa!");
+		emailDTO.setMessage("Faltam apenas "+estoque.getQuantidade()+" "+estoque.getMedida().name()+" para acabar o estoque de "+ estoque.getProduto().getDescricao());
+		eventEmail.fire(emailDTO);
 	}
 }

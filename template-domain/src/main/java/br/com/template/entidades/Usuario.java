@@ -22,7 +22,7 @@ import br.com.template.domain.Situacao;
 import br.com.template.generics.EntidadeBasica;
  
 @Entity
-@Table(name = "usuario")
+@Table(name = "tb_usuario")
 public class Usuario extends EntidadeBasica{
  
 	/**

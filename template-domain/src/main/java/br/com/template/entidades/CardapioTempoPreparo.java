@@ -17,7 +17,7 @@ import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DataUtil;
 
 @Entity
-@Table(name="cardapio_tempo_preparo")
+@Table(name="tb_cardapio_tempo_preparo")
 public class CardapioTempoPreparo extends EntidadeBasica{
 
 	/**
