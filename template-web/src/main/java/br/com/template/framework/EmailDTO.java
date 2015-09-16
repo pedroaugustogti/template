@@ -1,15 +1,8 @@
 package br.com.template.framework;
 
-/* This is our event object.
- * 
- *  It encapsulates the information necessary to send the email,
- *  such as the recipient, the message itself and the subject.
- *  
- *  In more realistic scenarios this class would have a bunch of other fields,
- *  such as "toCC", "attachments", etc.
- *  */
 public class EmailDTO {
-	private String to; //recipient address
+	
+	private String to; 
 	private String message;
 	private String subject;
 	
