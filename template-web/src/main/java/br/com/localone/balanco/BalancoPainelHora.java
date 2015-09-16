@@ -1,13 +1,13 @@
 package br.com.localone.balanco;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import br.com.template.entidades.Balanco;
-import br.com.template.util.DataUtil;
 
 public class BalancoPainelHora {
 	
@@ -48,7 +48,7 @@ public class BalancoPainelHora {
 		
 		for (Balanco balanco : listBalancoDoDia){
 			
-			int hora = DataUtil.hora(balanco.getFechamentoConta());
+			int hora = balanco.getFechamentoConta().get(Calendar.HOUR_OF_DAY);
 			List<Balanco> balancoHora = mapHora.get(hora);
 			
 			if (balancoHora == null || balancoHora.isEmpty()){

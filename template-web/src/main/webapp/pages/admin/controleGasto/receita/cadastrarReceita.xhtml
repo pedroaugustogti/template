@@ -1,0 +1,163 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI179']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="cadastro" header="#{msg['MSI179']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+		        
+           		<p:outputLabel for="empresa" value="#{msg['MG27']}" />
+           		
+           		<p:selectOneMenu id="empresa" value="#{cadastroReceita.receita.empresa}">
+           			<f:selectItems value="#{cadastroReceita.filtroReceitaDTO.empresas}" />
+           		</p:selectOneMenu>
+           		
+           		<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+           		
+            	<p:inputTextarea id="descricao" value="#{cadastroReceita.receita.descricao}" 
+				 	maxlength="100" style="width:250px"/>
+				 	
+	        </h:panelGrid>
+	        
+	        <p:separator></p:separator>
+	        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        	
+	        	<p:outputLabel for="receitaEmDinheiro" value="#{msg['MSI181']}" />	
+				<p:inputText id="receitaEmDinheiro" value="#{cadastroReceita.receita.valorEmDinheiroFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10" ></p:inputText>
+	        
+	        </h:panelGrid>
+	        
+	        <p:separator></p:separator>
+	        
+	        <p:panel id="painelBem" header="#{msg['MSI175']}" style="margin:0 auto; width:80%;" >
+			
+				<h:panelGrid columns="4" style="margin:0 auto; width:80%; text-align:center;" >
+				
+					<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+					<p:inputText id="bem" value="#{cadastroReceita.bem.descricao}" ></p:inputText>
+					
+					<p:outputLabel for="valor" value="#{msg['MSI172']}" />	
+					<p:inputText id="valor" value="#{cadastroReceita.bem.valorFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10" ></p:inputText>
+					
+				</h:panelGrid>
+				
+				<p:commandButton value="#{msg['MG08']}" action="#{cadastroReceita.adicionarBem()}" update="gridBens, painelBem"></p:commandButton>
+				
+				<br/>
+           		
+           		<p:separator></p:separator>
+           		
+           		<p:dataTable id="gridBens" var="bem" value="#{cadastroReceita.receita.listBem}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI057']}">
+			            <h:outputText value="#{bem.descricao}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI172']}">
+			            <h:outputText value="#{bem.valorFormat}" />
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center; margin:0 auto;">
+			             <p:commandButton action="#{cadastroReceita.removerBem(bem)}"  icon="ui-icon-trash" title="#{msg['MG21']}" update="@form">
+			            </p:commandButton>
+			        </p:column>
+			    </p:dataTable>
+			</p:panel>
+			
+			<p:separator></p:separator>
+			
+			<p:panel id="painelVincularSocios" header="#{msg['MSI180']}" style="margin:0 auto; width:80%;" >
+			
+				<h:panelGrid columns="2" style="margin:0 auto;">
+					<p:inputText id="socio" value="#{cadastroReceita.usuarioSelecionado.usuario}" readonly="true"></p:inputText>
+					<p:commandButton id="btnPesquisarSocio" value="#{msg['MG16']}" onclick="PF('socios').show()"/>
+				</h:panelGrid>
+				
+				<br/>
+        			
+       			<p:commandButton value="#{msg['MG08']}" action="#{cadastroReceita.adicionarSocio}" update="@form"></p:commandButton>
+           		
+           		<p:separator></p:separator>
+           		
+           		<p:dataTable id="gridSocios" var="socio" value="#{cadastroReceita.receita.listSocio}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI135']}">
+			            <h:outputText value="#{socio.usuario}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI108']}">
+			            <h:outputText value="#{socio.role.label}" />
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center; margin:0 auto;">
+			             <p:commandButton action="#{cadastroReceita.removerSocio(socio)}"  icon="ui-icon-trash" title="#{msg['MG21']}" update="gridSocios">
+			            </p:commandButton>
+			        </p:column>
+			    </p:dataTable>
+			</p:panel>
+			
+			<p:separator></p:separator>
+			
+			<h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltarReceita" value="#{msg['MG01']}" action="#{cadastroReceita.redirecionaPagina('PAINEL_RECEITA')}" ajax="false" />	
+				<p:commandButton id="btnCadastrarReceita" value="#{msg['MG18']}" action="#{cadastroReceita.cadastrar()}" update="@form"/>
+				
+	        </h:panelGrid>
+		</p:panel>
+		
+		<p:dialog id="infoSocios" widgetVar="socios" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
+	            
+            <p:outputPanel autoUpdate="true">
+            
+	            <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+					<h:inputHidden value="#{painelUsuario.filtroUsuarioDTO.empresa}" submittedValue="#{painelReceita.filtroReceitaDTO.empresa}" />
+					<h:inputHidden value="#{painelUsuario.filtroUsuarioDTO.role}" submittedValue="ADMIN" />
+					
+					<p:outputLabel for="usuario" value="#{msg['MSI135']}" />
+			
+					<p:inputTextarea id="usuario" value="#{painelUsuario.filtroUsuarioDTO.usuario}" maxlength="100"	style="width:250px" />
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+				 	<p:commandButton action="#{painelUsuario.pesquisar()}" value="#{msg['MG16']}" update="pesquisaUsuario"></p:commandButton>
+				 </h:panelGrid>
+				
+				<p:separator></p:separator>
+				
+				<p:dataTable id="pesquisaUsuario" var="usuario" value="#{painelUsuario.listUsuario}" emptyMessage="#{msg['MG19']}">
+						        
+			        <p:column headerText="#{msg['MSI135']}">
+			            <h:outputText value="#{usuario.usuario}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI165']}">
+			            <h:outputText value="#{usuario.role.label}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MG25']}">
+			        
+			        	<p:commandButton oncomplete="PF('socios').hide()" value="#{msg['MG25']}" update="@form">
+			        		<f:setPropertyActionListener value="#{usuario}" target="#{cadastroReceita.usuarioSelecionado}" />
+			        	</p:commandButton>
+			        </p:column>
+			        
+	         	</p:dataTable>
+           </p:outputPanel>
+           
+           <p:separator></p:separator>
+           
+           <p:commandButton oncomplete="PF('socios').hide()" value="#{msg['MG24']}"></p:commandButton>
+	    </p:dialog>	 
+		
+	</ui:define>
+</ui:composition>

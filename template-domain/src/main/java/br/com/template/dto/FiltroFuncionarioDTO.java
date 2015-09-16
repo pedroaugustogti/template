@@ -7,6 +7,7 @@ import javax.faces.model.SelectItem;
 import br.com.template.anotations.EntityProperty;
 import br.com.template.domain.Cargo;
 import br.com.template.domain.Cidade;
+import br.com.template.domain.Empresa;
 import br.com.template.domain.Estado;
 import br.com.template.domain.Situacao;
 
@@ -21,19 +22,27 @@ public class FiltroFuncionarioDTO {
 	@EntityProperty("cargo")
 	private Cargo cargo;
 	
+	@EntityProperty("empresa")
+	private Empresa empresa;
+	
 	@EntityProperty("situacao")
 	private Situacao situacao;
 	
-	private List<SelectItem> cargos;
+	private List<SelectItem> empresas;
 	
 	private List<SelectItem> cidades;
 	
 	private List<SelectItem> estados;
 	
 	public FiltroFuncionarioDTO(){
-		cargos = Cargo.selectItems();
+		empresas = Empresa.selectItems();
 		cidades = Cidade.selectItems();
 		estados = Estado.selectItems();
+	}
+	
+	public List<SelectItem> cargos(Empresa empresa){
+		
+		return Empresa.cargosPorEmpresa(empresa);
 	}
 
 	public String getNome() {
@@ -52,8 +61,12 @@ public class FiltroFuncionarioDTO {
 		this.cargo = cargo;
 	}
 
+	public List<SelectItem> getEmpresas() {
+		return empresas;
+	}
+
 	public List<SelectItem> getCargos() {
-		return cargos;
+		return Empresa.cargosPorEmpresa(empresa);
 	}
 
 	public List<SelectItem> getCidades() {
@@ -78,5 +91,13 @@ public class FiltroFuncionarioDTO {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }

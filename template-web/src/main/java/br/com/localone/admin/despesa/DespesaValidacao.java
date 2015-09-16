@@ -33,7 +33,7 @@ public class DespesaValidacao {
 
 	private void camposObrigatorios(Despesa despesa) throws NegocioException {
 		
-		if (despesa.getTipoDespesa() == null){
+		if (despesa.getEmpresa() == null){
 			
 			throw new NegocioException(Mensagem.MNG008);
 		}

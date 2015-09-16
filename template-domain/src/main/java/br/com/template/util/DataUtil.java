@@ -95,6 +95,17 @@ public final class DataUtil {
 		
 		return date.getTime();
 	}
+	
+	public static Calendar getCalendarHoraInicialDia() {
+		
+		Calendar date = Calendar.getInstance();
+		
+		date.set(Calendar.HOUR_OF_DAY, Tempo.HORA.getTempoMinimo());
+		date.set(Calendar.MINUTE, Tempo.MINUTO.getTempoMinimo());
+		date.set(Calendar.SECOND, Tempo.SEGUNDO.getTempoMinimo());
+		
+		return date;
+	}
 
 	public static Date getHoraFinalDia() {
 		
@@ -105,6 +116,17 @@ public final class DataUtil {
 		date.set(Calendar.SECOND, Tempo.SEGUNDO.getTempoMaximo());
 		
 		return date.getTime();
+	}
+	
+	public static Calendar getCalendarHoraFinalDia() {
+		
+		Calendar date = Calendar.getInstance();
+		
+		date.set(Calendar.HOUR_OF_DAY, Tempo.HORA.getTempoMaximo());
+		date.set(Calendar.MINUTE, Tempo.MINUTO.getTempoMaximo());
+		date.set(Calendar.SECOND, Tempo.SEGUNDO.getTempoMaximo());
+		
+		return date;
 	}
 
 	@SuppressWarnings("deprecation")

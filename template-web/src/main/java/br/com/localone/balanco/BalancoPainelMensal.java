@@ -1,6 +1,7 @@
 package br.com.localone.balanco;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,6 @@ import java.util.Map.Entry;
 
 import br.com.template.domain.Mes;
 import br.com.template.entidades.Balanco;
-import br.com.template.util.DataUtil;
 import br.com.template.util.DinheiroUtil;
 
 public class BalancoPainelMensal extends BalancoPainelAbstract{
@@ -74,7 +74,7 @@ public class BalancoPainelMensal extends BalancoPainelAbstract{
 		
 		for (Balanco balanco : listBalancoAnual){
 			
-			int mes = DataUtil.mes(balanco.getFechamentoConta());
+			int mes = balanco.getFechamentoConta().get(Calendar.MONTH);
 			String mesChave = montaChaveMes(ano, mes);
 			List<Balanco> balancoMes = mapMensal.get(mesChave);
 			

@@ -1,12 +1,6 @@
 package br.com.template.entidades;
  
-import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import br.com.template.domain.Empresa;
 import br.com.template.domain.Role;
 import br.com.template.domain.Situacao;
 import br.com.template.generics.EntidadeBasica;
@@ -45,18 +41,30 @@ public class Usuario extends EntidadeBasica{
 	@Enumerated(EnumType.STRING)
 	private Situacao situacao;
 	
-	@ElementCollection(targetClass=Role.class)
     @Enumerated(EnumType.STRING) 
-    @CollectionTable(name="tb_usuario_role", joinColumns = @JoinColumn(name = "id_usuario"))
     @Column(name="role", nullable = false) 
-	private Set<Role> roles;
-	
-	@OneToOne
-	@JoinColumn(name="id_usuario")
+	private Role role;
+    
+    @Enumerated(EnumType.STRING) 
+    @Column(name="empresa", nullable = false) 
+	private Empresa empresa;
+    
+    @ManyToOne
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
+    
+    @ManyToOne
+	@JoinColumn(name="id_receita")
+	private Receita receita;
+    
+    @ManyToOne
+   	@JoinColumn(name="id_despesa")
+   	private Despesa despesa;
+    
+    @Transient
+    private int indexSocio;
 	
 	public Usuario(){
-		roles = new HashSet<Role>(BigInteger.ZERO.intValue());
 		situacao = Situacao.ATIVO;
 	}
 
@@ -92,12 +100,12 @@ public class Usuario extends EntidadeBasica{
 		this.situacao = situacao;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Funcionario getFuncionario() {
@@ -106,5 +114,37 @@ public class Usuario extends EntidadeBasica{
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Receita getReceita() {
+		return receita;
+	}
+
+	public void setReceita(Receita receita) {
+		this.receita = receita;
+	}
+
+	public int getIndexSocio() {
+		return indexSocio;
+	}
+
+	public void setIndexSocio(int indexSocio) {
+		this.indexSocio = indexSocio;
+	}
+
+	public Despesa getDespesa() {
+		return despesa;
+	}
+
+	public void setDespesa(Despesa despesa) {
+		this.despesa = despesa;
 	}
 }

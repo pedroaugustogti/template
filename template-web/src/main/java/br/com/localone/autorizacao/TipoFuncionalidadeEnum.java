@@ -56,6 +56,9 @@ public enum TipoFuncionalidadeEnum {
 	//Despesa de entrada
 	CADASTRAR_DESPESA_ENTRADA,
 	EXCLUIR_DESPESA_ENTRADA,
-	ALTERAR_DESPESA_ENTRADA;
+	ALTERAR_DESPESA_ENTRADA,
+	
+	//Receita
+	CADASTRAR_RECEITA;
 	
 }

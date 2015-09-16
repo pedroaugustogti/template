@@ -1,9 +1,5 @@
 package br.com.template.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
 
 
 public enum Cargo {
@@ -26,21 +22,24 @@ public enum Cargo {
 	public String getName(){
 		return this.name();
 	}
-	
-	public static List<SelectItem> selectItems(){
+
+	public static Cargo cargoPorRoleUsuario(Role role) {
 		
-		List<SelectItem> enuns = new ArrayList<SelectItem>();
+		Cargo cargo = null;
 		
-		for (Cargo tipoProduto : values()){
+		if (Role.COZINHEIRO.equals(role)){
 			
-			SelectItem selectItem = new SelectItem();
+			cargo = COZINHEIRO;
+		
+		}else if (Role.GARCOM.equals(role)){
 			
-			selectItem.setLabel(tipoProduto.label);
-			selectItem.setValue(tipoProduto);
+			cargo = GARCOM;
 			
-			enuns.add(selectItem);
+		}else if (Role.GERENTE.equals(role)){
+			
+			cargo = GERENTE;
 		}
 		
-		return enuns;
+		return cargo;
 	}
 }

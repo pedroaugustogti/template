@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
-import br.com.localone.service.DespesaEntradaService;
+import br.com.localone.service.DespesaService;
 import br.com.template.util.DataUtil;
 import br.com.template.util.DinheiroUtil;
 
@@ -16,7 +16,7 @@ public class BalancoPainelDespesa {
 	private String despesaMensal;
 	
 	@EJB
-	private DespesaEntradaService despesaEntradaService;
+	private DespesaService despesaService;
 	
 	public void calculaDespesaAnual(BalancoPainelMensal balanco){
 		
@@ -32,7 +32,7 @@ public class BalancoPainelDespesa {
 			DataUtil.setMenorHora(dataInicio);
 			DataUtil.setMaiorHora(dataFinal);
 			
-			Double despesaAnual = (Double)despesaEntradaService.pesquisaTotalDespesasPeloPeriodo(dataInicio, dataFinal);
+			Double despesaAnual = (Double)despesaService.pesquisaTotalDespesasPeloPeriodo(dataInicio, dataFinal);
 			
 			if (despesaAnual != null){
 				
@@ -58,7 +58,7 @@ public class BalancoPainelDespesa {
 			DataUtil.setMenorHora(dataInicio);
 			DataUtil.setMenorHora(dataFinal);
 			
-			Double despesaMensal = (Double)despesaEntradaService.pesquisaTotalDespesasPeloPeriodo(dataInicio, dataFinal);
+			Double despesaMensal = (Double)despesaService.pesquisaTotalDespesasPeloPeriodo(dataInicio, dataFinal);
 			
 			if (despesaMensal != null){
 				

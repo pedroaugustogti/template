@@ -1,6 +1,6 @@
 package br.com.template.entidades;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,20 +48,16 @@ public class Pedido extends EntidadeBasica{
 	private Funcionario cozinheiro;
 	
 	@OneToOne
-	@JoinColumn(name="id_gerente",referencedColumnName="id_funcionario")
-	private Funcionario gerente;
-	
-	@OneToOne
 	@JoinColumn(name="id_comanda")
 	private Comanda comanda;
 	
 	@Column(name="horario_solicitacao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horarioSolicitacao;
+	private Calendar horarioSolicitacao;
 	
 	@Column(name="horario_conclusao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horarioConclusao;
+	private Calendar horarioConclusao;
 	
 	public Long getId() {
 		return id;
@@ -95,19 +91,19 @@ public class Pedido extends EntidadeBasica{
 		this.comanda = comanda;
 	}
 
-	public Date getHorarioSolicitacao() {
+	public Calendar getHorarioSolicitacao() {
 		return horarioSolicitacao;
 	}
 
-	public void setHorarioSolicitacao(Date horarioSolicitacao) {
+	public void setHorarioSolicitacao(Calendar horarioSolicitacao) {
 		this.horarioSolicitacao = horarioSolicitacao;
 	}
 
-	public Date getHorarioConclusao() {
+	public Calendar getHorarioConclusao() {
 		return horarioConclusao;
 	}
 
-	public void setHorarioConclusao(Date horarioConclusao) {
+	public void setHorarioConclusao(Calendar horarioConclusao) {
 		this.horarioConclusao = horarioConclusao;
 	}
 
@@ -125,13 +121,5 @@ public class Pedido extends EntidadeBasica{
 
 	public void setCozinheiro(Funcionario cozinheiro) {
 		this.cozinheiro = cozinheiro;
-	}
-
-	public Funcionario getGerente() {
-		return gerente;
-	}
-
-	public void setGerente(Funcionario gerente) {
-		this.gerente = gerente;
 	}
 }

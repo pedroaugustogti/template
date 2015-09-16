@@ -69,13 +69,12 @@ public enum Pagina {
 	BALANCO_DETALHE_DIARIO("/pages/admin/balanco/painelBalancoFinanceiroDetalheDiario.jsf"), 
 	
 	//Despesa
-	PAINEL_DESPESA("/pages/admin/despesa/geral/painelDespesa.jsf"), 
-	CADASTRAR_DESPESA("/pages/admin/despesa/geral/cadastrarDespesa.jsf"),
-	ALTERAR_DESPESA("/pages/admin/despesa/geral/alterarlDespesa.jsf"), 
+	PAINEL_DESPESA("/pages/admin/controleGasto/despesa/painelDespesa.jsf"), 
+	CADASTRAR_DESPESA("/pages/admin/controleGasto/despesa/cadastrarDespesa.jsf"),
 	
-	PAINEL_DESPESA_ENTRADA("/pages/admin/despesa/painelDespesaEntrada.jsf"),
-	CADASTRAR_DESPESA_ENTRADA("/pages/admin/despesa/cadastrarDespesaEntrada.jsf"),
-	ALTERAR_DESPESA_ENTRADA("/pages/admin/despesa/alterarDespesaEntrada.jsf");
+	//Receita
+	PAINEL_RECEITA("/pages/admin/controleGasto/receita/painelReceita.jsf"),
+	CADASTRAR_RECEITA("/pages/admin/controleGasto/receita/cadastrarReceita.jsf");
 	
 	private String valor;
 	

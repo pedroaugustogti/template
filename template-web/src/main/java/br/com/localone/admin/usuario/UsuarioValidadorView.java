@@ -28,10 +28,6 @@ public class UsuarioValidadorView extends AbstractValidacao{
 
 	private void camposObrigatorios(Usuario usuario,String confirmarSenha) throws NegocioException {
 		
-		if (inteiroNaoInformado(usuario.getFuncionario().getId())){
-			throw new NegocioException(Mensagem.MNG039);
-		}
-		
 		if (StringUtils.isBlank(usuario.getUsuario())){
 			throw new NegocioException(Mensagem.MNG037);
 		}

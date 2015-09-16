@@ -11,38 +11,34 @@
 	
 		<p:panel id="cadastro" header="#{msg['MSI140']}" style="margin:0 auto; width:80%; text-align:center;" >
 		    
-	        <h:panelGrid columns="4" cellpadding="10" style="margin:0 auto;">
+		    <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
 	        
-           		<p:outputLabel for="funcionario" value="#{msg['MSI106']}" />
+           		<p:outputLabel for="role" value="#{msg['MSI165']}" />
 		
-				<p:selectOneMenu id="funcionario"
-					value="#{alterarUsuario.usuario.funcionario.id}">
-					
-					<p:ajax event="change" listener="#{alterarUsuario.carregaFuncionario()}" update="cargo"></p:ajax>
+				<p:selectOneMenu id="role"
+					value="#{alterarUsuario.usuario.role}">
 					
 					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
-					<f:selectItems value="#{alterarUsuario.selectItemsUsuario}" />
+					<f:selectItems value="#{alterarUsuario.carregaRoles()}" />
 				</p:selectOneMenu>
            		
-           		<p:outputLabel for="cargo" value="#{msg['MSI107']}" />
-            	<p:inputText id="cargo" value="#{alterarUsuario.usuario.funcionario.cargo.label}" readonly="true"/>
 	        </h:panelGrid>
 	        
 	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
 		        
-	           		<p:outputLabel value="#{msg['MSI135']}:" />
-	           		
-	            	<p:inputText value="#{alterarUsuario.usuario.usuario}" maxlength="45" style="width:250px"/>
-					 	
-		 			<p:outputLabel value="#{msg['MSI136']}:" />
-	           		
-	            	<p:password value="#{alterarUsuario.usuario.senha}" maxlength="45" style="width:250px"/>
-					 	
-				 	<p:outputLabel value="#{msg['MSI137']}" />
-	           		
-				 	<p:password value="#{alterarUsuario.confirmarSenha}" maxlength="45" style="width:250px"/>
+           		<p:outputLabel value="#{msg['MSI135']}:" />
+           		
+            	<p:inputText value="#{alterarUsuario.usuario.usuario}" maxlength="45" style="width:250px"/>
+				 	
+	 			<p:outputLabel value="#{msg['MSI136']}:" />
+           		
+            	<p:password value="#{alterarUsuario.usuario.senha}" maxlength="45" style="width:250px"/>
+				 	
+			 	<p:outputLabel value="#{msg['MSI137']}" />
+           		
+			 	<p:password value="#{alterarUsuario.confirmarSenha}" maxlength="45" style="width:250px"/>
 			 		
-		        </h:panelGrid>
+	        </h:panelGrid>
 	        
 	        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
 	        

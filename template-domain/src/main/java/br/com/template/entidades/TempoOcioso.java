@@ -1,6 +1,6 @@
 package br.com.template.entidades;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,8 +31,8 @@ public class TempoOcioso extends EntidadeBasica{
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name="id_cozinheiro", referencedColumnName="id_funcionario")
-	private Funcionario cozinheiro;
+	@JoinColumn(name="id_cozinheiro", referencedColumnName="id_usuario")
+	private Usuario cozinheiro;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_ocio")
@@ -40,7 +40,7 @@ public class TempoOcioso extends EntidadeBasica{
 	
 	@Column(name="horario")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horario;
+	private Calendar horario;
 
 	public Long getId() {
 		return id;
@@ -50,11 +50,11 @@ public class TempoOcioso extends EntidadeBasica{
 		this.id = id;
 	}
 
-	public Funcionario getCozinheiro() {
+	public Usuario getCozinheiro() {
 		return cozinheiro;
 	}
 
-	public void setCozinheiro(Funcionario cozinheiro) {
+	public void setCozinheiro(Usuario cozinheiro) {
 		this.cozinheiro = cozinheiro;
 	}
 
@@ -66,11 +66,11 @@ public class TempoOcioso extends EntidadeBasica{
 		this.ocio = ocio;
 	}
 
-	public Date getHorario() {
+	public Calendar getHorario() {
 		return horario;
 	}
 
-	public void setHorario(Date horario) {
+	public void setHorario(Calendar horario) {
 		this.horario = horario;
 	}
 }

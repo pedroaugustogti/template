@@ -1,7 +1,7 @@
 package br.com.localone.cozinha;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -66,7 +66,6 @@ public class CozinhaPainelController extends AbstractManageBean{
 		usuario = usuario();
 		
 		iniciaMotorPainel();
-		
 	}
 	
 	public void iniciarPreparo(Pedido pedido){
@@ -82,7 +81,7 @@ public class CozinhaPainelController extends AbstractManageBean{
 	public void finalizarPreparo(Pedido pedido){
 		
 		pedido.setSituacao(SituacaoPedido.CONCLUIDO);
-		pedido.setHorarioConclusao(new Date());
+		pedido.setHorarioConclusao(Calendar.getInstance());
 		
 		servicePedido.salvar(pedido);
 	}
@@ -178,8 +177,8 @@ public class CozinhaPainelController extends AbstractManageBean{
 					TempoOcioso tempo = new TempoOcioso();
 					Ocio ocio = new Ocio();
 					
-					tempo.setCozinheiro(usuario.getFuncionario());
-					tempo.setHorario(new Date());
+					tempo.setCozinheiro(usuario);
+					tempo.setHorario(Calendar.getInstance());
 					
 					ocio.setMinutoOcioso(tempoOcioso / 1000);
 					tempo.setOcio(ocio);

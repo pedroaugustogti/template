@@ -1,6 +1,6 @@
 package br.com.template.entidades;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,15 +55,15 @@ public class Balanco extends EntidadeBasica{
 	
 	@Column(name="horario_solicitacao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horarioSolicitacao;
+	private Calendar horarioSolicitacao;
 	
 	@Column(name="horario_conclusao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horarioConclusao;
+	private Calendar horarioConclusao;
 	
 	@Column(name="horario_fecha_conta")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechamentoConta;
+	private Calendar fechamentoConta;
 
 	public Long getId() {
 		return id;
@@ -113,27 +113,27 @@ public class Balanco extends EntidadeBasica{
 		this.valorConta = valorConta;
 	}
 
-	public Date getHorarioSolicitacao() {
+	public Calendar getHorarioSolicitacao() {
 		return horarioSolicitacao;
 	}
 
-	public void setHorarioSolicitacao(Date horarioSolicitacao) {
+	public void setHorarioSolicitacao(Calendar horarioSolicitacao) {
 		this.horarioSolicitacao = horarioSolicitacao;
 	}
 
-	public Date getHorarioConclusao() {
+	public Calendar getHorarioConclusao() {
 		return horarioConclusao;
 	}
 
-	public void setHorarioConclusao(Date horarioConclusao) {
+	public void setHorarioConclusao(Calendar horarioConclusao) {
 		this.horarioConclusao = horarioConclusao;
 	}
 
-	public Date getFechamentoConta() {
+	public Calendar getFechamentoConta() {
 		return fechamentoConta;
 	}
 
-	public void setFechamentoConta(Date fechamentoConta) {
+	public void setFechamentoConta(Calendar fechamentoConta) {
 		this.fechamentoConta = fechamentoConta;
 	}
 

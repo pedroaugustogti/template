@@ -1,5 +1,6 @@
 package br.com.localone.service;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.template.dto.FiltroDespesaDTO;
@@ -18,6 +19,8 @@ public interface DespesaService {
 	 * @param filtro
 	 * @return
 	 */
-	List<Despesa> pesquisar(FiltroDespesaDTO filtro);
+	List<Despesa> pesquisar(FiltroDespesaDTO filtro,String... hibernateInitialize);
+
+	Double pesquisaTotalDespesasPeloPeriodo(Date dataInicio, Date dataFinal);
 
 }

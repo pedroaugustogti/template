@@ -14,30 +14,21 @@ import br.com.template.domain.Situacao;
 import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
-import br.com.template.framework.AbstractManageBean;
-import br.com.template.framework.GenericServiceController;
 import br.com.template.util.container.AtributoSessao;
 
 @ManagedBean(name="painelUsuario")
 @ViewScoped
-public class UsuarioPainelController extends AbstractManageBean{
+public class UsuarioPainelController extends UsuarioSuperController{
 	
-	private Usuario usuario;
 	private List<Usuario> listUsuario;
 	private Usuario usuarioSelecionado;
-	
-	private FiltroUsuarioDTO filtroUsuarioDTO;
 	
 	@EJB
 	private UsuarioService usuarioService;
 	
-	@EJB
-	private GenericServiceController<Usuario, Long> service;
-	
 	@PostConstruct
 	public void inicio(){
 		
-		usuario = new Usuario();
 		filtroUsuarioDTO = new FiltroUsuarioDTO();
 	}
 	
@@ -77,24 +68,8 @@ public class UsuarioPainelController extends AbstractManageBean{
 		return Pagina.PAINEL_USUARIO;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	public List<Usuario> getListUsuario() {
 		return listUsuario;
-	}
-
-	public FiltroUsuarioDTO getFiltroUsuarioDTO() {
-		return filtroUsuarioDTO;
-	}
-
-	public void setFiltroUsuarioDTO(FiltroUsuarioDTO filtroUsuarioDTO) {
-		this.filtroUsuarioDTO = filtroUsuarioDTO;
 	}
 
 	public Usuario getUsuarioSelecionado() {

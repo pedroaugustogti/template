@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.ibm.icu.util.Calendar;
+
 import br.com.template.domain.Mes;
 import br.com.template.entidades.Balanco;
 import br.com.template.util.DataUtil;
@@ -113,7 +115,7 @@ public class BalancoPainelDiario extends BalancoPainelAbstract{
 		
 		for (Balanco balanco : listBalancoMes){
 			
-			int dia = DataUtil.dia(balanco.getFechamentoConta());
+			int dia = balanco.getFechamentoConta().get(Calendar.DAY_OF_MONTH);
 			String diaChave = montaChaveDia(chaveBalancoMes, dia);
 			List<Balanco> balancoDiario = mapDiario.get(diaChave);
 			

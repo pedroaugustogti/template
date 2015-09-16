@@ -1,7 +1,7 @@
 package br.com.localone.mesa;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,12 +9,10 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.localone.autorizacao.AutorizacaoEnum;
 import br.com.localone.autorizacao.Pagina;
 import br.com.localone.service.PedidoService;
-import br.com.template.domain.Cargo;
 import br.com.template.domain.Mensagem;
-import br.com.template.domain.Situacao;
+import br.com.template.domain.Role;
 import br.com.template.domain.SituacaoMesa;
 import br.com.template.domain.SituacaoPedido;
 import br.com.template.entidades.Balanco;
@@ -22,6 +20,7 @@ import br.com.template.entidades.Comanda;
 import br.com.template.entidades.Funcionario;
 import br.com.template.entidades.Mesa;
 import br.com.template.entidades.Pedido;
+import br.com.template.entidades.Usuario;
 import br.com.template.framework.GenericServiceController;
 import br.com.template.util.DinheiroUtil;
 
@@ -33,14 +32,6 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 	private static final String WIDGET_VAR_CONTA = "conta";
 	
 	private List<Pedido> listPedidos;
-	
-	private String valorTotalFormat;
-	
-	private String taxaServicoFormat;
-	private boolean taxaServicoSelecionada;
-	
-	private boolean parcialSelecionado;
-	private String parcialFormat;
 	
 	@EJB
 	private PedidoService pedidoService;
@@ -55,10 +46,21 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 	private GenericServiceController<Balanco, Long> serviceBalanco;
 
 	@EJB
-	private GenericServiceController<Funcionario, Long> serviceFuncionario;
+	private GenericServiceController<Usuario, Long> serviceUsuario;
 	
 	private Pedido pedido;
+	
+	private Long idGerente;
+	
 	private double taxaServico;
+	
+	private String valorTotalFormat;
+	private String taxaServicoFormat;
+	private String parcialFormat;
+	
+	private boolean taxaServicoSelecionada;
+	private boolean parcialSelecionado;
+	
 
 	@PostConstruct
 	public void inicio(){
@@ -125,7 +127,7 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 			balanco.setHorarioConclusao(pedido.getHorarioConclusao());
 			balanco.setNumMesa(numMesa);
 			balanco.setValorConta(calculoValorTotal(mesa));
-			balanco.setFechamentoConta(new Date());
+			balanco.setFechamentoConta(Calendar.getInstance());
 			balanco.setCpf(mesa.getCpfCliente());
 			balanco.setTaxaServico(taxaServico);
 			
@@ -200,17 +202,17 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 //		calculoValorTotal(mesa);
 	}
 	
-	public void cancelaPedido(){
+	public void cancelaPedido(Long idUsuario){
 		
-		Funcionario funcionario = usuario().getFuncionario();
+		Usuario usuario = serviceUsuario.getById(Usuario.class, idUsuario);
+		Role roleGerente = usuario.getRole();
 		
-		if (!isGerente(funcionario)){
+		if (roleGerente == null || !Role.GERENTE.equals(roleGerente)){
 			
 			contextPrimefaces().showMessageInDialog(facesMensagem(Mensagem.MNG024));
 			return;
 		}
 		
-		pedido.setGerente(funcionario);
 		pedido.setSituacao(SituacaoPedido.CANCELADO);
 		
 		servicePedido.salvar(pedido);
@@ -219,12 +221,6 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 		
 		fecharModal(WIDGET_VAR_CANCELAR_PEDIDO);
 		abrirModal(WIDGET_VAR_CONTA);
-	}
-
-	private boolean isGerente(Funcionario funcionario) {
-		return funcionario != null && 
-				funcionario.getSituacao().equals(Situacao.ATIVO) && 
-				(funcionario.getCargo().equals(Cargo.GERENTE) || getAutorizacao().equals(AutorizacaoEnum.ADMINISTRADOR)) ;
 	}
 
 	private void limpaMesa() {
@@ -285,5 +281,13 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 
 	public void setParcialFormat(String parcialFormat) {
 		this.parcialFormat = parcialFormat;
+	}
+
+	public Long getIdGerente() {
+		return idGerente;
+	}
+
+	public void setIdGerente(Long idGerente) {
+		this.idGerente = idGerente;
 	}
 }

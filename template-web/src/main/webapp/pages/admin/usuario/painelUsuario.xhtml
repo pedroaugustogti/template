@@ -16,7 +16,7 @@
 				<p:outputLabel for="nome" value="#{msg['MSI106']}" />
 		
 				<p:inputTextarea id="nome"
-					value="#{painelUsuario.filtroUsuarioDTO.cpf}" maxlength="100"
+					value="#{painelUsuario.filtroUsuarioDTO.usuario}" maxlength="100"
 					style="width:250px" />
 		
 			</h:panelGrid>
@@ -42,11 +42,11 @@
 	    	 <p:dataTable id="gridusuario" var="usuario" value="#{painelUsuario.listUsuario}" emptyMessage="#{msg['MG19']}">
 		        
 		        <p:column headerText="#{msg['MSI106']}">
-		            <h:outputText value="#{usuario.funcionario.pessoa.nome}" />
+		            <h:outputText value="#{usuario.usuario}" />
 		        </p:column>
 		        
 		        <p:column headerText="#{msg['MSI108']}">
-		            <h:outputText value="#{usuario.funcionario.pessoa.cpf}" />
+		            <h:outputText value="#{usuario.role.label}" />
 		        </p:column>
 		        
 		        <p:column headerText="#{msg['MG11']}" >
@@ -68,5 +68,28 @@
 		        </p:column>
 		    </p:dataTable>
 	    </p:panel>
+	    
+	    <p:dialog id="alertaExclusao" header="#{msg['MG22']}" widgetVar="confirmaExclusao" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center !important; border:none !important;" >
+	        <p:outputPanel id="confirmaExclusao" style="text-align:center; border:none !important;">
+	            <h:panelGrid style="border:none !important;">
+	 
+	                <p:row>
+			            <p:column colspan="2">#{msg['MG23']}</p:column>
+			        </p:row>
+			        
+			         <p:row>
+			            <p:column colspan="2"><p:separator></p:separator> </p:column>
+			        </p:row>
+			        
+			        <p:row>
+			        	<p:column>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" action="#{painelUsuario.excluir()}" value="#{msg['MG21']}" update="grid"></p:commandButton>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" value="#{msg['MG13']}"></p:commandButton>
+			            </p:column>
+			        </p:row>
+
+	            </h:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
 	</ui:define>
 </ui:composition>

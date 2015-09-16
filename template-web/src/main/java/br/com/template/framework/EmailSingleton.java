@@ -25,11 +25,11 @@ import org.springframework.http.MediaType;
  * Note that this class is an EJB.
  * 
  */
-@Singleton
+//@Singleton
 public class EmailSingleton {
 	
 	/* Take a look at the ResourcesProducer class */
-	@Inject
+//	@Inject
 	private Session mailSession;
 	
 	

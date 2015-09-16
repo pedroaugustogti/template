@@ -7,21 +7,22 @@ import javax.ejb.EJB;
 import javax.faces.model.SelectItem;
 
 import br.com.localone.service.FuncionarioService;
+import br.com.template.domain.Cargo;
 import br.com.template.domain.Role;
-import br.com.template.domain.Situacao;
-import br.com.template.dto.FiltroFuncionarioDTO;
+import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Funcionario;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
 import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
+import br.com.template.util.criptografia.CriptografiaUtil;
 
 public abstract class UsuarioSuperController extends AbstractManageBean{
 	
 	private Usuario usuario;
 	
 	@EJB
-	private GenericServiceController<Usuario, Long> service;
+	protected GenericServiceController<Usuario, Long> service;
 	
 	@EJB
 	private GenericServiceController<Funcionario, Long> serviceFuncionario;
@@ -32,54 +33,52 @@ public abstract class UsuarioSuperController extends AbstractManageBean{
 	@EJB
 	protected UsuarioValidadorView validacaoUsuario;
 	
+	protected FiltroUsuarioDTO filtroUsuarioDTO;
+	
 	protected String confirmarSenha;
 	
-	public List<SelectItem> getSelectItemsUsuario(){
+	public List<SelectItem> carregaRoles(){
 		
-		List<SelectItem> listSelectItems = new ArrayList<SelectItem>();
-		List<Funcionario> listFuncionarios = funcionarioService.pesquisar(getFiltroFuncionario());
+		List<SelectItem> listRoles = new ArrayList<>();
 		
-		for(Funcionario funcionario : listFuncionarios){
+		for (Role role : Role.values()){
 			
 			SelectItem selectItem = new SelectItem();
+			selectItem.setLabel(role.getLabel());
+			selectItem.setValue(role);
 			
-			selectItem.setLabel(funcionario.getPessoa().getNome());
-			selectItem.setValue(funcionario.getId());
-			
-			listSelectItems.add(selectItem);
+			listRoles.add(selectItem);
 		}
 		
-		return listSelectItems;
-	}
-	
-	public void carregaFuncionario (){
-		
-		if (usuario.getFuncionario().getId() != null){
-			
-			usuario.setFuncionario(serviceFuncionario.getById(Funcionario.class, usuario.getFuncionario().getId()));
-		}else{
-			usuario.setFuncionario(new Funcionario());
-		}
+		return listRoles;
 	}
 	
 	protected void cadastrar() throws NegocioException{
 		
 		validacaoUsuario.confirmaSenha(usuario, getConfirmarSenha());
 		
-		usuario.setRoles(Role.getRolesPorCargo(usuario.getFuncionario().getCargo()));
+		String senhaCriptografada = CriptografiaUtil.criptografar(usuario.getSenha());
+		
+		usuario.setSenha(senhaCriptografada);
 		
 		service.salvar(usuario);
 	}
 	
-	private FiltroFuncionarioDTO getFiltroFuncionario() {
+	public void selecionaFuncionario(Funcionario funcionario){
 		
-		FiltroFuncionarioDTO filtro = new FiltroFuncionarioDTO();
-		
-		filtro.setSituacao(Situacao.ATIVO);
-		
-		return filtro;
+		usuario.setFuncionario(funcionario);
 	}
-
+	
+	public boolean getRoleParaFuncionario(){
+		
+		return cargoFuncionarioPorRoleUsuario() != null;
+	}
+	
+	public Cargo cargoFuncionarioPorRoleUsuario(){
+		
+		return Cargo.cargoPorRoleUsuario(usuario.getRole());
+	}
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -94,5 +93,13 @@ public abstract class UsuarioSuperController extends AbstractManageBean{
 
 	public void setConfirmarSenha(String confirmarSenha) {
 		this.confirmarSenha = confirmarSenha;
+	}
+	
+	public FiltroUsuarioDTO getFiltroUsuarioDTO() {
+		return filtroUsuarioDTO;
+	}
+
+	public void setFiltroUsuarioDTO(FiltroUsuarioDTO filtroUsuarioDTO) {
+		this.filtroUsuarioDTO = filtroUsuarioDTO;
 	}
 }

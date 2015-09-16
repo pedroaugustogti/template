@@ -57,6 +57,9 @@ public enum Mensagem {
 	MNG040(TipoMensagem.ALERTA),
 	MNG041(TipoMensagem.ALERTA),
 	MNG042(TipoMensagem.ALERTA),
+	MNG043(TipoMensagem.ALERTA),
+	MNG044(TipoMensagem.ALERTA),
+	MNG045(TipoMensagem.ALERTA),
 	
 	//ERROS INTERNOS DO SISTEMA
 	//MEI = Mensagem de Erro Interno
@@ -73,6 +76,7 @@ public enum Mensagem {
 	MEI010(TipoMensagem.INTERNO),
 	MEI011(TipoMensagem.INTERNO),
 	MEI012(TipoMensagem.INTERNO),
+	MEI013(TipoMensagem.INTERNO),
 	
 	//MENSAGENS PADRÃO (DEFAULT)
 	//MDF = Mensagem Default

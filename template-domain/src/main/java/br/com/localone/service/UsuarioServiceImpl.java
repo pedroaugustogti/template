@@ -17,7 +17,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	public List<Usuario> pesquisar(FiltroUsuarioDTO filtro) {
-		return reposiroty.filtrarPesquisa(filtro, Usuario.class,"roles");
+		return reposiroty.filtrarPesquisa(filtro, Usuario.class);
 	}
 
 	@Override

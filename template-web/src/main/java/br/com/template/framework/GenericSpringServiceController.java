@@ -59,10 +59,6 @@ public class GenericSpringServiceController<T extends EntidadeBasica, ID extends
 	public void salvar(T t) {
 		genericService.salvar(merge(t));
 	}
-	
-	public void salvarSemMensagem(T t) {
-		genericService.salvar(merge(t));
-	}
 
 	/**
 	 * <p>Método retorna entidade a partir do valor da chave primaria passado.</p>

@@ -6,6 +6,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.localone.autorizacao.Pagina;
 import br.com.template.domain.Mensagem;
+import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
 import br.com.template.util.container.AtributoSessao;
@@ -16,6 +17,8 @@ public class UsuarioAlterarController extends UsuarioSuperController{
 	
 	@PostConstruct
 	public void inicio() throws NegocioException{
+		
+		filtroUsuarioDTO = new FiltroUsuarioDTO();
 		
 		Object dadosUsuario = getAtributoSessao(AtributoSessao.OBJ_ALTERAR_USUARIO);
 		

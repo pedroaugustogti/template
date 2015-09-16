@@ -23,7 +23,7 @@ public class PedidoDAO extends ConsultasDaoJpa<Pedido>{
 		Criteria criteria = super.novoCriterio();
 		
 		criteria.add(
-				Restrictions.between("horarioSolicitacao", DataUtil.getHoraInicialDia(), DataUtil.getHoraFinalDia()));
+				Restrictions.between("horarioSolicitacao", DataUtil.getCalendarHoraInicialDia(), DataUtil.getCalendarHoraFinalDia()));
 		
 		criteria.add(Restrictions.eqOrIsNull("situacao", situacao));
 

@@ -41,7 +41,7 @@ public enum AutorizacaoEnum {
 			Pagina.PAINEL_CLIENTE,
 			Pagina.CLIENTE_MENU,
 			Pagina.PAINEL_ADMIN,
-			Pagina.PAINEL_MESA),
+			Pagina.PAINEL_MESA_ADMIN),
 	
 	/**
 	 * COZINHEIRO 

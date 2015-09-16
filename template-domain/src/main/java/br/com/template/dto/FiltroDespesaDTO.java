@@ -5,12 +5,12 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import br.com.template.anotations.EntityProperty;
-import br.com.template.domain.TipoDespesa;
+import br.com.template.domain.Empresa;
 
 public class FiltroDespesaDTO {
 
-	@EntityProperty("tipoDespesa")
-	private TipoDespesa tipoDespesa;
+	@EntityProperty("empresa")
+	private Empresa empresa;
 	
 	@EntityProperty(value="descricao")
 	private String descricao;
@@ -18,24 +18,12 @@ public class FiltroDespesaDTO {
 	@EntityProperty(value="descricao", pesquisaExata=true, ignoraCaseSensitive=true)
 	private String descricaoExata;
 	
-	private List<SelectItem> tipoDespesas;
+	private List<SelectItem> empresas;
 	
 	public FiltroDespesaDTO(){
-		tipoDespesas = TipoDespesa.selectItems();
+		empresas = Empresa.selectItems();
 	}
-
-	public List<SelectItem> getTipoDespesas() {
-		return tipoDespesas;
-	}
-
-	public TipoDespesa getTipoDespesa() {
-		return tipoDespesa;
-	}
-
-	public void setTipoDespesa(TipoDespesa tipoDespesa) {
-		this.tipoDespesa = tipoDespesa;
-	}
-
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -50,5 +38,17 @@ public class FiltroDespesaDTO {
 
 	public void setDescricaoExata(String descricaoExata) {
 		this.descricaoExata = descricaoExata;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public List<SelectItem> getEmpresas() {
+		return empresas;
 	}
 }

@@ -2,12 +2,10 @@ package br.com.template.util.criptografia;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -54,31 +52,13 @@ public final class CriptografiaUtil {
 	
 	private static String ENCODING = "UTF-8";
 	
-	/**
-	 * Constante criada com valor 16 para poder gerar códigos aleatórios de 16 posições
-	 */
-	private static int HASH_16_BYTES = 16;
-	
 	static {
-		keySecretSpec = randomKey();
-		keyIvParameterSpec = randomKey();
+		keySecretSpec = "96d7a287-1099-47";
+		keyIvParameterSpec = "5f74a10a-2ad1-4e";
 	}
 	
 	private CriptografiaUtil(){
 		//Evita instanciação
-	}
-	
-	/**
-	 * Gera uma chave aleatória de 16 posições, para ser usado na criptografia/descriptografia.
-	 * 
-	 * @return
-	 * 
-	 * Código aleatório de 16 posições.
-	 */
-	private static String randomKey() {
-		UUID uuid = UUID.randomUUID();  
-		String myRandom = uuid.toString();  
-		return myRandom.substring(BigInteger.ZERO.intValue(), HASH_16_BYTES);
 	}
 	
 	/**

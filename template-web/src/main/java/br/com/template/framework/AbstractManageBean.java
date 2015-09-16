@@ -75,7 +75,7 @@ public abstract class AbstractManageBean extends AutorizacaoManageBean {
 	    	autorizacao = AutorizacaoEnum.usuarioComAcesso(getPaginaManageBean(), permissoesUsuarioLogado());
 	    	
 	    	if (autorizacao == null || !authentication.isAuthenticated()) {
-	    		
+
 	    		logout();
 	        }
 		}catch (Exception ex){

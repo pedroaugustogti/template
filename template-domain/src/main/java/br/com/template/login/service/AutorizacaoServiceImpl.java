@@ -1,7 +1,7 @@
 package br.com.template.login.service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import br.com.template.domain.Mensagem;
-import br.com.template.domain.Role;
 import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Usuario;
 import br.com.template.generics.ConsultasDaoJpa;
@@ -32,29 +31,19 @@ public class AutorizacaoServiceImpl implements UserDetailsService {
 		
 		filtro.setUsuario(username);
 	
-		Usuario ususario = consultaDao.primeiroRegistroPorFiltro(filtro, Usuario.class);
+		final Usuario ususario = consultaDao.primeiroRegistroPorFiltro(filtro, Usuario.class);
 		
 		if (ususario == null){
 			throw new UsernameNotFoundException(Mensagem.MNG003.name());
 		}
 		
-		Set<GrantedAuthority> authorities = buildUserAuthority(ususario.getRoles());
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(0);
+		authorities.add(new SimpleGrantedAuthority(ususario.getRole().name()));
 
 		return buildUserForAuthentication(ususario, authorities);
 	}
 
-	private User buildUserForAuthentication(Usuario user, Set<GrantedAuthority> authorities) {
+	private User buildUserForAuthentication(Usuario user, List<GrantedAuthority> authorities) {
 		return new User(user.getUsuario(), user.getSenha(), Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE, authorities);
-	}
-
-	private Set<GrantedAuthority> buildUserAuthority(Set<Role> roles) {
-
-		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>(0);
-
-		for (Role userRole : roles) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.name()));
-		}
-
-		return setAuths;
 	}
 }

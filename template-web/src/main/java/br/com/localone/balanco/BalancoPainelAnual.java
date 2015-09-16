@@ -1,13 +1,13 @@
 package br.com.localone.balanco;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import br.com.template.entidades.Balanco;
-import br.com.template.util.DataUtil;
 
 public class BalancoPainelAnual extends BalancoPainelAbstract{
 	
@@ -29,7 +29,7 @@ public class BalancoPainelAnual extends BalancoPainelAbstract{
 		
 		for (Balanco balanco : listPesquisaBalanco){
 			
-			String ano = String.valueOf(DataUtil.ano(balanco.getFechamentoConta()));
+			String ano = String.valueOf(balanco.getFechamentoConta().get(Calendar.YEAR));
 			
 			List<Balanco> balancosAno = mapAnual.get(ano);
 			

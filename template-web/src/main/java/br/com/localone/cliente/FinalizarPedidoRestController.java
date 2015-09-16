@@ -1,6 +1,7 @@
 package br.com.localone.cliente;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
@@ -59,14 +60,42 @@ public class FinalizarPedidoRestController extends AbstractRestController {
 			return status(HttpStatus.BAD_REQUEST);
 		}
 		
-		List<CardapioDTO> cardapioDTOs = carrinhoDTO.getListPedidosCarrinho();
+		vinculaPedidosCarrinhoNaMesa(mesa, carrinhoDTO.getListPedidosCarrinho());
+		Comanda comanda = getComandaPorMesa(mesa);
+		
+		if (comanda == null){
+			return status(HttpStatus.BAD_REQUEST);
+		}
+		
+		ComandaDTO comandaDTO = new ComandaDTO();
+		comandaDTO.setIdComanda(comanda.getId());
+		
+		return toJson(comandaDTO);
+	}
+
+	private Comanda getComandaPorMesa(Mesa mesa) {
+		
+		FiltroComandaDTO filtroComandaDTO = new FiltroComandaDTO();
+		
+		filtroComandaDTO.setMesaId(mesa.getId());
+		Comanda comanda = comandaService.getComandaMesa(filtroComandaDTO);
+		return comanda;
+	}
+
+	private void vinculaPedidosCarrinhoNaMesa(Mesa mesa, List<CardapioDTO> cardapioDTOs) {
 		
 		if (cardapioDTOs != null){
 			
 			List<Pedido> listPedido = new ArrayList<Pedido>();
 			
-			Comanda comanda = new Comanda();
-			comanda.setMesa(mesa);
+			Comanda comanda = mesa.getComanda();
+			
+			if (comanda == null){
+				
+				comanda = new Comanda();
+				comanda.setMesa(mesa);
+			}
+			
 			
 			for (CardapioDTO cardapioDTO : cardapioDTOs){
 				
@@ -79,30 +108,16 @@ public class FinalizarPedidoRestController extends AbstractRestController {
 					pedido.setCardapio(cardapio);
 					pedido.setComanda(comanda);
 					pedido.setSituacao(SituacaoPedido.FILA);
+					pedido.setHorarioSolicitacao(Calendar.getInstance());
 					
 					listPedido.add(pedido);
 				}
 			}
 			
 			comanda.setListPedido(listPedido);
-			
 			mesa.setComanda(comanda);
 			
 			serviceGenericMesa.salvar(mesa);
 		}
-		
-		FiltroComandaDTO filtroComandaDTO = new FiltroComandaDTO();
-		
-		filtroComandaDTO.setMesaId(mesa.getId());
-		Comanda comanda = comandaService.getComandaMesa(filtroComandaDTO);
-		
-		if (comanda == null){
-			return status(HttpStatus.BAD_REQUEST);
-		}
-		
-		ComandaDTO comandaDTO = new ComandaDTO();
-		comandaDTO.setIdComanda(comanda.getId());
-		
-		return toJson(comandaDTO);
 	}
 }

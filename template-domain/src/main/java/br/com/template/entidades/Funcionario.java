@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import br.com.template.domain.Cargo;
+import br.com.template.domain.Empresa;
 import br.com.template.domain.Situacao;
 import br.com.template.generics.EntidadeBasica;
 import br.com.template.util.DinheiroUtil;
@@ -68,9 +69,9 @@ public class Funcionario extends EntidadeBasica{
 	@JoinColumn(name="id_pessoa")
 	private Pessoa pessoa;
 	
-	@OneToOne
-	@JoinColumn(name="id_funcionario")
-	private Usuario usuario;
+	@Enumerated(EnumType.STRING) 
+    @Column(name="empresa", nullable = false) 
+	private Empresa empresa;
 	
 	@Transient
 	private String salarioFormat;
@@ -169,5 +170,13 @@ public class Funcionario extends EntidadeBasica{
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }

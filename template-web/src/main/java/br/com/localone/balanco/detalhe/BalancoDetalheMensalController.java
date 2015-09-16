@@ -20,7 +20,7 @@ import org.primefaces.model.chart.LineChartModel;
 import br.com.localone.autorizacao.Pagina;
 import br.com.localone.balanco.BalancoPainelAbstract;
 import br.com.localone.balanco.BalancoPainelDiario;
-import br.com.localone.service.DespesaEntradaService;
+import br.com.localone.service.DespesaService;
 import br.com.template.domain.Mensagem;
 import br.com.template.domain.Mes;
 import br.com.template.entidades.Balanco;
@@ -40,7 +40,7 @@ public class BalancoDetalheMensalController extends AbstractManageBean implement
 	private Integer mesAtual;
 	
 	@EJB
-	private DespesaEntradaService serviceDespesa;
+	private DespesaService serviceDespesa;
 	
 	@PostConstruct
 	public void inicio() throws NegocioException{

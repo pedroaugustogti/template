@@ -1,6 +1,5 @@
 package br.com.localone.admin.despesa;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,10 +11,10 @@ import br.com.localone.autorizacao.Pagina;
 import br.com.localone.service.DespesaService;
 import br.com.template.dto.FiltroDespesaDTO;
 import br.com.template.entidades.Despesa;
-import br.com.template.excecao.NegocioException;
+import br.com.template.entidades.DespesaSocio;
 import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
-import br.com.template.util.container.AtributoSessao;
+import br.com.template.util.DinheiroUtil;
 
 @ManagedBean(name="painelDespesa")
 @ViewScoped
@@ -42,18 +41,19 @@ public class DespesaPainelController extends AbstractManageBean{
 	
 	public void pesquisar(){
 		
-		listDespesa = despesaService.pesquisar(filtroDespesaDTO);
+		listDespesa = despesaService.pesquisar(filtroDespesaDTO,"listDespesaSocio");
 	}
 	
-	public void redirecionaParaTelaAlterar(Despesa despesa) throws IOException, NegocioException{
+	public String calculoTotalDespesa(List<DespesaSocio> listDespesaSocio){
 		
-		setAtributoSessao(AtributoSessao.OBJ_ALTERAR_DESPESA, despesa);
-		redirecionaPagina(Pagina.ALTERAR_DESPESA);
-	}
-	
-	public void excluir(){
-		service.excluir(despesaSelecionado);
-		this.pesquisar();
+		double valorTotal = 0.0;
+		
+		for (DespesaSocio despesaSocio: listDespesaSocio){
+			
+			valorTotal += despesaSocio.getValor();
+		}
+		
+		return DinheiroUtil.doubleEmRealSemSimbolo(valorTotal);
 	}
 	
 	@Override

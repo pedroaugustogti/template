@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer;
+import org.hibernate.sql.JoinType;
 import org.springframework.core.GenericTypeResolver;
 
 import br.com.template.anotations.EntityProperty;
@@ -212,7 +213,7 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 					
 					todosAlias.add(aliasCompleto);
 
-					criteria.createAlias(alias.toString(), aliasCompleto);
+					criteria.createAlias(alias.toString(), aliasCompleto, JoinType.INNER_JOIN);
 
 					todosJoins.add(joinsJaCriados.toString());
 				} 
