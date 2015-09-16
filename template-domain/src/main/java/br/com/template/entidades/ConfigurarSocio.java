@@ -33,12 +33,12 @@ public class ConfigurarSocio extends EntidadeBasica{
 	@Column(name="id_conf_socio")
 	private Long id;
 	
-	@Column(name="empresa")
+	@Column(name="empresa",unique=true)
 	@Enumerated(EnumType.STRING)
 	private Empresa empresa;
 	
 	@OneToMany(mappedBy="configurarSocio", orphanRemoval=true, cascade=CascadeType.ALL)
-	private List<QuotaSocio> listDespesaSocio;
+	private List<QuotaSocio> listQuotaSocio;
 
 	public Long getId() {
 		return id;
@@ -56,11 +56,11 @@ public class ConfigurarSocio extends EntidadeBasica{
 		this.empresa = empresa;
 	}
 
-	public List<QuotaSocio> getListDespesaSocio() {
-		return listDespesaSocio;
+	public List<QuotaSocio> getListQuotaSocio() {
+		return listQuotaSocio;
 	}
 
-	public void setListDespesaSocio(List<QuotaSocio> listDespesaSocio) {
-		this.listDespesaSocio = listDespesaSocio;
+	public void setListQuotaSocio(List<QuotaSocio> listQuotaSocio) {
+		this.listQuotaSocio = listQuotaSocio;
 	}
 }

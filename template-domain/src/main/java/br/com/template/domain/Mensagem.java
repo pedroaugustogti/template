@@ -60,6 +60,7 @@ public enum Mensagem {
 	MNG043(TipoMensagem.ALERTA),
 	MNG044(TipoMensagem.ALERTA),
 	MNG045(TipoMensagem.ALERTA),
+	MNG046(TipoMensagem.ALERTA),
 	
 	//ERROS INTERNOS DO SISTEMA
 	//MEI = Mensagem de Erro Interno

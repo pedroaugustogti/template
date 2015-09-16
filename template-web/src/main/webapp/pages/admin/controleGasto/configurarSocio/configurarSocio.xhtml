@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI186']}</ui:define>
+
+	<ui:define name="body">	 
+		
+		<p:panel id="cadastro" header="#{msg['MSI186']}" style="margin:0 auto; width:80%; text-align:center;" >
+	    
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+	          		<p:outputLabel for="empresa" value="#{msg['MG27']}" />
+	           		
+	          		<p:selectOneMenu id="empresa" value="#{painelSocio.configurarSocio.empresa}">
+	          			
+	          			<p:ajax event="change" listener="#{painelSocio.pesquisaConfiguracaoSociosPorEmpresa()}" update="panelConfig"></p:ajax>
+	          			 
+	          			<f:selectItems value="#{painelSocio.filtroConfigurarSocioDTO.empresas}" />
+	          		</p:selectOneMenu>
+	          		
+	        </h:panelGrid>
+	        
+	        <p:outputPanel id="panelConfig">
+	        
+				<h:panelGrid columns="3" style="margin:0 auto;">
+				
+					<p:outputLabel for="socio" value="#{msg['MSI135']}" />	
+					<p:inputText id="socio" value="#{painelSocio.usuarioSelecionado.usuario}" readonly="true"></p:inputText>
+					<p:commandButton id="btnPesquisarSocio" value="#{msg['MG16']}" onclick="PF('socios').show()"/>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3" style="margin:0 auto;">
+					<p:outputLabel for="quota" value="#{msg['MSI187']}" />	
+					<p:inputText id="quota" value="#{painelSocio.quotaSocio.quota}"  maxlength="3" size="3" onkeypress="somenteNumero(this,numero)" ></p:inputText>
+					<p:outputLabel value="%" />	
+				</h:panelGrid>
+				
+				<br/>
+		      			
+				<p:commandButton value="#{msg['MG08']}" action="#{painelSocio.adicionarSocio}" update="@form"></p:commandButton>
+		  		
+		  		<p:separator></p:separator>
+		  		
+		  		<p:dataTable id="gridSocios" var="quotaSocio" value="#{painelSocio.configurarSocio.listQuotaSocio}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI188']}">
+			            <h:outputText value="#{quotaSocio.socio.usuario}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI187']}">
+			            <h:outputText value="#{quotaSocio.quota}%" />
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center; margin:0 auto;">
+			             <p:commandButton action="#{painelSocio.removerSocio(quotaSocio)}"  icon="ui-icon-trash" title="#{msg['MG21']}" update="gridSocios">
+			            </p:commandButton>
+			        </p:column>
+			    </p:dataTable>
+		    
+		    </p:outputPanel>
+	        
+	    </p:panel>
+	    
+	   	<p:dialog id="infoSocios" widgetVar="socios" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
+	           
+	    	<p:outputPanel autoUpdate="true">
+	          
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	
+				<h:inputHidden value="#{painelUsuario.filtroUsuarioDTO.empresa}" submittedValue="#{painelSocio.configurarSocio.empresa}" />
+				<h:inputHidden value="#{painelUsuario.filtroUsuarioDTO.role}" submittedValue="ADMIN" />
+				
+				<p:outputLabel for="usuario" value="#{msg['MSI135']}" />
+		
+				<p:inputTextarea id="usuario" value="#{painelUsuario.filtroUsuarioDTO.usuario}" maxlength="100"	style="width:250px" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+			 	<p:commandButton action="#{painelUsuario.pesquisar()}" value="#{msg['MG16']}" update="pesquisaUsuario"></p:commandButton>
+			 </h:panelGrid>
+			
+			<p:separator></p:separator>
+			
+			<p:dataTable id="pesquisaUsuario" var="usuario" value="#{painelUsuario.listUsuario}" emptyMessage="#{msg['MG19']}">
+					        
+		        <p:column headerText="#{msg['MSI135']}">
+		            <h:outputText value="#{usuario.usuario}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI165']}">
+		            <h:outputText value="#{usuario.role.label}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MG25']}">
+		        
+		        	<p:commandButton oncomplete="PF('socios').hide()" value="#{msg['MG25']}" update="@form">
+		        		<f:setPropertyActionListener value="#{usuario}" target="#{painelSocio.usuarioSelecionado}" />
+		        	</p:commandButton>
+		        </p:column>
+		        
+	        	</p:dataTable>
+	         </p:outputPanel>
+	         
+	         <p:separator></p:separator>
+	         
+	         <p:commandButton oncomplete="PF('socios').hide()" value="#{msg['MG24']}"></p:commandButton>
+	    </p:dialog>	 	 
+	</ui:define>
+</ui:composition>

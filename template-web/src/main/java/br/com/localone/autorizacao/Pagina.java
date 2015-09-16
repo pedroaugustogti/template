@@ -74,7 +74,10 @@ public enum Pagina {
 	
 	//Receita
 	PAINEL_RECEITA("/pages/admin/controleGasto/receita/painelReceita.jsf"),
-	CADASTRAR_RECEITA("/pages/admin/controleGasto/receita/cadastrarReceita.jsf");
+	CADASTRAR_RECEITA("/pages/admin/controleGasto/receita/cadastrarReceita.jsf"), 
+	
+	//configurar Socios
+	CONFIGURAR_SOCIOS("/pages/admin/controleGasto/configurarSocio.jsf");
 	
 	private String valor;
 	
