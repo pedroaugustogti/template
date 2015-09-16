@@ -27,16 +27,16 @@ public class EmailSingleton {
 	
 	@Asynchronous
 	@Lock(LockType.READ)
-	public void sendMail(@Observes(during = TransactionPhase.AFTER_SUCCESS) EmailDTO event) {
+	public void sendMail(@Observes(during = TransactionPhase.AFTER_SUCCESS) EmailDTO email) {
 
 		try {
             MimeMessage m = new MimeMessage(mailSession);
-            Address[] to = new InternetAddress[] {new InternetAddress(event.getTo())};
+            Address[] to = new InternetAddress[] {new InternetAddress(email.getTo())};
 
             m.setRecipients(Message.RecipientType.TO, to);
-            m.setSubject(event.getSubject());
+            m.setSubject(email.getSubject());
             m.setSentDate(new Date());
-            m.setContent(event.getMessage(), MediaType.TEXT_HTML_VALUE); 
+            m.setContent(email.getMessage(), MediaType.TEXT_HTML_VALUE); 
             
             Transport.send(m);
         } catch (MessagingException e) {
