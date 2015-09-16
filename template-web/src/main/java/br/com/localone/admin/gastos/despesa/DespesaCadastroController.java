@@ -1,4 +1,4 @@
-package br.com.localone.admin.despesa;
+package br.com.localone.admin.gastos.despesa;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

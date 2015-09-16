@@ -1,4 +1,4 @@
-package br.com.localone.admin.despesa;
+package br.com.localone.admin.gastos.despesa;
 
 import java.util.ArrayList;
 import java.util.List;

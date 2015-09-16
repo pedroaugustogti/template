@@ -1,4 +1,4 @@
-package br.com.localone.admin.despesa;
+package br.com.localone.admin.gastos.despesa;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
