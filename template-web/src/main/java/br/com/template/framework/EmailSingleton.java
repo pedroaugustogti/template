@@ -19,26 +19,12 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.http.MediaType;
 
-/* This class is responsible for actually processing
- * "Mail Events" and sending emails using the Java Mail API.
- * 
- * Note that this class is an EJB.
- * 
- */
 //@Singleton
 public class EmailSingleton {
 	
-	/* Take a look at the ResourcesProducer class */
 //	@Inject
 	private Session mailSession;
 	
-	
-	/* To make the mail sending routine asynchronous, we annotate this method
-	 * with @Asynchronous and @Lock(READ). These are EJB annotations, not CDI.
-	 * 
-	 * The second thing to pay attention to, is the CDI @Observers annotation and 
-	 * its "during = AFTER_SUCCESS" attribute. This is what guarantees that this event
-	 * will only be processed if the transaction commits successfully. */
 	@Asynchronous
 	@Lock(LockType.READ)
 	public void sendMail(@Observes(during = TransactionPhase.AFTER_SUCCESS) EmailDTO event) {
