@@ -42,6 +42,9 @@ public class Pessoa extends EntidadeBasica{
 	@Column(name="cpf")
     private String cpf;
 	
+	@Column(name="rg")
+    private String rg;
+	
 	@Column(name="sexo")
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
@@ -100,5 +103,13 @@ public class Pessoa extends EntidadeBasica{
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 }

@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI190']}</ui:define>
+
+	<ui:define name="body">	 
+		
+		<p:panel id="balanco" header="#{msg['MSI190']}" style="margin:0 auto; width:80%; text-align:center;" >
+	    
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+          		<p:outputLabel for="empresa" value="#{msg['MG27']}" />
+           		
+          		<p:selectOneMenu id="empresa" value="#{painelBalancoGasto.filtroBalancoGastoDTO.empresa}">
+          			
+          			<p:ajax event="change" listener="#{painelBalancoGasto.divisaoPorSocio()}" update="gridSocios"></p:ajax>
+          			 
+          			<f:selectItem noSelectionOption="true" itemLabel="#{msg['MG03']}"/>
+          			<f:selectItems value="#{painelBalancoGasto.filtroBalancoGastoDTO.empresas}" />
+          		</p:selectOneMenu>
+	          		
+	        </h:panelGrid>
+	        
+	        <p:separator></p:separator>
+	        
+	  		<p:dataTable id="gridSocios" var="balanco" value="#{painelBalancoGasto.listBalancoGasto}" emptyMessage="#{msg['MG19']}">
+		        
+		        <p:column headerText="#{msg['MSI188']}">
+		            <h:outputText value="#{balanco.socio.usuario}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI187']}">
+		            <h:outputText value="#{balanco.quota}%" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI191']}">
+		            <h:outputText value="#{balanco.valorPagarFormat}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI192']}">
+		            <h:outputText value="#{balanco.valorReceberFormat}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI193']}">
+		            <h:outputText value="#{balanco.saldo}" />
+		        </p:column>
+		        
+		    </p:dataTable>
+		    
+	    </p:panel>
+	    
+	</ui:define>
+</ui:composition>

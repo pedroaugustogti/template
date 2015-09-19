@@ -1,5 +1,6 @@
 package br.com.template.entidades;
  
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,8 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import br.com.template.domain.Empresa;
 import br.com.template.domain.Role;
@@ -49,21 +50,17 @@ public class Usuario extends EntidadeBasica{
     @Column(name="empresa", nullable = false) 
 	private Empresa empresa;
     
+    @Column(name = "celular")
+	private String celular;
+    
     @ManyToOne
 	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
     
-    @ManyToOne
-	@JoinColumn(name="id_receita")
-	private Receita receita;
+    @OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="id_pessoa")
+	private Pessoa pessoa;
     
-    @ManyToOne
-   	@JoinColumn(name="id_despesa")
-   	private Despesa despesa;
-    
-    @Transient
-    private int indexSocio;
-	
 	public Usuario(){
 		situacao = Situacao.ATIVO;
 	}
@@ -124,27 +121,19 @@ public class Usuario extends EntidadeBasica{
 		this.empresa = empresa;
 	}
 
-	public Receita getReceita() {
-		return receita;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setReceita(Receita receita) {
-		this.receita = receita;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
-	public int getIndexSocio() {
-		return indexSocio;
+	public String getCelular() {
+		return celular;
 	}
 
-	public void setIndexSocio(int indexSocio) {
-		this.indexSocio = indexSocio;
-	}
-
-	public Despesa getDespesa() {
-		return despesa;
-	}
-
-	public void setDespesa(Despesa despesa) {
-		this.despesa = despesa;
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 }

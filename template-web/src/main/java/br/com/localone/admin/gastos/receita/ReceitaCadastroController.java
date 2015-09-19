@@ -1,15 +1,19 @@
 package br.com.localone.admin.gastos.receita;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.localone.autorizacao.Pagina;
+import br.com.localone.service.ConfigurarSocioService;
 import br.com.template.dto.FiltroReceitaDTO;
 import br.com.template.entidades.Bem;
 import br.com.template.entidades.Receita;
+import br.com.template.entidades.ReceitaSocio;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
 
@@ -21,13 +25,33 @@ public class ReceitaCadastroController extends ReceitaSuperController{
 	
 	private int indexBem;
 	
+	@EJB
+	protected ConfigurarSocioService configurarSocioService;
+	
 	@PostConstruct
 	public void inicio() throws NegocioException{
 		
 		receita = new Receita();
 		filtroReceitaDTO = new FiltroReceitaDTO();
 		limpaBem();
-		receita.setListSocio(new ArrayList<Usuario>());
+		receita.setListSocio(new ArrayList<ReceitaSocio>());
+	}
+	
+	public void sociosPorEmpresa(){
+		
+		List<ReceitaSocio> listBeneficiarios = new ArrayList<ReceitaSocio>();
+		
+		for (Usuario socio : sociosPorEmpresa(receita.getEmpresa())){
+			
+			ReceitaSocio receitaSocio = new ReceitaSocio();
+			
+			receitaSocio.setReceita(receita);
+			receitaSocio.setSocio(socio);
+			
+			listBeneficiarios.add(receitaSocio);
+		}
+		
+		receita.setListSocio(listBeneficiarios);
 	}
 
 	private void limpaBem() {

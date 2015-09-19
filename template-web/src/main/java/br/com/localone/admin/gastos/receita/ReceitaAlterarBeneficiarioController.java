@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.localone.autorizacao.Pagina;
 import br.com.template.dto.FiltroReceitaDTO;
 import br.com.template.entidades.Receita;
-import br.com.template.entidades.Usuario;
+import br.com.template.entidades.ReceitaSocio;
 import br.com.template.excecao.NegocioException;
 
 @ManagedBean(name="alterarBeneficiario")
@@ -21,7 +21,7 @@ public class ReceitaAlterarBeneficiarioController extends ReceitaSuperController
 		
 		receita = new Receita();
 		filtroReceitaDTO = new FiltroReceitaDTO();
-		receita.setListSocio(new ArrayList<Usuario>());
+		receita.setListSocio(new ArrayList<ReceitaSocio>());
 	}
 
 	public void cadastrar()  {

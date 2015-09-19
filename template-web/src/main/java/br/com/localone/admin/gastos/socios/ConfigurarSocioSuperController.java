@@ -48,7 +48,7 @@ public abstract class ConfigurarSocioSuperController extends AbstractManageBean{
 		
 		try {
 			
-			configurarSocio = configurarSocioService.configuracaoPorEmpresa(configurarSocio.getEmpresa());
+			configurarSocio = configurarSocio();
 			
 			if (configurarSocio == null){
 				
@@ -59,8 +59,18 @@ public abstract class ConfigurarSocioSuperController extends AbstractManageBean{
 			e.printStackTrace();
 		}
 	}
-	
-	public void adicionarSocio(){
+
+	public void adicionarSocio() throws NegocioException{
+		
+		if (configurarSocio.getId() == null){
+			
+			ConfigurarSocio config = this.configurarSocio();
+			
+			if (config != null){
+				
+				configurarSocio = config;
+			}
+		}
 		
 		if(socioNaLista(configurarSocio.getListQuotaSocio(), usuarioSelecionado)){
 			
@@ -97,6 +107,10 @@ public abstract class ConfigurarSocioSuperController extends AbstractManageBean{
 		}
 		
 		return false;
+	}
+	
+	private ConfigurarSocio configurarSocio() throws NegocioException {
+		return configurarSocioService.configuracaoPorEmpresa(configurarSocio.getEmpresa());
 	}
 
 	public void removerSocio(QuotaSocio quotaSocio){

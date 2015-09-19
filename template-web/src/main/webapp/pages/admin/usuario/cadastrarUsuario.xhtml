@@ -27,7 +27,7 @@
 		
 				<p:selectOneMenu id="role" value="#{cadastroUsuario.usuario.role}">
 				
-					<p:ajax event="change" update="teste"></p:ajax>
+					<p:ajax event="change" listener="#{cadastroUsuario.identificaFuncionarioOuAdministrador()}" update="@form"></p:ajax>
 					
 					<f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
 					<f:selectItems value="#{cadastroUsuario.carregaRoles()}" />
@@ -35,15 +35,38 @@
            		
 	        </h:panelGrid> 
 	        
-	        <p:outputLabel  value="#{msg['MSI049']}"  />
-           		
-	 		<h:panelGrid id="teste" columns="2" cellpadding="10" style="margin:0 auto;">
-	           			
-     			<p:inputText value="#{cadastroUsuario.usuario.funcionario.pessoa.nome}" readonly="true"></p:inputText>
-     			<p:commandButton id="btnPesquisarFuncionario" value="#{msg['MG16']}" onclick="PF('funcionario').show()"/>
-      		</h:panelGrid>
+	        <p:panel header="#{msg['MSI195']}" style="margin:0 auto; width:80%; text-align:center;" rendered="#{cadastroUsuario.usuario.role != null and cadastroUsuario.usuarioAdmin}">
 	        
-	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        	<h:panelGrid id="painelCadastroPessoa" columns="4" cellpadding="10" style="margin:0 auto;" >
+	        
+			        <p:outputLabel for="nomePessoa" value="#{msg['MSI106']}" />
+		           	<p:inputText id="nomePessoa" value="#{cadastroUsuario.usuario.pessoa.nome}"/>
+		           	
+		           	<p:outputLabel for="cpf" value="#{msg['MSI108']}" />
+		           	<p:inputMask mask="999.999.999-99" id="cpf" value="#{cadastroUsuario.usuario.pessoa.cpf}"/>
+		           	
+		           	<p:outputLabel for="rg" value="#{msg['MSI197']}" />
+	            	<p:inputText id="rg" value="#{cadastroUsuario.usuario.pessoa.rg}" onkeypress="colocaMascaraDinheiro(this,valor)" size="7" maxlength="7"/>
+		           	
+		           	<p:outputLabel for="celular" value="#{msg['MSI121']}" />
+	            	<p:inputMask mask="(99)-9999-9999" id="celular" value="#{cadastroUsuario.usuario.celular}"/>
+		           	
+	           	</h:panelGrid>
+	        </p:panel>
+	        
+	         <p:panel header="#{msg['MSI196']}" style="margin:0 auto; width:80%; text-align:center;" rendered="#{cadastroUsuario.usuario.role != null and !cadastroUsuario.usuarioAdmin}">
+	         
+		        <p:outputLabel  value="#{msg['MSI049']}" />
+	           		
+		 		<h:panelGrid id="pesquisaFuncionario" columns="2" cellpadding="10" style="margin:0 auto;">
+		           			
+	     			<p:inputText value="#{cadastroUsuario.usuario.funcionario.pessoa.nome}" readonly="true"></p:inputText>
+	     			<p:commandButton id="btnPesquisarFuncionario" value="#{msg['MG16']}" onclick="PF('funcionario').show()"/>
+	      		</h:panelGrid>
+      		
+      		</p:panel>
+	        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;" rendered="#{cadastroUsuario.usuario.role != null}">
 		        
            		<p:outputLabel for="usuario" value="#{msg['MSI135']}:" />
            		
@@ -59,7 +82,7 @@
 		 		
 	        </h:panelGrid>
 	        
-	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;" rendered="#{cadastroUsuario.usuario.role != null}">
 	        
 				<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroUsuario.redirecionaPagina('PAINEL_USUARIO')}" ajax="false" />	
 				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroUsuario.cadastrar()}" update="cadastro"/>

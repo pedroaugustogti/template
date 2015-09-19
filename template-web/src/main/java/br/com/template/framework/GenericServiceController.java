@@ -59,7 +59,7 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	 */
 	@Interceptors(InterceptionDefaultMenssage.class)
 	public void salvar(T t) {
-		genericService.salvar(merge(t));
+		genericService.salvar(t);
 	}
 	
 	public void salvarSemMensagem(T t) {

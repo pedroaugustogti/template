@@ -53,8 +53,8 @@ public class Receita extends EntidadeBasica{
 	@OneToMany(mappedBy="receita", orphanRemoval=true, cascade=CascadeType.ALL)
 	private List<Bem> listBem;
 	
-	@OneToMany(mappedBy="receita", orphanRemoval=true)
-	private List<Usuario> listSocio;
+	@OneToMany(mappedBy="receita", orphanRemoval=true, cascade=CascadeType.ALL)
+	private List<ReceitaSocio> listSocio;
 	
 	@Column(name="valor_dinheiro")
 	private Double valorEmDinheiro;
@@ -121,12 +121,20 @@ public class Receita extends EntidadeBasica{
 		this.listBem = listBem;
 	}
 
-	public List<Usuario> getListSocio() {
+	public List<ReceitaSocio> getListSocio() {
 		return listSocio;
 	}
 
-	public void setListSocio(List<Usuario> listSocio) {
+	public void setListSocio(List<ReceitaSocio> listSocio) {
 		this.listSocio = listSocio;
+	}
+
+	public Calendar getHorarioSolicitacao() {
+		return horarioSolicitacao;
+	}
+
+	public void setHorarioSolicitacao(Calendar horarioSolicitacao) {
+		this.horarioSolicitacao = horarioSolicitacao;
 	}
 
 	public Double getValorEmDinheiro() {

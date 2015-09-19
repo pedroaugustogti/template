@@ -4,14 +4,15 @@ import java.util.List;
 
 import javax.ejb.EJB;
 
+import br.com.localone.admin.gastos.socios.ConfiguracaoSocioSuperController;
 import br.com.template.domain.Mensagem;
 import br.com.template.dto.FiltroReceitaDTO;
 import br.com.template.entidades.Receita;
+import br.com.template.entidades.ReceitaSocio;
 import br.com.template.entidades.Usuario;
-import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
 
-public abstract class ReceitaSuperController extends AbstractManageBean{
+public abstract class ReceitaSuperController extends ConfiguracaoSocioSuperController{
 	
 	@EJB
 	protected GenericServiceController<Receita, Long> service;
@@ -35,21 +36,23 @@ public abstract class ReceitaSuperController extends AbstractManageBean{
 			return;
 		}
 		
-		usuarioSelecionado.setIndexSocio(indexSocio);
-		usuarioSelecionado.setReceita(receita);
+		ReceitaSocio receitaSocio = new ReceitaSocio();
+		receitaSocio.setReceita(receita);
+		receitaSocio.setSocio(usuarioSelecionado);
+		receitaSocio.setIndexSocio(indexSocio);
 		
-		receita.getListSocio().add(usuarioSelecionado);
+		receita.getListSocio().add(receitaSocio);
 		
 		usuarioSelecionado = new Usuario();
 		
 		++indexSocio;
 	}
 	
-	private boolean socioNaLista(List<Usuario> listSocios, Usuario socioSelecionado) {
+	private boolean socioNaLista(List<ReceitaSocio> listSocios, Usuario socioSelecionado) {
 		
-		for (Usuario socio : listSocios){
+		for (ReceitaSocio socio : listSocios){
 			
-			if (socio.getId().equals(socioSelecionado.getId())){
+			if (socio.getSocio().getId().equals(socioSelecionado.getId())){
 				
 				return true;
 			}
@@ -58,7 +61,7 @@ public abstract class ReceitaSuperController extends AbstractManageBean{
 		return false;
 	}
 
-	public void removerSocio(Usuario socio){
+	public void removerSocio(ReceitaSocio socio){
 		
 		receita.getListSocio().remove(socio.getIndexSocio());
 		

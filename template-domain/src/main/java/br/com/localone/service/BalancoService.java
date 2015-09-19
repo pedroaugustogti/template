@@ -1,6 +1,6 @@
 package br.com.localone.service;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.template.entidades.Balanco;
@@ -13,5 +13,5 @@ import br.com.template.entidades.Balanco;
  */
 public interface BalancoService {
 
-	List<Balanco> pesquisar(Date dataInicio, Date dataFim);
+	List<Balanco> pesquisar(Calendar dataInicio, Calendar dataFim);
 }

@@ -144,6 +144,20 @@ public final class DataUtil {
 		dataInicio.setMinutes(Tempo.MINUTO.getTempoMaximo());
 		dataInicio.setSeconds(Tempo.SEGUNDO.getTempoMaximo());
 	}
+	
+	public static void setMenorHora(Calendar dataInicio) {
+		
+		dataInicio.set(Calendar.HOUR_OF_DAY, Tempo.HORA.getTempoMinimo());
+		dataInicio.set(Calendar.MINUTE, Tempo.MINUTO.getTempoMinimo());
+		dataInicio.set(Calendar.SECOND, Tempo.SEGUNDO.getTempoMinimo());
+	}
+	
+	public static void setMaiorHora(Calendar dataInicio) {
+		
+		dataInicio.set(Calendar.HOUR_OF_DAY ,Tempo.HORA.getTempoMaximo());
+		dataInicio.set(Calendar.MINUTE, Tempo.MINUTO.getTempoMaximo());
+		dataInicio.set(Calendar.SECOND, Tempo.SEGUNDO.getTempoMaximo());
+	}
 
 	public static String minimoDoisDigitos(int dia) {
 		return dia < 10 ? "0"+dia : String.valueOf(dia);

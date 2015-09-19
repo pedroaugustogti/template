@@ -14,7 +14,7 @@ import br.com.template.entidades.Usuario;
 import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
 
-public abstract class DespesaSuperController extends AbstractManageBean{
+public abstract class DespesaSuperController extends AbstractManageBean {
 	
 	@EJB
 	protected GenericServiceController<Despesa, Long> service;
@@ -25,7 +25,7 @@ public abstract class DespesaSuperController extends AbstractManageBean{
 	protected FiltroDespesaDTO filtroDespesaDTO;
 	
 	private Usuario usuarioSelecionado;
-	
+	 
 	protected Despesa despesa;
 	protected DespesaSocio despesaSocio;
 	

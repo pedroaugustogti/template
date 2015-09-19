@@ -13,14 +13,15 @@
 	    
 	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
 	        
-	          		<p:outputLabel for="empresa" value="#{msg['MG27']}" />
-	           		
-	          		<p:selectOneMenu id="empresa" value="#{painelSocio.configurarSocio.empresa}">
-	          			
-	          			<p:ajax event="change" listener="#{painelSocio.pesquisaConfiguracaoSociosPorEmpresa()}" update="panelConfig"></p:ajax>
-	          			 
-	          			<f:selectItems value="#{painelSocio.filtroConfigurarSocioDTO.empresas}" />
-	          		</p:selectOneMenu>
+          		<p:outputLabel for="empresa" value="#{msg['MG27']}" />
+           		
+          		<p:selectOneMenu id="empresa" value="#{painelSocio.configurarSocio.empresa}">
+          			
+          			<p:ajax event="change" listener="#{painelSocio.pesquisaConfiguracaoSociosPorEmpresa()}" update="panelConfig"></p:ajax>
+          			 
+          			 <f:selectItem noSelectionOption="true" itemLabel="#{msg['MG03']}"/>
+          			<f:selectItems value="#{painelSocio.filtroConfigurarSocioDTO.empresas}" />
+          		</p:selectOneMenu>
 	          		
 	        </h:panelGrid>
 	        

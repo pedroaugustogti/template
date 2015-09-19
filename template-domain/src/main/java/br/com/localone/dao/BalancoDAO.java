@@ -1,6 +1,6 @@
 package br.com.localone.dao;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -17,7 +17,7 @@ import br.com.template.generics.ConsultasDaoJpa;
 public class BalancoDAO extends ConsultasDaoJpa<Balanco>{
 	
 	@SuppressWarnings("unchecked")
-	public List<Balanco> pesquisar(Date dataInicio, Date dataFim) {
+	public List<Balanco> pesquisar(Calendar dataInicio, Calendar dataFim) {
 		Criteria criteria = super.novoCriterio();
 		
 		criteria.add(Restrictions.between("fechamentoConta", dataInicio, dataFim));

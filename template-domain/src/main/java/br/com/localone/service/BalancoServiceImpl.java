@@ -1,6 +1,6 @@
 package br.com.localone.service;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,7 +16,7 @@ public class BalancoServiceImpl implements BalancoService{
 	@EJB
 	private BalancoDAO balancoDAO;
 
-	public List<Balanco> pesquisar(Date dataInicio, Date dataFim) {
+	public List<Balanco> pesquisar(Calendar dataInicio, Calendar dataFim) {
 		
 		DataUtil.setMenorHora(dataInicio);
 		DataUtil.setMaiorHora(dataFim);

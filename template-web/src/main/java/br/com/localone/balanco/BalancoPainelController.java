@@ -1,5 +1,6 @@
 package br.com.localone.balanco;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +49,14 @@ public class BalancoPainelController extends AbstractManageBean{
 	
 	public void pesquisar(){
 		
-		List<Balanco> listBalanco = balancoService.pesquisar(dataInicioPesquisa, dataFimPesquisa);
+		Calendar dataInicio = Calendar.getInstance();
+		dataInicio.setTime(dataInicioPesquisa);
+		
+
+		Calendar dataFim = Calendar.getInstance();
+		dataFim.setTime(dataFimPesquisa);
+		
+		List<Balanco> listBalanco = balancoService.pesquisar(dataInicio, dataFim);
 		
 		balancoAnual.agrupaBalancoPorAno(listBalanco);
 	}

@@ -18,10 +18,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.template.domain.Empresa;
 import br.com.template.domain.Situacao;
 import br.com.template.generics.EntidadeBasica;
+import br.com.template.util.DinheiroUtil;
 
 @Entity
 @Table(name="tb_despesa")
@@ -55,8 +57,33 @@ public class Despesa extends EntidadeBasica{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar horarioSolicitacao;
 	
+	@Column(name="valor")
+	private Double valor;
+	
+	@Transient
+	private String valorFormat;
+	
 	public Despesa(){
 		situacao = Situacao.ATIVO;
+	}
+	
+	public String getValorFormat() {
+		
+		valorFormat = DinheiroUtil.doubleEmRealSemSimbolo(getValor());
+		return valorFormat;
+	}
+
+	public void setValorFormat(String valorFormat) {
+		this.valorFormat = valorFormat;
+		setValor(DinheiroUtil.realParaDouble(valorFormat));
+	}
+	
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 
 	public Long getId() {

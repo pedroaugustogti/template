@@ -77,7 +77,10 @@ public enum Pagina {
 	CADASTRAR_RECEITA("/pages/admin/controleGasto/receita/cadastrarReceita.jsf"), 
 	
 	//configurar Socios
-	CONFIGURAR_SOCIOS("/pages/admin/controleGasto/configurarSocio.jsf");
+	CONFIGURAR_SOCIOS("/pages/admin/controleGasto/configurarSocio.jsf"), 
+	
+	//Banalço de Gastos
+	BALANCO_GASTO("/pages/admin/controleGasto/balancoGasto.jsf");
 	
 	private String valor;
 	

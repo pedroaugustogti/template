@@ -140,11 +140,11 @@
 	           		<p:dataTable id="gridSocios" var="socio" value="#{alterarBeneficiario.receita.listSocio}" emptyMessage="#{msg['MG19']}" >
 				        
 				        <p:column headerText="#{msg['MSI135']}">
-				            <h:outputText value="#{socio.usuario}" />
+				            <h:outputText value="#{socio.socio.usuario}" />
 				        </p:column>
 				        
 				        <p:column headerText="#{msg['MSI108']}">
-				            <h:outputText value="#{socio.role.label}" />
+				            <h:outputText value="#{socio.socio.role.label}" />
 				        </p:column>
 				        
 				        <p:column style="width:40px;text-align: center; margin:0 auto;">

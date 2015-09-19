@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.localone.autorizacao.Pagina;
+import br.com.template.domain.Role;
 import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Funcionario;
 import br.com.template.entidades.Pessoa;
@@ -15,6 +16,8 @@ import br.com.template.excecao.NegocioException;
 @ViewScoped
 public class UsuarioCadastroController extends UsuarioSuperController{
 	
+	private boolean usuarioAdmin;
+
 	@PostConstruct
 	public void inicio() throws NegocioException{
 		
@@ -26,7 +29,14 @@ public class UsuarioCadastroController extends UsuarioSuperController{
 		funcionario.setPessoa(pessoa);
 		usuario.setFuncionario(funcionario);
 		
+		usuario.setPessoa(pessoa);
+		
 		setUsuario(usuario);
+	}
+	
+	public void identificaFuncionarioOuAdministrador(){
+		
+		usuarioAdmin = Role.ADMIN.equals(getUsuario().getRole());
 	}
 	
 	public void cadastrar()  {
@@ -57,5 +67,9 @@ public class UsuarioCadastroController extends UsuarioSuperController{
 	@Override
 	protected Pagina getPaginaManageBean() {
 		return Pagina.CADASTRAR_USUARIO;
+	}
+
+	public boolean getUsuarioAdmin() {
+		return usuarioAdmin;
 	}
 }
