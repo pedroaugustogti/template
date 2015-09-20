@@ -1,16 +1,15 @@
 package br.com.localone.admin.gastos.despesa;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
-import br.com.template.domain.Mensagem;
 import br.com.template.dto.FiltroDespesaDTO;
 import br.com.template.entidades.Despesa;
 import br.com.template.entidades.DespesaSocio;
 import br.com.template.entidades.Usuario;
+import br.com.template.excecao.NegocioException;
 import br.com.template.framework.AbstractManageBean;
 import br.com.template.framework.GenericServiceController;
 
@@ -41,42 +40,31 @@ public abstract class DespesaSuperController extends AbstractManageBean {
 	
 	public void adicionarSocio(){
 		
-		if(socioNaLista(despesa.getListDespesaSocio(), usuarioSelecionado)){
+		try {
 			
-			enviaMensagem(Mensagem.MNG045);
-			return;
+			despesaValidacao.camposObrigatoriosSociosPagantes(despesaSocio);
+			despesaValidacao.socioNaLista(despesa.getListDespesaSocio(), usuarioSelecionado);
 			
-		}else if (despesa.getListDespesaSocio() == null){
-			
-			despesa.setListDespesaSocio(new ArrayList<DespesaSocio>());
-		}
-		
-		despesaSocio.setSocio(usuarioSelecionado);
-		despesaSocio.setIndex(indexDespesaSocio);
-		despesaSocio.setDespesa(despesa);
-		
-		despesa.getListDespesaSocio().add(despesaSocio.getIndex(), despesaSocio);
-		
-		despesaSocio = new DespesaSocio();
-		
-		++indexDespesaSocio;
-	}
-	
-	private boolean socioNaLista(List<DespesaSocio> listSocios, Usuario socioSelecionado) {
-		
-		if (listSocios == null || listSocios.isEmpty()){
-			return false;
-		}
-		
-		for (DespesaSocio despesaSocio : listSocios){
-			
-			if (despesaSocio.getSocio().getId().equals(socioSelecionado.getId())){
+			if (despesa.getListDespesaSocio() == null){
 				
-				return true;
+				despesa.setListDespesaSocio(new ArrayList<DespesaSocio>());
 			}
+			
+			despesaSocio.setSocio(usuarioSelecionado);
+			despesaSocio.setIndex(indexDespesaSocio);
+			despesaSocio.setDespesa(despesa);
+			
+			despesa.getListDespesaSocio().add(despesaSocio.getIndex(), despesaSocio);
+			
+			despesaSocio = new DespesaSocio();
+			
+			++indexDespesaSocio;
+			
+		} catch (NegocioException e) {
+			e.printStackTrace();
 		}
+			
 		
-		return false;
 	}
 
 	public void removerSocio(DespesaSocio despesaSocio){

@@ -1,5 +1,6 @@
 package br.com.template.entidades;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.template.generics.EntidadeBasica;
 
@@ -32,6 +34,9 @@ public class QuotaSocio extends EntidadeBasica{
 	@ManyToOne
    	@JoinColumn(name="id_conf_socio")
    	private ConfigurarSocio configurarSocio;
+	
+	@Transient
+	private int index;
 	
 	public Long getId() {
 		return id;
@@ -63,5 +68,13 @@ public class QuotaSocio extends EntidadeBasica{
 
 	public void setConfigurarSocio(ConfigurarSocio configurarSocio) {
 		this.configurarSocio = configurarSocio;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 }

@@ -19,10 +19,10 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.http.MediaType;
 
-//@Singleton
+@Singleton
 public class EmailSingleton {
 	
-//	@Inject
+	@Inject
 	private Session mailSession;
 	
 	@Asynchronous
@@ -31,12 +31,12 @@ public class EmailSingleton {
 
 		try {
             MimeMessage m = new MimeMessage(mailSession);
-            Address[] to = new InternetAddress[] {new InternetAddress(email.getTo())};
+            Address[] remetente = new InternetAddress[] {new InternetAddress(email.getPara())};
 
-            m.setRecipients(Message.RecipientType.TO, to);
-            m.setSubject(email.getSubject());
+            m.setRecipients(Message.RecipientType.TO, remetente);
+            m.setSubject(email.getAssunto());
             m.setSentDate(new Date());
-            m.setContent(email.getMessage(), MediaType.TEXT_HTML_VALUE); 
+            m.setContent(email.getMensagem(), MediaType.TEXT_HTML_VALUE); 
             
             Transport.send(m);
         } catch (MessagingException e) {

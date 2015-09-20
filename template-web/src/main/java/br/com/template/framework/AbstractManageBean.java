@@ -333,7 +333,7 @@ public abstract class AbstractManageBean extends AutorizacaoManageBean {
 		
 		String msg = InitMessageProperties.getValue(mensagem);
 		
-		return new FacesMessage(TipoMensagem.severitFacesMessage(mensagem.getTipo()), mensagem.getTipo().getLabel(), msg);
+		return new FacesMessage(TipoMensagem.severitFacesMessage(mensagem.getTipo()), msg, mensagem.getTipo().getLabel());
 	}
 	
 	protected RequestContext contextPrimefaces(){

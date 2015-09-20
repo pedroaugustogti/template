@@ -42,7 +42,13 @@
 	    	 <p:dataTable id="gridusuario" var="usuario" value="#{painelUsuario.listUsuario}" emptyMessage="#{msg['MG19']}">
 		        
 		        <p:column headerText="#{msg['MSI106']}">
-		            <h:outputText value="#{usuario.usuario}" />
+		            <h:outputText value="#{usuario.pessoa.nome}" rendered="#{usuario.pessoa != null}"/>
+		            <h:outputText value="#{usuario.funcionario.pessoa.nome}" rendered="#{usuario.funcionario != null}"/>
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI108']}">
+		            <h:outputText value="#{usuario.pessoa.cpf}" rendered="#{usuario.pessoa != null}"/>
+		            <h:outputText value="#{usuario.funcionario.pessoa.cpf}" rendered="#{usuario.funcionario != null}"/>
 		        </p:column>
 		        
 		        <p:column headerText="#{msg['MSI165']}">

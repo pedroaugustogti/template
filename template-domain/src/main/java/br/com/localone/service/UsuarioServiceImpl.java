@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import br.com.template.domain.Empresa;
+import br.com.template.domain.Role;
 import br.com.template.dto.FiltroUsuarioDTO;
 import br.com.template.entidades.Usuario;
 import br.com.template.generics.ConsultasDaoJpa;
@@ -27,5 +29,16 @@ public class UsuarioServiceImpl implements UsuarioService{
 		filtro.setUsuario(username);
 		
 		return reposiroty.primeiroRegistroPorFiltro(filtro, Usuario.class);
+	}
+
+	@Override
+	public List<Usuario> usuariosComRoleAdmin(Empresa empresa) {
+		
+		FiltroUsuarioDTO filtro = new FiltroUsuarioDTO();
+		
+		filtro.setEmpresa(empresa);
+		filtro.setRole(Role.ADMIN);
+		
+		return reposiroty.filtrarPesquisa(filtro, Usuario.class);
 	}
 }

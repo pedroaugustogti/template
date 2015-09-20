@@ -2,27 +2,26 @@ package br.com.template.framework;
 
 public class EmailDTO {
 	
-	private String to; 
-	private String message;
-	private String subject;
+	private String para; 
+	private String mensagem;
+	private String assunto;
 	
-	public String getTo() {
-		return to;
+	public String getPara() {
+		return para;
 	}
-	public void setTo(String to) {
-		this.to = to;
+	public void setPara(String para) {
+		this.para = para;
 	}
-	public String getMessage() {
-		return message;
+	public String getMensagem() {
+		return mensagem;
 	}
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
-	public String getSubject() {
-		return subject;
+	public String getAssunto() {
+		return assunto;
 	}
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setAssunto(String assunto) {
+		this.assunto = assunto;
 	}
-
 }

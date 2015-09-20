@@ -10,8 +10,10 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.localone.autorizacao.Pagina;
 import br.com.localone.service.ReceitaService;
+import br.com.template.domain.Mensagem;
 import br.com.template.dto.FiltroReceitaDTO;
 import br.com.template.entidades.Bem;
+import br.com.template.entidades.ConfigurarSocio;
 import br.com.template.entidades.Receita;
 import br.com.template.excecao.NegocioException;
 import br.com.template.framework.GenericServiceController;
@@ -31,6 +33,9 @@ public class ReceitaPainelController extends ReceitaSuperController{
 	@EJB
 	protected GenericServiceController<Bem, Long> serviceBem;
 	
+	@EJB
+	private GenericServiceController<ConfigurarSocio, Long> serviceConfiguracaoSocio;
+	
 	@PostConstruct
 	public void inicio(){
 		
@@ -42,6 +47,22 @@ public class ReceitaPainelController extends ReceitaSuperController{
 	public void pesquisar(){
 		
 		listReceita = receitaService.pesquisar(filtroReceitaDTO,"listBem", "listSocio");
+	}
+	
+	public void verificaConfiguracaoSocio(){
+		
+		try {
+			
+			if (serviceConfiguracaoSocio.listarTodos(ConfigurarSocio.class).isEmpty()){
+				
+				enviaMensagem(Mensagem.MNG051);
+				return;
+			}
+			
+			redirecionaPagina(Pagina.CADASTRAR_RECEITA);
+		} catch (NegocioException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void redirecionaParaTelaAlterar(Receita receita) throws IOException, NegocioException{

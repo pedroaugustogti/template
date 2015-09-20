@@ -17,7 +17,7 @@
            		
           		<p:selectOneMenu id="empresa" value="#{painelBalancoGasto.filtroBalancoGastoDTO.empresa}">
           			
-          			<p:ajax event="change" listener="#{painelBalancoGasto.divisaoPorSocio()}" update="gridSocios"></p:ajax>
+          			<p:ajax event="change" listener="#{painelBalancoGasto.divisaoPorSocio()}" update="@form"></p:ajax>
           			 
           			<f:selectItem noSelectionOption="true" itemLabel="#{msg['MG03']}"/>
           			<f:selectItems value="#{painelBalancoGasto.filtroBalancoGastoDTO.empresas}" />
@@ -27,12 +27,18 @@
 	        
 	        <p:separator></p:separator>
 	        
-	  		<p:dataTable id="gridSocios" var="balanco" value="#{painelBalancoGasto.listBalancoGasto}" emptyMessage="#{msg['MG19']}">
+	  		<p:dataTable id="gridSocios" var="balanco" value="#{painelBalancoGasto.listBalancoGasto}" emptyMessage="#{msg['MG19']}" rendered="#{painelBalancoGasto.filtroBalancoGastoDTO.empresa != null}">
 		        
-		        <p:column headerText="#{msg['MSI188']}">
-		            <h:outputText value="#{balanco.socio.usuario}" />
+		        <p:column headerText="#{msg['MSI106']}">
+		            <h:outputText value="#{balanco.socio.pessoa.nome}" rendered="#{balanco.socio.pessoa != null}"/>
+		            <h:outputText value="#{balanco.socio.funcionario.pessoa.nome}" rendered="#{balanco.socio.funcionario != null}"/>
 		        </p:column>
 		        
+		        <p:column headerText="#{msg['MSI108']}">
+		            <h:outputText value="#{balanco.socio.pessoa.cpf}" rendered="#{balanco.socio.pessoa != null}"/>
+		            <h:outputText value="#{balanco.socio.funcionario.pessoa.cpf}" rendered="#{usuario.funcionario != null}"/>
+		        </p:column>
+			        
 		        <p:column headerText="#{msg['MSI187']}">
 		            <h:outputText value="#{balanco.quota}%" />
 		        </p:column>

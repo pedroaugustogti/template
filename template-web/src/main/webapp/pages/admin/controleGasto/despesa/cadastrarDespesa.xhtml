@@ -9,6 +9,141 @@
 
 	<ui:define name="body">	 
 		
-		<ui:include src="includeCadastroDespesa.xhtml"/>	 
+		<p:panel id="cadastro" header="#{msg['MSI184']}" style="margin:0 auto; width:80%; text-align:center;" >
+	    
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+	          		<p:outputLabel for="empresa" value="#{msg['MG27']}" />
+	           		
+	          		<p:selectOneMenu id="empresa" value="#{cadastroDespesa.despesa.empresa}">
+	          			
+	          			<p:ajax event="change" update="@form"></p:ajax>
+           			
+           				<f:selectItem noSelectionOption="true" itemLabel="#{msg['MG03']}"/>
+	          			<f:selectItems value="#{cadastroDespesa.filtroDespesaDTO.empresas}" />
+	          		</p:selectOneMenu>
+	          		
+	          		<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+	          		
+	           	<p:inputTextarea id="descricao" value="#{cadastroDespesa.despesa.descricao}" 
+				 	maxlength="100" style="width:250px"/>
+				 	
+	        </h:panelGrid>
+	        
+	        <p:outputPanel rendered="#{cadastroDespesa.despesa.empresa != null}">
+	        
+	        	<p:separator></p:separator>
+		        
+		        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+		        	
+		        	<p:outputLabel for="despesaTotal" value="#{msg['MSI189']}" />	
+					<p:inputText id="despesaTotal" value="#{cadastroDespesa.despesa.valorFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10" ></p:inputText>
+		        
+		        </h:panelGrid>
+		        
+		        <p:separator></p:separator>
+		        
+		        <p:panel id="painelVincularSocios" header="#{msg['MSI185']}" style="margin:0 auto; width:80%;" >
+					
+					<h:panelGrid columns="3" style="margin:0 auto;">
+					
+						<p:outputLabel for="socio" value="#{msg['MSI106']}" />	
+						<p:inputText id="socio" value="#{cadastroDespesa.usuarioSelecionado.pessoa.nome}" readonly="true"></p:inputText>
+						<p:commandButton id="btnPesquisarSocio" value="#{msg['MG16']}" onclick="PF('socios').show()"/>
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" style="margin:0 auto;">
+						<p:outputLabel for="valor" value="#{msg['MSI172']}" />	
+						<p:inputText id="valor" value="#{cadastroDespesa.despesaSocio.valorFormat}" onkeypress="colocaMascaraDinheiro(this,valor)" maxlength="10" size="10" ></p:inputText>
+					</h:panelGrid>
+					
+					<br/>
+			      			
+					<p:commandButton value="#{msg['MG08']}" action="#{cadastroDespesa.adicionarSocio}" update="@form"></p:commandButton>
+			  		
+			  		<p:separator></p:separator>
+			  		
+			  		<p:dataTable id="gridSocios" var="despesaSocio" value="#{cadastroDespesa.despesa.listDespesaSocio}" emptyMessage="#{msg['MG19']}">
+				        
+				        <p:column headerText="#{msg['MSI106']}">
+				            <h:outputText value="#{despesaSocio.socio.pessoa.nome}" rendered="#{despesaSocio.socio.pessoa != null}"/>
+				            <h:outputText value="#{despesaSocio.socio.funcionario.pessoa.nome}" rendered="#{despesaSocio.socio.funcionario != null}"/>
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MSI108']}">
+				            <h:outputText value="#{despesaSocio.socio.pessoa.cpf}" rendered="#{despesaSocio.socio.pessoa != null}"/>
+				            <h:outputText value="#{despesaSocio.socio.funcionario.pessoa.cpf}" rendered="#{usuario.funcionario != null}"/>
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MSI172']}">
+				            <h:outputText value="#{despesaSocio.valorFormat}" />
+				        </p:column>
+				        
+				        <p:column style="width:40px;text-align: center; margin:0 auto;">
+				             <p:commandButton action="#{cadastroDespesa.removerSocio(despesaSocio)}"  icon="ui-icon-trash" title="#{msg['MG21']}" update="gridSocios">
+				            </p:commandButton>
+				        </p:column>
+				    </p:dataTable>
+				</p:panel>
+		        
+		        
+		        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+					<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroDespesa.redirecionaPagina('PAINEL_DESPESA')}"/>	
+					<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroDespesa.cadastrar()}" update="cadastro"/>
+		        </h:panelGrid>
+		    </p:panel>
+	        
+        </p:outputPanel>
+	        
+	   	<p:dialog id="infoSocios" widgetVar="socios" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
+	           
+	    	<p:outputPanel autoUpdate="true">
+	          
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	
+				<p:outputLabel for="usuario" value="#{msg['MSI135']}" />
+		
+				<p:inputTextarea id="usuario" value="#{painelUsuario.filtroUsuarioDTO.usuario}" maxlength="100"	style="width:250px" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
+			 	<p:commandButton action="#{painelUsuario.pesquisar()}" value="#{msg['MG16']}" update="pesquisaUsuario">
+			 		<f:setPropertyActionListener value="#{cadastroDespesa.despesa.empresa}" target="#{painelUsuario.filtroUsuarioDTO.empresa}" />
+		 			<f:setPropertyActionListener value="ADMIN" target="#{painelUsuario.filtroUsuarioDTO.role}" />
+			 	</p:commandButton>
+			 </h:panelGrid>
+			
+			<p:separator></p:separator>
+			
+			<p:dataTable id="pesquisaUsuario" var="usuario" value="#{painelUsuario.listUsuario}" emptyMessage="#{msg['MG19']}">
+					        
+		        <p:column headerText="#{msg['MSI106']}">
+		            <h:outputText value="#{usuario.pessoa.nome}" rendered="#{usuario.pessoa != null}"/>
+		            <h:outputText value="#{usuario.funcionario.pessoa.nome}" rendered="#{usuario.funcionario != null}"/>
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI108']}">
+		            <h:outputText value="#{usuario.pessoa.cpf}" rendered="#{usuario.pessoa != null}"/>
+		            <h:outputText value="#{usuario.funcionario.pessoa.cpf}" rendered="#{usuario.funcionario != null}"/>
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MSI165']}">
+		            <h:outputText value="#{usuario.role.label}" />
+		        </p:column>
+		        
+		        <p:column headerText="#{msg['MG25']}">
+		        
+		        	<p:commandButton oncomplete="PF('socios').hide()" value="#{msg['MG25']}" update="@form">
+		        		<f:setPropertyActionListener value="#{usuario}" target="#{cadastroDespesa.usuarioSelecionado}" />
+		        	</p:commandButton>
+		        </p:column>
+		        
+	        	</p:dataTable>
+	         </p:outputPanel>
+	         
+	         <p:separator></p:separator>
+	         
+	         <p:commandButton oncomplete="PF('socios').hide()" value="#{msg['MG24']}"></p:commandButton>
+	    </p:dialog>	 
 	</ui:define>
 </ui:composition>

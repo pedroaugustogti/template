@@ -30,7 +30,7 @@
 		        
 	        		<p:commandButton id="btnPesquisar" value="#{msg['MG16']}" action="#{painelReceita.pesquisar()}" update="grid"/>
 					<p:commandButton id="btnLimpar" value="#{msg['MG17']}" action="#{painelReceita.inicio()}" update="pesquisa"/>	
-					<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{painelReceita.redirecionaPagina('CADASTRAR_RECEITA')}" rendered="#{painelReceita.autorizaFuncionalidade('CADASTRAR_RECEITA')}"/>
+					<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{painelReceita.verificaConfiguracaoSocio()}" rendered="#{painelReceita.autorizaFuncionalidade('CADASTRAR_RECEITA')}"/>
 					
 		        </h:panelGrid>
 		        
@@ -86,8 +86,8 @@
 				            <h:outputText value="#{bem.valorVendidoFormat}" />
 				        </p:column>
 				        
-				        <p:column rendered="#{bem.valorVendido == null}">
-				        	<p:commandButton oncomplete="PF('venderBem').show()" value="#{msg['MSI173']}">
+				        <p:column >
+				        	<p:commandButton oncomplete="PF('venderBem').show()" value="#{msg['MSI173']}" disabled="#{bem.valorVendido != null}">
 				        		<f:setPropertyActionListener value="#{bem}" target="#{painelReceita.bemSelecionado}" />
 				        	</p:commandButton>
 				        </p:column>

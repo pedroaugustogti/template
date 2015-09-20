@@ -35,6 +35,11 @@ public class FuncionarioValidacao extends AbstractValidacao{
 
 	private void camposObrigatorios(Funcionario funcionario) throws NegocioException {
 		
+		if (funcionario.getEmpresa() == null){
+			
+			throw new NegocioException(Mensagem.MNG046);
+		}
+		
 		if (funcionario.getCargo() == null){
 			
 			throw new NegocioException(Mensagem.MNG030);

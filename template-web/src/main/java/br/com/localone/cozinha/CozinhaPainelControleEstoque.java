@@ -6,15 +6,24 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 
+import br.com.template.domain.EmailEnum;
+import br.com.template.domain.EmailRemetenteEnum;
 import br.com.template.domain.Medida;
 import br.com.template.entidades.CardapioIngrediente;
 import br.com.template.entidades.Estoque;
 import br.com.template.entidades.Pedido;
-import br.com.template.framework.GenericServiceController;
+import br.com.template.excecao.NegocioException;
 import br.com.template.framework.EmailDTO;
+import br.com.template.framework.GenericServiceController;
+import br.com.template.framework.InterceptionViewMenssage;
+import br.com.template.util.EmailParametro;
+import br.com.template.util.EmailProperties;
+import br.com.template.util.EmailUtils;
 
 @Stateless
+@Interceptors(InterceptionViewMenssage.class)
 public class CozinhaPainelControleEstoque {
 	
 	@EJB
@@ -25,10 +34,14 @@ public class CozinhaPainelControleEstoque {
 	
 	public void reduzEstoque(final Pedido pedido) {
 		
-		atualizaEstoque(pedido);
+		try {
+			atualizaEstoque(pedido);
+		} catch (NegocioException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void atualizaEstoque(Pedido pedido) {
+	private void atualizaEstoque(Pedido pedido) throws NegocioException {
 		
 		List<CardapioIngrediente> ingredientes = pedido.getCardapio().getListIngredientes();
 		
@@ -44,7 +57,7 @@ public class CozinhaPainelControleEstoque {
 		}
 	}
 
-	private int qntEstoqueAtualizado(CardapioIngrediente ingrediente,Estoque estoque) {
+	private int qntEstoqueAtualizado(CardapioIngrediente ingrediente,Estoque estoque) throws NegocioException {
 		
 		Integer qntEmEstoque = estoque.getQuantidade();
 		Integer qntGastoNoPedido = ingrediente.getQuantidade();
@@ -67,13 +80,34 @@ public class CozinhaPainelControleEstoque {
 		return qntEstoqueAtualizada;
 	}
 
-	private void enviaNotificacaoParaReporEstoque(Estoque estoque) {
+	private void enviaNotificacaoParaReporEstoque(Estoque estoque) throws NegocioException {
 		
 		EmailDTO emailDTO = new EmailDTO();
+		String corpoEmail = montaCorpoEmail(estoque);
 		
-		emailDTO.setTo("pedroaugusto.gti@gmail.com"); 
-		emailDTO.setSubject("[Local One] - Estoque de "+estoque.getProduto().getDescricao()+" em baixa!");
-		emailDTO.setMessage("Faltam apenas "+estoque.getQuantidade()+" "+estoque.getMedida().name()+" para acabar o estoque de "+ estoque.getProduto().getDescricao());
+		emailDTO.setPara(EmailProperties.getValue(EmailRemetenteEnum.REMETENTE_EMAIL_ESTOQUE)); 
+		emailDTO.setAssunto(montaAssunto(estoque));
+		emailDTO.setMensagem(corpoEmail);
+		
 		eventEmail.fire(emailDTO);
+	}
+
+	private String montaAssunto(Estoque estoque) throws NegocioException {
+		
+		EmailParametro emailParametro = new EmailParametro();
+		
+		emailParametro.addParametro("{produto}", estoque.getProduto().getDescricao());
+		
+		return EmailEnum.EMAIL_ESTOQUE_ACABANDO.assunto(emailParametro);
+	}
+
+	private String montaCorpoEmail(Estoque estoque) throws NegocioException {
+		
+		EmailParametro emailParametro = new EmailParametro();
+		
+		emailParametro.addParametro("{produto}", estoque.getProduto().getDescricao());
+		emailParametro.addParametro("{quantidade}", estoque.getQuantidade().toString());
+		emailParametro.addParametro("{medida}", estoque.getMedida().getLabel());
+		return EmailUtils.formataEmail(EmailEnum.EMAIL_ESTOQUE_ACABANDO, emailParametro);
 	}
 }

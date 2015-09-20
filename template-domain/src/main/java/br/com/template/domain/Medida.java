@@ -13,10 +13,10 @@ public enum Medida {
 	G("Grama"),
 	
 	//Medidas
-	KG("Kilo", G),
-	LT("Litro",ML),
+	KG("Kg", G),
+	LT("Lt",ML),
 	
-	UNID("Unidade");
+	UNID("Unidade(s)");
 	
 	
 	private String label;

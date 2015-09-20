@@ -5,11 +5,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.mail.Session;
 
-//@ApplicationScoped
+@ApplicationScoped
 public class EmailResource {
 	
-//	@Produces
-//	@Resource(mappedName = "java:jboss/mail/gmail")
+	@Produces
+	@Resource(mappedName = "java:jboss/mail/gmail")
 	private Session mailSession;
 
 }

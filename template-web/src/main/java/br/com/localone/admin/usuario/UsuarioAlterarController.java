@@ -25,6 +25,8 @@ public class UsuarioAlterarController extends UsuarioSuperController{
 		if (dadosUsuario != null && dadosUsuario instanceof Usuario){
 			
 			setUsuario((Usuario) dadosUsuario);
+			
+			identificaFuncionarioOuAdministrador();
 		}else{
 			throw new NegocioException(Mensagem.MEI010);
 		}
@@ -34,7 +36,6 @@ public class UsuarioAlterarController extends UsuarioSuperController{
 		
 		try {
 			
-			validacaoUsuario.confirmaSenha(getUsuario(), confirmarSenha);
 			super.cadastrar();
 			this.inicio();
 			

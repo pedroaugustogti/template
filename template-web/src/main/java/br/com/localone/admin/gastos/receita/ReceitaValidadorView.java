@@ -16,10 +16,26 @@ import br.com.template.framework.InterceptionViewMenssage;
 @Interceptors(InterceptionViewMenssage.class)
 public class ReceitaValidadorView extends AbstractValidacao{
 	
-	public void valida(Receita receita) {
+	public void valida(Receita receita) throws NegocioException {
 		
+		validaCamposObrigatorios(receita);
 	}
 	
+	private void validaCamposObrigatorios(Receita receita) throws NegocioException {
+		
+		if (StringUtils.isBlank(receita.getDescricao())){
+			throw new NegocioException(Mensagem.MNG056);
+		}
+		
+		if (receita.getListSocio() == null || receita.getListSocio().isEmpty()){
+			throw new NegocioException(Mensagem.MNG057);
+		}
+		
+		if (decimalNaoInformado(receita.getValorEmDinheiro())){
+			throw new NegocioException(Mensagem.MNG058);
+		}
+	}
+
 	public void validaVendaBem (Bem bem) throws NegocioException{
 		
 		if (bem.getValorVendido() == null){
@@ -37,7 +53,7 @@ public class ReceitaValidadorView extends AbstractValidacao{
 		
 		if (decimalNaoInformado(bem.getValor())){
 			
-			throw new NegocioException(Mensagem.MNG045);
+			throw new NegocioException(Mensagem.MNG059);
 		}
 	}
 }

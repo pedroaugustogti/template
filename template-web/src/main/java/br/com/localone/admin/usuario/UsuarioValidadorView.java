@@ -6,6 +6,7 @@ import javax.interceptor.Interceptors;
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.template.domain.Mensagem;
+import br.com.template.domain.Role;
 import br.com.template.entidades.Usuario;
 import br.com.template.excecao.NegocioException;
 import br.com.template.framework.AbstractValidacao;
@@ -51,5 +52,34 @@ public class UsuarioValidadorView extends AbstractValidacao{
 
 	private boolean preCondicaoDiferentesNull(Usuario usuario,String confirmarSenha) {
 		return usuario == null || usuario.getSenha() == null || confirmarSenha == null;
+	}
+
+	public void validaFormularioPessoaFuncionario(Usuario usuario) throws NegocioException {
+		
+		if (Role.ADMIN.equals(usuario.getRole())){
+			
+			if (StringUtils.isBlank(usuario.getPessoa().getNome())){
+				throw new NegocioException(Mensagem.MNG047);
+			}
+			
+			if (StringUtils.isBlank(usuario.getPessoa().getCpf())){
+				throw new NegocioException(Mensagem.MNG048);
+			}
+			
+			if (StringUtils.isBlank(usuario.getPessoa().getRg())){
+				throw new NegocioException(Mensagem.MNG050);
+			}
+			
+			if (StringUtils.isBlank(usuario.getCelular())){
+				throw new NegocioException(Mensagem.MNG049);
+			}
+			
+		}else{
+			
+			if (usuario.getFuncionario() == null || usuario.getFuncionario().getId() == null){
+				
+				throw new NegocioException(Mensagem.MNG039);
+			}
+		}
 	}
 }

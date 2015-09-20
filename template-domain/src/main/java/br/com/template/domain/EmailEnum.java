@@ -1,11 +1,13 @@
 package br.com.template.domain;
 
+import br.com.template.util.EmailParametro;
+import br.com.template.util.EmailUtils;
+
 
 public enum EmailEnum {
 	
-	EMAIL_TEMPLATE("emails/template/template.html","Assunto do Email","{url}");
-			
-	// CHECKSTYLE:ON
+	EMAIL_ESTOQUE_ACABANDO("emails/estoque/emailAcabandoEstoque.html","[Local One] Estoque de {produto} está esgotando!","{quantidade}","{medida}","{produto}");
+	
 	/** The arquivo. */
 	private String arquivo;
 	
@@ -53,5 +55,9 @@ public enum EmailEnum {
 	 */
 	public String getAssunto() {
 		return assunto;
+	}
+
+	public String assunto(EmailParametro parametro) {
+		return EmailUtils.substituiParametroAssunto(assunto, parametro, parametros);
 	}
 }

@@ -12,9 +12,12 @@ import br.com.localone.autorizacao.Pagina;
 import br.com.localone.service.ConfigurarSocioService;
 import br.com.localone.service.DespesaService;
 import br.com.localone.service.ReceitaService;
+import br.com.template.domain.Empresa;
+import br.com.template.domain.Mensagem;
 import br.com.template.dto.FiltroBalancoGastoDTO;
 import br.com.template.dto.FiltroDespesaDTO;
 import br.com.template.dto.FiltroReceitaDTO;
+import br.com.template.entidades.Bem;
 import br.com.template.entidades.ConfigurarSocio;
 import br.com.template.entidades.Despesa;
 import br.com.template.entidades.DespesaSocio;
@@ -58,6 +61,13 @@ public class BalancoGastoController extends AbstractManageBean{
 			return;
 		}
 		
+		if (naoExisteUsuarioAdministrador(filtroBalancoGastoDTO.getEmpresa())){
+			
+			enviaMensagem(Mensagem.MNG052);
+			inicio();
+			return;
+		}
+		
 		try {
 			configurarSocio = configurarSocioService.configuracaoPorEmpresa(filtroBalancoGastoDTO.getEmpresa());
 			
@@ -73,6 +83,12 @@ public class BalancoGastoController extends AbstractManageBean{
 		divisaoPorDespesa(configurarSocio);
 	}
 	
+	private boolean naoExisteUsuarioAdministrador(Empresa empresa) {
+		
+		List<Usuario> usuariosAdministradores = usuarioService.usuariosComRoleAdmin(empresa);
+		
+		return usuariosAdministradores.isEmpty();
+	}
 
 	private void divisaoPorDespesa(ConfigurarSocio configurarSocio) {
 		
@@ -260,9 +276,22 @@ public class BalancoGastoController extends AbstractManageBean{
 		
 		filtroReceitaDTO.setEmpresa(filtroBalancoGastoDTO.getEmpresa());
 		
-		listReceita = receitaService.pesquisar(filtroReceitaDTO, "listSocio", "listaBem");
+		listReceita = receitaService.pesquisar(filtroReceitaDTO, "listSocio", "listBem");
 		
 		for (Receita receita : listReceita){
+			
+			for (Bem bem : receita.getListBem()){
+				
+				if (bem.getValorVendido() != null){
+					
+					if (receita.getValorEmDinheiro() == null){
+						
+						receita.setValorEmDinheiro(bem.getValorVendido());
+					}else{
+						receita.setValorEmDinheiro(receita.getValorEmDinheiro() + bem.getValorVendido());
+					}
+				}
+			}
 			
 			for (ReceitaSocio receitaSocio : receita.getListSocio()){
 				

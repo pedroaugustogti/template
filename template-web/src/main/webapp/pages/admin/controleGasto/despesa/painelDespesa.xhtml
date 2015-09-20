@@ -34,7 +34,7 @@
 			<p:commandButton id="btnLimpar" value="#{msg['MG17']}"
 				action="#{painelDespesa.inicio()}" update="@form" />
 			<p:commandButton id="btnCadastrar" value="#{msg['MG18']}"
-				action="#{painelDespesa.redirecionaPagina('CADASTRAR_DESPESA')}"
+				action="#{painelDespesa.verificaConfiguracaoSocio()}"
 				rendered="#{painelDespesa.autorizaFuncionalidade('CADASTRAR_DESPESA')}" />
 
 	</h:panelGrid>

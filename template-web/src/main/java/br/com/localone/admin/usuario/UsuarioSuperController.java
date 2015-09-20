@@ -1,6 +1,5 @@
 package br.com.localone.admin.usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -37,31 +36,16 @@ public abstract class UsuarioSuperController extends AbstractManageBean{
 	
 	protected String confirmarSenha;
 	
+	private boolean usuarioAdmin;
+	
 	public List<SelectItem> carregaRoles(){
 		
-		List<SelectItem> listRoles = new ArrayList<>();
-		
-		for (Role role : Role.values()){
-			
-			SelectItem selectItem = new SelectItem();
-			selectItem.setLabel(role.getLabel());
-			selectItem.setValue(role);
-			
-			listRoles.add(selectItem);
-		}
-		
-		return listRoles;
+		return Role.getRolePorEmpresa(usuario.getEmpresa());
 	}
 	
-	protected void cadastrar() throws NegocioException{
+	public void identificaFuncionarioOuAdministrador(){
 		
-		validacaoUsuario.confirmaSenha(usuario, getConfirmarSenha());
-		
-		String senhaCriptografada = CriptografiaUtil.criptografar(usuario.getSenha());
-		
-		usuario.setSenha(senhaCriptografada);
-		
-		service.salvar(usuario);
+		usuarioAdmin = Role.ADMIN.equals(getUsuario().getRole());
 	}
 	
 	public void selecionaFuncionario(Funcionario funcionario){
@@ -77,6 +61,33 @@ public abstract class UsuarioSuperController extends AbstractManageBean{
 	public Cargo cargoFuncionarioPorRoleUsuario(){
 		
 		return Cargo.cargoPorRoleUsuario(usuario.getRole());
+	}
+	protected void cadastrar() throws NegocioException{
+		
+		verificaFuncionarioSelecionado();
+		
+		validacaoUsuario.validaFormularioPessoaFuncionario(usuario);
+		validacaoUsuario.confirmaSenha(usuario, getConfirmarSenha());
+		
+		String senhaCriptografada = CriptografiaUtil.criptografar(usuario.getSenha());
+		
+		usuario.setSenha(senhaCriptografada);
+		
+		service.salvar(usuario);
+	}
+	
+	/**
+	 * Elimina referência do objeto funcionario dentro da entidade Usuario,
+	 * assim evita a exceção org.hibernate.TransientPropertyValueException
+	 */
+	private void verificaFuncionarioSelecionado() {
+		
+		Funcionario func = getUsuario().getFuncionario();
+		
+		if (func !=null && func.getId() == null){
+			
+			getUsuario().setFuncionario(null);
+		}
 	}
 	
 	public Usuario getUsuario() {
@@ -101,5 +112,9 @@ public abstract class UsuarioSuperController extends AbstractManageBean{
 
 	public void setFiltroUsuarioDTO(FiltroUsuarioDTO filtroUsuarioDTO) {
 		this.filtroUsuarioDTO = filtroUsuarioDTO;
+	}
+	
+	public boolean getUsuarioAdmin() {
+		return usuarioAdmin;
 	}
 }
