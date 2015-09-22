@@ -80,7 +80,12 @@ public enum Pagina {
 	CONFIGURAR_SOCIOS("/pages/admin/controleGasto/configurarSocio.jsf"), 
 	
 	//Banalço de Gastos
-	BALANCO_GASTO("/pages/admin/controleGasto/balancoGasto.jsf");
+	BALANCO_GASTO("/pages/admin/controleGasto/balancoGasto.jsf"), 
+	
+	//Fornecedor
+	CADASTRAR_FORNECEDOR("/pages/admin/fornecedor/cadastrarFornecedor.jsf"), 
+	ALTERAR_FORNECEDOR("/pages/admin/fornecedor/alterarFornecedor.jsf"), 
+	PAINEL_FORNECEDOR("/pages/admin/fornecedor/painelFornecedor.jsf");
 	
 	private String valor;
 	

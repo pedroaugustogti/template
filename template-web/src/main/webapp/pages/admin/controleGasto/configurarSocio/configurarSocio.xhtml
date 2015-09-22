@@ -62,15 +62,16 @@
 			            <h:outputText value="#{quotaSocio.quota}%" />
 			        </p:column>
 			        
-			        <p:column style="width:40px;text-align: center; margin:0 auto;">
-			             <p:commandButton action="#{painelSocio.removerSocio(quotaSocio)}"  icon="ui-icon-trash" title="#{msg['MG21']}" update="gridSocios">
-			            </p:commandButton>
+			        <p:column headerText="#{msg['MG11']}" style="width:80px;text-align: center;margin:0 auto;">
+			        	<p:commandButton icon="ui-icon-locked" action="#{painelSocio.ativarSocio(quotaSocio.socio)}" update="gridSocios" rendered="#{quotaSocio.socio.situacao == 'INATIVO'}"/>
+			        	<p:commandButton icon="ui-icon-unlocked" action="#{painelSocio.inativarSocio(quotaSocio.socio)}" update="gridSocios" rendered="#{quotaSocio.socio.situacao == 'ATIVO'}"/>
 			        </p:column>
+			        
 			    </p:dataTable>
 			    
 			    <p:separator></p:separator>
 			    
-			    <p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{painelSocio.cadastrar()}"/>
+			    <p:commandButton id="btnCadastrar" value="#{msg['MSI199']}" action="#{painelSocio.cadastrar()}"/>
 		    
 		    </p:outputPanel>
 	        
@@ -91,6 +92,7 @@
 					 	<p:commandButton action="#{painelUsuario.pesquisar()}" value="#{msg['MG16']}" update="pesquisaUsuario">
 					 		<f:setPropertyActionListener value="#{painelSocio.configurarSocio.empresa}" target="#{painelUsuario.filtroUsuarioDTO.empresa}" />
 					 		<f:setPropertyActionListener value="ADMIN" target="#{painelUsuario.filtroUsuarioDTO.role}" />
+					 		<f:setPropertyActionListener value="ATIVO" target="#{painelUsuario.filtroUsuarioDTO.situacao}" />
 					 	</p:commandButton>
 					 </h:panelGrid>
 				 

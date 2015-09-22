@@ -12,11 +12,14 @@ public class FiltroProdutoDTO {
 	@EntityProperty("tipoProduto")
 	private TipoProduto tipoProduto;
 	
-	@EntityProperty(value="descricao")
+	@EntityProperty(value="descricao", ignoraCaseSensitive=true)
 	private String descricao;
 	
-	@EntityProperty(value="descricao", pesquisaExata=true, ignoraCaseSensitive=true)
-	private String descricaoExata;
+	@EntityProperty(value="fornecedor.nome", ignoraCaseSensitive=true)
+	private String nomeFornecedor;
+	
+	@EntityProperty(value="marca", ignoraCaseSensitive=true)
+	private String marca;
 	
 	private List<SelectItem> tipoProdutos;
 	
@@ -44,11 +47,19 @@ public class FiltroProdutoDTO {
 		this.descricao = descricao;
 	}
 
-	public String getDescricaoExata() {
-		return descricaoExata;
+	public String getMarca() {
+		return marca;
 	}
 
-	public void setDescricaoExata(String descricaoExata) {
-		this.descricaoExata = descricaoExata;
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
 	}
 }

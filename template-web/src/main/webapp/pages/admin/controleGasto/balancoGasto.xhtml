@@ -23,7 +23,10 @@
           			<f:selectItems value="#{painelBalancoGasto.filtroBalancoGastoDTO.empresas}" />
           		</p:selectOneMenu>
 	          		
-	        </h:panelGrid>
+	        </h:panelGrid> 
+	        
+        	<p:separator rendered="#{not empty painelBalancoGasto.listBalancoGasto}"></p:separator>
+         	<p:commandButton action="#{painelBalancoGasto.gerarRelatorio()}" ajax="false" value="#{msg['MG29']}" rendered="#{not empty painelBalancoGasto.listBalancoGasto}"></p:commandButton>
 	        
 	        <p:separator></p:separator>
 	        

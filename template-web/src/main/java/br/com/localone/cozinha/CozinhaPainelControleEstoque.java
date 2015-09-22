@@ -11,6 +11,7 @@ import javax.interceptor.Interceptors;
 import br.com.template.domain.EmailEnum;
 import br.com.template.domain.EmailRemetenteEnum;
 import br.com.template.domain.Medida;
+import br.com.template.entidades.Cardapio;
 import br.com.template.entidades.CardapioIngrediente;
 import br.com.template.entidades.Estoque;
 import br.com.template.entidades.Pedido;
@@ -29,6 +30,9 @@ public class CozinhaPainelControleEstoque {
 	@EJB
 	private GenericServiceController<Estoque, Long> serviceEstoque;
 	
+	@EJB
+	private GenericServiceController<Cardapio, Long> serviceCardapio;
+	
 	@Inject
 	private Event<EmailDTO> eventEmail;
 	
@@ -43,14 +47,16 @@ public class CozinhaPainelControleEstoque {
 
 	private void atualizaEstoque(Pedido pedido) throws NegocioException {
 		
-		List<CardapioIngrediente> ingredientes = pedido.getCardapio().getListIngredientes();
+		Cardapio cardapio = serviceCardapio.getById(Cardapio.class, pedido.getCardapio().getId(), "listIngredientes");
+		
+		List<CardapioIngrediente> ingredientes = cardapio.getListIngredientes();
 		
 		for (CardapioIngrediente ingrediente : ingredientes){
 			
 			Long idEstoque = ingrediente.getEstoque().getId();
 			Estoque estoque = serviceEstoque.getById(Estoque.class, idEstoque);
 			
-			int qntEstoqueAtualizada =  qntEstoqueAtualizado(ingrediente, estoque);;
+			int qntEstoqueAtualizada = qntEstoqueAtualizado(ingrediente, estoque);;
 			
 			estoque.setQuantidade(qntEstoqueAtualizada);
 			serviceEstoque.salvarSemMensagem(estoque);

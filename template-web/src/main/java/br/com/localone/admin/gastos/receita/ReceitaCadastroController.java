@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.localone.autorizacao.Pagina;
 import br.com.localone.service.ConfigurarSocioService;
+import br.com.template.domain.Situacao;
 import br.com.template.dto.FiltroReceitaDTO;
 import br.com.template.entidades.Bem;
 import br.com.template.entidades.Receita;
@@ -42,6 +43,10 @@ public class ReceitaCadastroController extends ReceitaSuperController{
 		List<ReceitaSocio> listBeneficiarios = new ArrayList<ReceitaSocio>();
 		
 		for (Usuario socio : sociosPorEmpresa(receita.getEmpresa())){
+			
+			if (Situacao.INATIVO.equals(socio.getSituacao())){
+				continue;
+			}
 			
 			ReceitaSocio receitaSocio = new ReceitaSocio();
 			

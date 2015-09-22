@@ -11,5 +11,5 @@ import br.com.template.excecao.NegocioException;
  */
 public interface ProdutoRegraNegocio {
 
-	void proibeCadastroComMesmaDescricao(Produto produto) throws NegocioException;
+	void proibeExclusaoProdutoVinculadoEstoque(Produto produto) throws NegocioException;
 }

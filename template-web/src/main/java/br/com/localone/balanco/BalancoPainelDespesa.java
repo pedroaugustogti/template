@@ -1,6 +1,6 @@
 package br.com.localone.balanco;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -26,8 +26,8 @@ public class BalancoPainelDespesa {
 		
 		for (int mes=00; mes < 12; mes ++){
 			
-			Date dataInicio = DataUtil.criaData(anoAtual ,mes, PRIMEIRO_DIA_MES);
-			Date dataFinal = DataUtil.criaData(anoAtual,mes, DataUtil.maiorDiaDoMes(anoAtual, mes));
+			Calendar dataInicio = DataUtil.criaDataCalendar(anoAtual ,mes, PRIMEIRO_DIA_MES);
+			Calendar dataFinal = DataUtil.criaDataCalendar(anoAtual,mes, DataUtil.maiorDiaDoMes(anoAtual, mes));
 			
 			DataUtil.setMenorHora(dataInicio);
 			DataUtil.setMaiorHora(dataFinal);
@@ -52,8 +52,8 @@ public class BalancoPainelDespesa {
 		
 		for (int dia=01; dia < DataUtil.maiorDiaDoMes(ano, mes); dia ++){
 			
-			Date dataInicio = DataUtil.criaData(ano,mes,dia);
-			Date dataFinal = DataUtil.criaData(ano,mes,dia +1);
+			Calendar dataInicio = DataUtil.criaDataCalendar(ano,mes,dia);
+			Calendar dataFinal = DataUtil.criaDataCalendar(ano,mes,dia +1);
 			
 			DataUtil.setMenorHora(dataInicio);
 			DataUtil.setMenorHora(dataFinal);

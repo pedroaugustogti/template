@@ -53,6 +53,17 @@ public final class DataUtil {
 		return calendar.getTime();
 	}
 	
+	public static Calendar criaDataCalendar(int ano, int mes, int dia) {
+		
+		Calendar calendar = Calendar.getInstance();
+		
+		calendar.set(Calendar.YEAR, ano);
+		calendar.set(Calendar.MONTH, mes);
+		calendar.set(Calendar.DAY_OF_MONTH, dia);
+		
+		return calendar;
+	}
+	
 	public static Date criaData(int ano, int mes) {
 		
 		Calendar calendar = Calendar.getInstance();

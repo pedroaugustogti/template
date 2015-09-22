@@ -17,7 +17,7 @@
            		
 		 		<h:panelGrid id="produto" columns="2" cellpadding="10" style="margin:0 auto;">
 	           			
-           			<p:inputText value="#{cadastroEstoque.estoque.produto.descricao}" readonly="true"></p:inputText>
+           			<p:inputText value="#{cadastroEstoque.estoque.produto.marca} #{cadastroEstoque.estoque.produto.quantidadeMedida} #{cadastroEstoque.estoque.produto.medida.label} " readonly="true"></p:inputText>
            			<p:commandButton id="btnPesquisarProduto" value="#{msg['MG16']}" onclick="PF('produto').show()"/>
            		</h:panelGrid>
    				
@@ -68,14 +68,17 @@
 						<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
 				
 						<p:selectOneRadio id="tipo"	value="#{painelProduto.filtroProdutoDTO.tipoProduto}">
-							<f:selectItem itemLabel="Comida" itemValue="C" />
-							<f:selectItem itemLabel="Bebida" itemValue="B" />
+							<f:selectItems value="#{painelProduto.filtroProdutoDTO.tipoProdutos}"/>
 						</p:selectOneRadio>
 				
-						<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
-				
-						<p:inputTextarea id="descricao"	value="#{painelProduto.filtroProdutoDTO.descricao}" maxlength="100"
-							style="width:250px" />
+						<p:outputLabel for="fornecedor" value="#{msg['MSI200']}" />
+						<p:inputText id="fornecedor" value="#{painelProduto.filtroProdutoDTO.nomeFornecedor}"/>
+						
+						<p:outputLabel for="marca" value="#{msg['MSI051']}" />
+						<p:inputText id="marca" value="#{painelProduto.filtroProdutoDTO.marca}"/>
+						
+						<p:outputLabel for="descricao" value="#{msg['MSI204']}" />
+						<p:inputTextarea id="descricao" value="#{painelProduto.filtroProdutoDTO.descricao}" maxlength="100" style="width:250px"/>
 					</h:panelGrid>
 					
 					<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
@@ -85,7 +88,15 @@
 					<p:separator></p:separator>
 					
 					<p:dataTable id="produtos" var="produto" value="#{painelProduto.listProduto}" emptyMessage="#{msg['MG19']}">
-							        
+					
+						<p:column headerText="#{msg['MSI200']}">
+				            <h:outputText value="#{produto.fornecedor.nome}"  />
+				        </p:column>
+								        
+				        <p:column headerText="#{msg['MSI051']}">
+				            <h:outputText value="#{produto.marca} - #{produto.quantidadeMedida} #{produto.medida.label}"  />
+				        </p:column>
+				        
 				        <p:column headerText="#{msg['MSI054']}">
 				            <h:outputText value="#{produto.tipoProduto.label}" />
 				        </p:column>

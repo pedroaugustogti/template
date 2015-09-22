@@ -9,6 +9,7 @@ import javax.interceptor.Interceptors;
 import br.com.localone.service.UsuarioService;
 import br.com.template.domain.Empresa;
 import br.com.template.domain.Mensagem;
+import br.com.template.domain.Situacao;
 import br.com.template.entidades.ConfigurarSocio;
 import br.com.template.entidades.QuotaSocio;
 import br.com.template.entidades.Usuario;
@@ -39,7 +40,7 @@ public class ConfigurarSocioValidacao extends AbstractValidacao{
 	
 	public void naoExisteUsuarioAdministrador(Empresa empresa) throws NegocioException {
 		
-		List<Usuario> usuariosAdministradores = usuarioService.usuariosComRoleAdmin(empresa);
+		List<Usuario> usuariosAdministradores = usuarioService.usuariosAtivoComRoleAdmin(empresa);
 		
 		if (usuariosAdministradores.isEmpty()){
 			
@@ -64,6 +65,10 @@ public class ConfigurarSocioValidacao extends AbstractValidacao{
 		int somaQuotas = 0;
 		
 		for (QuotaSocio quotaSocio : config.getListQuotaSocio()){
+			
+			if (Situacao.INATIVO.equals(quotaSocio.getSocio().getSituacao())){
+				continue;
+			}
 			
 			somaQuotas += quotaSocio.getQuota();
 		}

@@ -7,6 +7,7 @@ import javax.faces.model.SelectItem;
 import br.com.template.anotations.EntityProperty;
 import br.com.template.domain.Empresa;
 import br.com.template.domain.Role;
+import br.com.template.domain.Situacao;
 
 public class FiltroUsuarioDTO {
 
@@ -15,6 +16,9 @@ public class FiltroUsuarioDTO {
 	
 	@EntityProperty("empresa")
 	private Empresa empresa;
+	
+	@EntityProperty("situacao")
+	private Situacao situacao;
 	
 	@EntityProperty("role")
 	private Role role;
@@ -51,5 +55,13 @@ public class FiltroUsuarioDTO {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 }

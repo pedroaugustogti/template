@@ -101,7 +101,7 @@ public class IngredientePainel {
 		}
 	}
 	
-	private void calcularValorCardapio(List<CardapioIngrediente> listaIngredientes) {
+	public void calcularValorCardapio(List<CardapioIngrediente> listaIngredientes) {
 		
 		double valorTotalCardapio = 0.0;
 		

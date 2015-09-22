@@ -1,6 +1,6 @@
 package br.com.localone.service;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -26,7 +26,7 @@ public class DespesaServiceImpl implements DespesaService{
 	}
 
 	@Override
-	public Double pesquisaTotalDespesasPeloPeriodo(Date dataInicio, Date dataFinal) {
+	public Double pesquisaTotalDespesasPeloPeriodo(Calendar dataInicio, Calendar dataFinal) {
 		return (Double) despesaDAO.pesquisaTotalDespesasPeloPeriodo(dataInicio, dataFinal);
 	}
 }

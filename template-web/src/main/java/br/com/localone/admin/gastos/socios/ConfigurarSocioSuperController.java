@@ -37,8 +37,6 @@ public abstract class ConfigurarSocioSuperController extends AbstractManageBean{
 	@EJB
 	protected ConfigurarSocioService configurarSocioService;
 	
-	private int index;
-	
 	@PostConstruct
 	public void inicio(){
 		
@@ -109,11 +107,10 @@ public abstract class ConfigurarSocioSuperController extends AbstractManageBean{
 			
 			quotaSocio.setSocio(usuarioSelecionado);
 			quotaSocio.setConfigurarSocio(configurarSocio);
-			configurarSocio.getListQuotaSocio().add(index, quotaSocio);
+			configurarSocio.getListQuotaSocio().add(quotaSocio);
 			
 			quotaSocio = new QuotaSocio();
 			
-			++index;
 			
 		} catch (NegocioException e) {
 			e.printStackTrace();
@@ -148,13 +145,6 @@ public abstract class ConfigurarSocioSuperController extends AbstractManageBean{
 		return configurarSocioService.configuracaoPorEmpresa(configurarSocio.getEmpresa());
 	}
 
-	public void removerSocio(QuotaSocio quotaSocio){
-		
-		configurarSocio.getListQuotaSocio().remove(quotaSocio.getIndex());
-		
-		--index;
-	}
-	
 	public Usuario getUsuarioSelecionado() {
 		return usuarioSelecionado;
 	}

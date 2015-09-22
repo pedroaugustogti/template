@@ -1,8 +1,11 @@
 package br.com.template.entidades;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.com.template.domain.Situacao;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
@@ -27,7 +31,11 @@ public class QuotaSocio extends EntidadeBasica{
 	@Column(name="quota")
 	private Integer quota;
 	
-	@ManyToOne
+	@Column(name="situacao")
+	@Enumerated(EnumType.STRING)
+	private Situacao situacao;
+	
+	@ManyToOne(cascade=CascadeType.MERGE)
    	@JoinColumn(name="id_usuario")
    	private Usuario socio;
 	
@@ -76,5 +84,13 @@ public class QuotaSocio extends EntidadeBasica{
 
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	public Situacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(Situacao situacao) {
+		this.situacao = situacao;
 	}
 }

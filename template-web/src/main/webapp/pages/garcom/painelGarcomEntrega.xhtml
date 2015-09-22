@@ -31,12 +31,6 @@
 			            <h:outputText value="#{pedido.comanda.mesa.funcionario.pessoa.nome}"/>
 			        </p:column>
 			        
-			         <p:column headerText="#{msg['MSI104']}" >
-			            <h:outputText value="#{pedido.horarioSolicitacao}">
-			            	<f:convertDateTime dateStyle="default" pattern="HH:mm:ss"/>
-			            </h:outputText>
-			        </p:column>
-			        
 			        <p:column >
 			            <p:commandButton value="#{msg['MSI102']}" action="#{painelGarcomEntrega.efetuarEntregaPedido(pedido)}"/>
 			        </p:column>

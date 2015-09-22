@@ -2,7 +2,7 @@ package br.com.localone.balanco.detalhe;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -95,8 +95,8 @@ public class BalancoDetalheAnualController extends AbstractManageBean implements
 			
 			String labelMes = Mes.getNome(mes);
 					
-			Date dataInicio = DataUtil.criaData(anoAtual,mes,01);
-			Date dataFinal = DataUtil.criaData(anoAtual,mes, DataUtil.maiorDiaDoMes(anoAtual, mes));
+			Calendar dataInicio = DataUtil.criaDataCalendar(anoAtual,mes,01);
+			Calendar dataFinal = DataUtil.criaDataCalendar(anoAtual,mes, DataUtil.maiorDiaDoMes(anoAtual, mes));
 			
 			DataUtil.setMenorHora(dataInicio);
 			DataUtil.setMaiorHora(dataFinal);

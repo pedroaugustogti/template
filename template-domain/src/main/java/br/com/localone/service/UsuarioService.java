@@ -23,5 +23,5 @@ public interface UsuarioService {
 
 	Usuario usuarioPorUsername(String objUsuarioSessao);
 
-	List<Usuario> usuariosComRoleAdmin(Empresa empresa);
+	List<Usuario> usuariosAtivoComRoleAdmin(Empresa empresa);
 }

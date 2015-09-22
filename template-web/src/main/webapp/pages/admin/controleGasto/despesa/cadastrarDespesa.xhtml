@@ -23,10 +23,9 @@
 	          			<f:selectItems value="#{cadastroDespesa.filtroDespesaDTO.empresas}" />
 	          		</p:selectOneMenu>
 	          		
-	          		<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+	          		<p:outputLabel for="descricao" value="#{msg['MSI057']}" rendered="#{cadastroDespesa.despesa.empresa != null}"/>
 	          		
-	           	<p:inputTextarea id="descricao" value="#{cadastroDespesa.despesa.descricao}" 
-				 	maxlength="100" style="width:250px"/>
+	           		<p:inputTextarea id="descricao" value="#{cadastroDespesa.despesa.descricao}" maxlength="100" style="width:250px" rendered="#{cadastroDespesa.despesa.empresa != null}"/>
 				 	
 	        </h:panelGrid>
 	        
@@ -91,9 +90,9 @@
 					<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroDespesa.redirecionaPagina('PAINEL_DESPESA')}"/>	
 					<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroDespesa.cadastrar()}" update="cadastro"/>
 		        </h:panelGrid>
-		    </p:panel>
-	        
-        </p:outputPanel>
+		        
+	         </p:outputPanel>
+	    </p:panel>
 	        
 	   	<p:dialog id="infoSocios" widgetVar="socios" modal="true" showEffect="fade" hideEffect="fade" style="text-align:center; border:none !important;">
 	           
@@ -110,6 +109,7 @@
 			 	<p:commandButton action="#{painelUsuario.pesquisar()}" value="#{msg['MG16']}" update="pesquisaUsuario">
 			 		<f:setPropertyActionListener value="#{cadastroDespesa.despesa.empresa}" target="#{painelUsuario.filtroUsuarioDTO.empresa}" />
 		 			<f:setPropertyActionListener value="ADMIN" target="#{painelUsuario.filtroUsuarioDTO.role}" />
+		 			<f:setPropertyActionListener value="ATIVO" target="#{painelUsuario.filtroUsuarioDTO.situacao}" />
 			 	</p:commandButton>
 			 </h:panelGrid>
 			

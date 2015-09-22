@@ -14,6 +14,8 @@ import br.com.localone.service.DespesaService;
 import br.com.localone.service.ReceitaService;
 import br.com.template.domain.Empresa;
 import br.com.template.domain.Mensagem;
+import br.com.template.domain.Situacao;
+import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.dto.FiltroBalancoGastoDTO;
 import br.com.template.dto.FiltroDespesaDTO;
 import br.com.template.dto.FiltroReceitaDTO;
@@ -51,6 +53,13 @@ public class BalancoGastoController extends AbstractManageBean{
 		listBalancoGasto = new ArrayList<BalancoGastoBean>();
 	}
 	
+	public void gerarRelatorio() throws NegocioException {
+		
+		BalancoGastoRelatorioParametro parametroRelatorio = new BalancoGastoRelatorioParametro(listBalancoGasto, filtroBalancoGastoDTO.getEmpresa());
+		
+		super.gerarRelatorio(RelatorioEnum.BALANCO_GASTO, parametroRelatorio);
+	}
+	
 	public void divisaoPorSocio(){
 		
 		ConfigurarSocio configurarSocio = null;
@@ -85,7 +94,7 @@ public class BalancoGastoController extends AbstractManageBean{
 	
 	private boolean naoExisteUsuarioAdministrador(Empresa empresa) {
 		
-		List<Usuario> usuariosAdministradores = usuarioService.usuariosComRoleAdmin(empresa);
+		List<Usuario> usuariosAdministradores = usuarioService.usuariosAtivoComRoleAdmin(empresa);
 		
 		return usuariosAdministradores.isEmpty();
 	}
@@ -103,6 +112,10 @@ public class BalancoGastoController extends AbstractManageBean{
 			Double valorDividirEntreSociosConfigurados = valorTotalDespesa;
 			
 			for (DespesaSocio despesaSocio : despesa.getListDespesaSocio()){
+				
+				if (Situacao.INATIVO.equals(despesaSocio.getSocio().getSituacao())){
+					continue;
+				}
 			
 				int quota = quotaSocio(despesaSocio.getSocio(), configurarSocio);
 				Double valorQuotaSocio = calcularValorPelaQuota(valorTotalDespesa, quota);
@@ -215,6 +228,10 @@ public class BalancoGastoController extends AbstractManageBean{
 		
 		for (QuotaSocio quotaSocio : configurarSocio.getListQuotaSocio()){
 			
+			if (Situacao.INATIVO.equals(quotaSocio.getSocio().getSituacao())){
+				continue;
+			}
+			
 			if (quotaSocioForaDosPagantes(quotaSocio, despesa.getListDespesaSocio())){
 				
 				Double valorQuota = calcularValorPelaQuota(valorTotalDespesa, quotaSocio.getQuota());
@@ -296,6 +313,11 @@ public class BalancoGastoController extends AbstractManageBean{
 			for (ReceitaSocio receitaSocio : receita.getListSocio()){
 				
 				Usuario socioBeneficiado =  receitaSocio.getSocio();
+				
+				if (Situacao.INATIVO.equals(socioBeneficiado.getSituacao())){
+					continue;
+				}
+				
 				int quotaSocio = quotaSocio(socioBeneficiado, configurarSocio);
 				boolean usuarioNoBalanco = false;
 				

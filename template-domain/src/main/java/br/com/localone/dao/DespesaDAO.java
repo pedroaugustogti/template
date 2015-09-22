@@ -1,6 +1,6 @@
 package br.com.localone.dao;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -16,7 +16,7 @@ import br.com.template.generics.ConsultasDaoJpa;
 public class DespesaDAO extends ConsultasDaoJpa<Despesa>{
 	
 	@SuppressWarnings("unchecked")
-	public Double pesquisaTotalDespesasPeloPeriodo(Date dataInicio, Date dataFinal) {
+	public Double pesquisaTotalDespesasPeloPeriodo(Calendar dataInicio, Calendar dataFinal) {
 
 		Criteria criteria = super.novoCriterio();
 		

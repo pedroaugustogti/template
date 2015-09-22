@@ -4,7 +4,7 @@ import java.io.File;
 
 public enum RelatorioEnum implements RelatorioPath{
 	
-	TEMPLATE("template", TipoRelatorioEnum.PDF,"template_path");
+	BALANCO_GASTO("balancoGasto", TipoRelatorioEnum.PDF,"balanco_gasto");
 	
 	private static final String EXTENSAO_JRXML =".jrxml";
 	private static final String EXTENSAO_JASPER =".jasper";

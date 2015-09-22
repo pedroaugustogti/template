@@ -41,7 +41,7 @@ public class GarcomPainelEntregaController extends AbstractManageBean{
 		
 		pedido.setSituacao(SituacaoPedido.ENTREGUE);
 		
-		servicePedido.salvar(pedido);
+		servicePedido.salvarSemMensagem(pedido);
 	}
 	
 	private void iniciaMotorPainel() {

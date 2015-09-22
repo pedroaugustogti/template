@@ -89,6 +89,10 @@
 		    		<p:menuitem value="#{msg['MSI169']}" url="/pages/admin/controleGasto/configurarSocio/configurarSocio.jsf" />
 		    		<p:menuitem value="#{msg['MSI170']}" url="/pages/admin/controleGasto/balancoGasto.jsf" />
 		    	</p:submenu>
+		    	
+		    	<p:submenu label="#{msg['MSI200']}">
+		    		<p:menuitem value="#{msg['MSI200']}" url="/pages/admin/fornecedor/painelFornecedor.jsf" />
+		    	</p:submenu>
 
 		    	<p:submenu label="#{msg['MSI049']}">
 		    		<p:menuitem value="#{msg['MSI049']}" url="/pages/admin/funcionario/painelFuncionario.jsf" />
@@ -97,12 +101,7 @@
 		    	
 		    	<p:submenu label="#{msg['MSI171']}">
 		    	
-   			    	<p:submenu label="#{msg['MSI046']}">
-   			    	
-					    <p:menuitem value="#{msg['MSI051']}" url="/pages/admin/estoque/produto/painelProduto.jsf" />	
-					    <p:menuitem value="#{msg['MSI052']}" url="/pages/admin/estoque/painelEstoque.jsf"/>
-		    		</p:submenu>
-		    	
+		    		<p:menuitem value="#{msg['MSI046']}" url="/pages/admin/estoque/painelEstoque.jsf"/>
 		    		<p:menuitem value="#{msg['MSI047']}" url="/pages/admin/cardapio/painelCardapio.jsf" />
 		    		<p:menuitem value="#{msg['MSI048']}" url="/pages/admin/mesa/painelMesaAdmin.jsf" />
 		    		<p:menuitem value="#{msg['MSI142']}" url="/pages/admin/balanco/painelBalancoFinanceiro.jsf" />

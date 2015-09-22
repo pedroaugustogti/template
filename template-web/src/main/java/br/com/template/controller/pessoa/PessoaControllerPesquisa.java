@@ -45,7 +45,7 @@ public class PessoaControllerPesquisa extends AbstractManageBean{
 		
 		PessoaRelatorioParametro parametroRelatorio = new PessoaRelatorioParametro(entidades);
 		
-		super.gerarRelatorio(RelatorioEnum.TEMPLATE, parametroRelatorio);
+		super.gerarRelatorio(RelatorioEnum.BALANCO_GASTO, parametroRelatorio);
 	}
 	
 	public void pesquisar(){

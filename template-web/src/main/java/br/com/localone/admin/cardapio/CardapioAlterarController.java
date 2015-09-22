@@ -31,6 +31,8 @@ public class CardapioAlterarController extends CardapioSuperController{
 			ingredientePainel.setCardapio(cardapio);
 			
 			montaGridComIndex(cardapio.getListIngredientes());
+			
+			ingredientePainel.calcularValorCardapio(cardapio.getListIngredientes());
 		}else{
 			throw new NegocioException(Mensagem.MEI010);
 		}

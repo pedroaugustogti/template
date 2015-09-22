@@ -68,7 +68,7 @@
 				<h:panelGrid columns="1" style="margin:0 auto;">
 					
 					<h:panelGrid columns="2" style="margin:0 auto;">
-						<p:inputText id="ingredienteSelecionado" value="#{alterarCardapio.ingredientePainel.ingrediente.estoque.produto.descricao}" readonly="true"></p:inputText>
+						<p:inputText id="ingredienteSelecionado" value="#{alterarCardapio.ingredientePainel.ingrediente.estoque.produto.marca} #{alterarCardapio.ingredientePainel.ingrediente.estoque.produto.quantidadeMedida} #{alterarCardapio.ingredientePainel.ingrediente.estoque.produto.medida.label}" readonly="true"></p:inputText>
 						<p:commandButton id="btnPesquisarEstoque" value="#{msg['MG16']}" onclick="PF('estoque').show()"/>
 					</h:panelGrid>
 					
@@ -96,7 +96,7 @@
            		<p:dataTable id="gridIngrediente" var="ingrediente" value="#{alterarCardapio.ingredientePainel.ingredientes}" emptyMessage="#{msg['MG19']}">
 			        
 			        <p:column headerText="#{msg['MSI080']}">
-			            <h:outputText value="#{ingrediente.estoque.produto.descricao}" />
+			            <h:outputText value="#{ingrediente.estoque.produto.marca} #{ingrediente.estoque.produto.quantidadeMedida} #{ingrediente.estoque.produto.medida.label}" />
 			        </p:column>
 			        <p:column headerText="#{msg['MG07']}">
 			            <h:outputText value="#{ingrediente.quantidade}" />

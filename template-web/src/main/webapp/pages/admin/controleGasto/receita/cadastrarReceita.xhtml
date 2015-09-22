@@ -144,6 +144,7 @@
 				 	<p:commandButton action="#{painelUsuario.pesquisar()}" value="#{msg['MG16']}" update="pesquisaUsuario">
 				 		<f:setPropertyActionListener value="#{cadastroReceita.receita.empresa}" target="#{painelUsuario.filtroUsuarioDTO.empresa}" />
 	 					<f:setPropertyActionListener value="ADMIN" target="#{painelUsuario.filtroUsuarioDTO.role}" />
+	 					<f:setPropertyActionListener value="ATIVO" target="#{painelUsuario.filtroUsuarioDTO.situacao}" />
 				 	</p:commandButton>
 				 </h:panelGrid>
 				

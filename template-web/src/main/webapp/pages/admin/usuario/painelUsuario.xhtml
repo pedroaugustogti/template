@@ -55,47 +55,11 @@
 		            <h:outputText value="#{usuario.role.label}" />
 		        </p:column>
 		        
-		        <p:column headerText="#{msg['MG11']}" >
-		        	<p:commandButton value="#{msg['MG09']}" action="#{painelUsuario.ativarUsuario(usuario)}" update="gridusuario" rendered="#{usuario.situacao == 'INATIVO'}">
-		        	</p:commandButton>
-		        	
-		        	<p:commandButton value="#{msg['MG10']}" action="#{painelUsuario.inativarUsuario(usuario)}" update="gridusuario" rendered="#{usuario.situacao == 'ATIVO'}">
-		        	</p:commandButton>
-		        </p:column>
-		        
 		        <p:column style="width:40px;text-align: center;margin:0 auto;" rendered="#{painelUsuario.autorizaFuncionalidade('ALTERAR_USUARIO')}">
 		             <p:commandButton icon="ui-icon-refresh" title="#{msg['MG20']}" action="#{painelUsuario.redirecionaParaTelaAlterar(usuario)}"/>
 		        </p:column>
 		        
-		        <p:column style="width:40px;text-align: center; margin:0 auto;"  rendered="#{painelUsuario.autorizaFuncionalidade('EXCLUIR_USUARIO')}">
-		             <p:commandButton oncomplete="PF('confirmaExclusao').show()" icon="ui-icon-trash" title="#{msg['MG21']}" update="gridusuario">
-		                <f:setPropertyActionListener value="#{usuario}" target="#{painelUsuario.usuarioSelecionado}" />
-		            </p:commandButton>
-		        </p:column>
 		    </p:dataTable>
 	    </p:panel>
-	    
-	    <p:dialog id="alertaExclusao" header="#{msg['MG22']}" widgetVar="confirmaExclusao" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center !important; border:none !important;" >
-	        <p:outputPanel id="confirmaExclusao" style="text-align:center; border:none !important;">
-	            <h:panelGrid style="border:none !important;">
-	 
-	                <p:row>
-			            <p:column colspan="2">#{msg['MG23']}</p:column>
-			        </p:row>
-			        
-			         <p:row>
-			            <p:column colspan="2"><p:separator></p:separator> </p:column>
-			        </p:row>
-			        
-			        <p:row>
-			        	<p:column>
-				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" action="#{painelUsuario.excluir()}" value="#{msg['MG21']}" update="grid"></p:commandButton>
-				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" value="#{msg['MG13']}"></p:commandButton>
-			            </p:column>
-			        </p:row>
-
-	            </h:panelGrid>
-	        </p:outputPanel>
-	    </p:dialog>
 	</ui:define>
 </ui:composition>

@@ -17,7 +17,7 @@
            		
 		 		<h:panelGrid id="produto" columns="2" cellpadding="10" style="margin:0 auto;">
 	           			
-           			<p:inputText value="#{alterarEstoque.estoque.produto.descricao}" readonly="true"></p:inputText>
+           			<p:inputText value="#{alterarEstoque.estoque.produto.marca} #{alterarEstoque.estoque.produto.quantidadeMedida} #{alterarEstoque.estoque.produto.medida.label} " readonly="true"></p:inputText>
            			<p:commandButton id="btnPesquisarProduto" value="#{msg['MG16']}" onclick="PF('produto').show()"/>
            		</h:panelGrid>
    				

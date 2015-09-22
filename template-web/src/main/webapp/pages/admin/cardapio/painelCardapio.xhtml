@@ -156,7 +156,7 @@
 	           	<p:dataTable id="gridIngrediente" var="ingrediente" value="#{painelCardapio.cardapio.listIngredientes}" emptyMessage="#{msg['MG19']}">
 			        
 			        <p:column headerText="#{msg['MSI080']}">
-			            <h:outputText value="#{ingrediente.estoque.produto.descricao}" />
+			            <h:outputText value="#{ingrediente.estoque.produto.marca} #{ingrediente.estoque.produto.quantidadeMedida} #{ingrediente.estoque.produto.medida.label}" />
 			        </p:column>
 			        <p:column headerText="#{msg['MG07']}">
 			            <h:outputText value="#{ingrediente.quantidade}" />

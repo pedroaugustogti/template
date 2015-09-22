@@ -16,8 +16,17 @@ public class FiltroEstoqueDTO {
 	@EntityProperty("medida")
 	private Medida medida;
 	
+	@EntityProperty("produto.medida")
+	private Medida produtoMedida;
+	
 	@EntityProperty("produto.descricao")
 	private String descricao;
+	
+	@EntityProperty("produto.marca")
+	private String marca;
+	
+	@EntityProperty("produto.fornecedor.nome")
+	private String nomeFornecedor;
 	
 	@EntityProperty("produto.id")
 	private Long produtoId;
@@ -100,5 +109,29 @@ public class FiltroEstoqueDTO {
 
 	public void setProdutoId(Long produtoId) {
 		this.produtoId = produtoId;
+	}
+
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public Medida getProdutoMedida() {
+		return produtoMedida;
+	}
+
+	public void setProdutoMedida(Medida produtoMedida) {
+		this.produtoMedida = produtoMedida;
 	}
 }

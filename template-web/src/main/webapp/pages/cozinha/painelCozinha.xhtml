@@ -32,12 +32,6 @@
 				            <h:outputText value="#{pedido.situacao.label}"/>
 				        </p:column>
 				        
-				         <p:column headerText="#{msg['MSI104']}" >
-				            <h:outputText value="#{pedido.horarioSolicitacao}">
-				            	<f:convertDateTime dateStyle="default" pattern="HH:mm:ss"/>
-				            </h:outputText>
-				        </p:column>
-				        
 				        <p:column >
 				            <p:commandButton value="#{msg['MSI102']}" action="#{painelCozinha.iniciarPreparo(pedido)}" ignoreAutoUpdate="true"/>
 				        </p:column>
@@ -56,12 +50,6 @@
 				        
 				         <p:column headerText="#{msg['MG11']}" >
 				            <h:outputText value="#{pedido.situacao.label}"/>
-				        </p:column>
-				        
-				         <p:column headerText="#{msg['MSI104']}" >
-				            <h:outputText value="#{pedido.horarioSolicitacao}">
-				            	<f:convertDateTime dateStyle="default" pattern="HH:mm:ss"/>
-				            </h:outputText>
 				        </p:column>
 				        
 				        <p:column >
@@ -84,12 +72,6 @@
 				            <h:outputText value="#{pedido.situacao.label}"/>
 				        </p:column>
 				        
-				         <p:column headerText="#{msg['MSI104']}" >
-				            <h:outputText value="#{pedido.horarioSolicitacao}">
-				            	<f:convertDateTime dateStyle="default" pattern="HH:mm:ss"/>
-				            </h:outputText>
-				        </p:column>
-				        
 			         </p:dataTable>
 			        
 				</p:panel>
@@ -104,12 +86,6 @@
 				        
 				        <p:column headerText="#{msg['MG11']}" >
 				            <h:outputText value="#{pedido.situacao.label}"/>
-				        </p:column>
-				        
-				         <p:column headerText="#{msg['MSI104']}" >
-				            <h:outputText value="#{pedido.horarioSolicitacao}">
-				            	<f:convertDateTime dateStyle="default" pattern="HH:mm:ss"/>
-				            </h:outputText>
 				        </p:column>
 				        
 			         </p:dataTable>

@@ -102,11 +102,14 @@
 			
 					<p:inputText id="nome"	value="#{painelFuncionario.filtroFuncionarioDTO.nome}" />
 					
-					<h:inputHidden value="#{painelFuncionario.filtroFuncionarioDTO.cargo}" submittedValue="#{cadastroUsuario.cargoFuncionarioPorRoleUsuario()}" />
 				</h:panelGrid>
 					
 				<h:panelGrid columns="1" cellpadding="10" style="margin:0 auto;">
-				 	<p:commandButton action="#{painelFuncionario.pesquisar()}" value="#{msg['MG16']}" update="funcionarios"></p:commandButton>
+				 	<p:commandButton action="#{painelFuncionario.pesquisar()}" value="#{msg['MG16']}" update="funcionarios">
+				 	
+				 		<f:setPropertyActionListener value="#{cadastroUsuario.cargoFuncionarioPorRoleUsuario()}" target="#{painelFuncionario.filtroFuncionarioDTO.cargo}" />
+				 		<f:setPropertyActionListener value="#{cadastroUsuario.usuario.empresa}" target="#{painelFuncionario.filtroFuncionarioDTO.empresa}" />
+				 	</p:commandButton>
 				</h:panelGrid>
 					
 				<p:separator></p:separator>

@@ -59,6 +59,9 @@ public enum TipoFuncionalidadeEnum {
 	ALTERAR_DESPESA_ENTRADA,
 	
 	//Receita
-	CADASTRAR_RECEITA;
+	CADASTRAR_RECEITA,
 	
+	//Fornecedor
+	CADASTRAR_FORNECEDOR,
+	ALTERAR_FORNECEDOR;
 }

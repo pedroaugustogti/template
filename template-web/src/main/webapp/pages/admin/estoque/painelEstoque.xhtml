@@ -50,8 +50,8 @@
     	 	<p:dataTable id="gridEstoque" var="estoque" value="#{painelEstoque.listEstoque}" emptyMessage="#{msg['MG19']}"
     	 		paginator="true" rows="5" paginatorPosition="bottom">
     	 		
-		        <p:column headerText="#{msg['MSI057']}">
-		            <h:outputText value="#{estoque.produto.descricao}" />
+		        <p:column headerText="#{msg['MSI051']}">
+		            <h:outputText value="#{estoque.produto.marca} #{estoque.produto.quantidadeMedida} #{estoque.produto.medida.label}" />
 		        </p:column>
 		        <p:column headerText="#{msg['MG07']}">
 		            <h:outputText value="#{estoque.quantidade}" />
