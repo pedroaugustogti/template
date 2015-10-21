@@ -103,7 +103,7 @@ public class BalancoDetalheAnualController extends AbstractManageBean implements
 			
 			Double despesaAtual = (Double) despesaService.pesquisaTotalDespesasPeloPeriodo(dataInicio, dataFinal);
 			
-			if (despesaAtual != null && despesaAtual > limiteDespesa){
+			if (despesaAtual != null && despesaAtual > 0.0 && despesaAtual > limiteDespesa){
 				
 				limiteDespesa = despesaAtual;
 			}

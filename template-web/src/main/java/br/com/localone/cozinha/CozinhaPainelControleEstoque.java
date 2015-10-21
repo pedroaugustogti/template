@@ -11,6 +11,7 @@ import javax.interceptor.Interceptors;
 import br.com.template.domain.EmailEnum;
 import br.com.template.domain.EmailRemetenteEnum;
 import br.com.template.domain.Medida;
+import br.com.template.domain.Situacao;
 import br.com.template.entidades.Cardapio;
 import br.com.template.entidades.CardapioIngrediente;
 import br.com.template.entidades.Estoque;
@@ -56,10 +57,22 @@ public class CozinhaPainelControleEstoque {
 			Long idEstoque = ingrediente.getEstoque().getId();
 			Estoque estoque = serviceEstoque.getById(Estoque.class, idEstoque);
 			
-			int qntEstoqueAtualizada = qntEstoqueAtualizado(ingrediente, estoque);;
+			int qntEstoqueAtualizada = qntEstoqueAtualizado(ingrediente, estoque);
+			
+			inativaCardapio(cardapio, qntEstoqueAtualizada);
 			
 			estoque.setQuantidade(qntEstoqueAtualizada);
 			serviceEstoque.salvarSemMensagem(estoque);
+		}
+	}
+
+	//Inativa o cardapio do menu do cliente caso algum ingrediente em estoque tenha acabado.
+	private void inativaCardapio(Cardapio cardapio, int qntEstoqueAtualizada) {
+		
+		if (qntEstoqueAtualizada <= 0){
+			
+			cardapio.setSituacao(Situacao.INATIVO);
+			serviceCardapio.salvarSemMensagem(cardapio);
 		}
 	}
 
@@ -102,7 +115,7 @@ public class CozinhaPainelControleEstoque {
 		
 		EmailParametro emailParametro = new EmailParametro();
 		
-		emailParametro.addParametro("{produto}", estoque.getProduto().getDescricao());
+		emailParametro.addParametro("{produto}", produtoFormatado(estoque));
 		
 		return EmailEnum.EMAIL_ESTOQUE_ACABANDO.assunto(emailParametro);
 	}
@@ -111,9 +124,27 @@ public class CozinhaPainelControleEstoque {
 		
 		EmailParametro emailParametro = new EmailParametro();
 		
-		emailParametro.addParametro("{produto}", estoque.getProduto().getDescricao());
+		emailParametro.addParametro("{fornecedor}", estoque.getProduto().getFornecedor().getNome());
+		emailParametro.addParametro("{produto}", produtoFormatado(estoque));
 		emailParametro.addParametro("{quantidade}", estoque.getQuantidade().toString());
 		emailParametro.addParametro("{medida}", estoque.getMedida().getLabel());
 		return EmailUtils.formataEmail(EmailEnum.EMAIL_ESTOQUE_ACABANDO, emailParametro);
+	}
+
+	private String produtoFormatado(Estoque estoque) {
+		
+		String retorno = null;
+		
+		if (Medida.UNID.equals(estoque.getProduto().getMedida())){
+			
+			retorno = estoque.getProduto().getMarca();
+		}else{
+			
+			retorno = estoque.getProduto().getMarca() +" "+
+					estoque.getProduto().getQuantidadeMedida() +
+					estoque.getProduto().getMedida().getLabel();
+		}
+		
+		return retorno;
 	}
 }

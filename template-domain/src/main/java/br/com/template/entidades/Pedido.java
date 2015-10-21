@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import br.com.template.domain.SituacaoPedido;
 import br.com.template.generics.EntidadeBasica;
@@ -58,6 +59,14 @@ public class Pedido extends EntidadeBasica{
 	@Column(name="horario_conclusao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar horarioConclusao;
+	
+	@Transient
+	private int quantidade;
+	
+	public Pedido(){
+		
+		quantidade = 1;
+	}
 	
 	public Long getId() {
 		return id;
@@ -121,5 +130,13 @@ public class Pedido extends EntidadeBasica{
 
 	public void setCozinheiro(Funcionario cozinheiro) {
 		this.cozinheiro = cozinheiro;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 }

@@ -67,7 +67,7 @@ public class CardapioTempoPreparo extends EntidadeBasica{
 	}
 	
 	public String getSegundoFormat() {
-		segundoFormat = DataUtil.minimoDoisDigitos(getMinuto());
+		segundoFormat = DataUtil.minimoDoisDigitos(getSegundo());
 		
 		return segundoFormat;
 	}

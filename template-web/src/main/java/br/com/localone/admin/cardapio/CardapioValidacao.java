@@ -63,4 +63,8 @@ public class CardapioValidacao extends AbstractValidacao{
 				inteiroNaoInformado(tempoPreparo.getMinuto()) &&
 				inteiroNaoInformado(tempoPreparo.getSegundo());
 	}
+
+	public void verificaTodosIngredientesEmEstoque(Cardapio cardapio) {
+		
+	}
 }

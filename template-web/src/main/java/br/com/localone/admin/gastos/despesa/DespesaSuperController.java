@@ -42,7 +42,6 @@ public abstract class DespesaSuperController extends AbstractManageBean {
 		
 		try {
 			
-			despesaValidacao.camposObrigatoriosSociosPagantes(despesaSocio);
 			despesaValidacao.socioNaLista(despesa.getListDespesaSocio(), usuarioSelecionado);
 			
 			if (despesa.getListDespesaSocio() == null){
@@ -53,6 +52,8 @@ public abstract class DespesaSuperController extends AbstractManageBean {
 			despesaSocio.setSocio(usuarioSelecionado);
 			despesaSocio.setIndex(indexDespesaSocio);
 			despesaSocio.setDespesa(despesa);
+			
+			despesaValidacao.camposObrigatoriosSociosPagantes(despesaSocio);
 			
 			despesa.getListDespesaSocio().add(despesaSocio.getIndex(), despesaSocio);
 			

@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.template.domain.FormaPagamento;
 import br.com.template.domain.SituacaoMesa;
 import br.com.template.generics.EntidadeBasica;
 
@@ -44,6 +45,10 @@ public class Mesa extends EntidadeBasica{
 	
 	@Column(name="cpf_cliente")
 	private String cpfCliente;
+	
+	@Column(name="forma_pagamento")
+	@Enumerated(EnumType.STRING)
+	private FormaPagamento formaPagamento;
 	
 	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="id_comanda")
@@ -112,5 +117,13 @@ public class Mesa extends EntidadeBasica{
 
 	public void setCpfCliente(String cpfCliente) {
 		this.cpfCliente = cpfCliente;
+	}
+
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 }

@@ -57,6 +57,8 @@ public class CardapioPainelController extends CardapioSuperController {
 	
 	public void ativarCardapio(Cardapio cardapio){
 		
+		cardapioValidacao.verificaTodosIngredientesEmEstoque(cardapio);
+		
 		cardapio.setSituacao(Situacao.ATIVO);
 		service.salvar(cardapio);
 	}

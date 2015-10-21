@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.localone.autorizacao.Pagina;
+import br.com.localone.service.CupomFiscalService;
 import br.com.localone.service.PedidoService;
 import br.com.template.domain.Mensagem;
 import br.com.template.domain.Role;
@@ -47,6 +48,9 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 
 	@EJB
 	private GenericServiceController<Usuario, Long> serviceUsuario;
+	
+	@EJB
+	private CupomFiscalService cupomFiscalService;
 	
 	private Pedido pedido;
 	
@@ -112,6 +116,8 @@ public class MesaPainelFecharContaController extends MesaPainelSuperController{
 	}
 	
 	private void preencheBalanco() {
+		
+		cupomFiscalService.gerarCumpomFiscal(mesa, listPedidos);
 		
 		for (Pedido pedido: listPedidos){
 			
