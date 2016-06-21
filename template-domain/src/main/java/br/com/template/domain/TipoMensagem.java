@@ -1,5 +1,10 @@
 package br.com.template.domain;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
+
+import org.apache.commons.lang3.StringUtils;
+
 
 /**
  * 
@@ -26,11 +31,11 @@ public enum TipoMensagem {
 	/**
 	 * ALERTA - Utiliza para mostrar ao usuário mensagem (JSF) do tipo FacesMessage.SEVERITY_WARN
 	 */
-	ALERTA,
+	ALERTA("Alerta!"),
 	/**
 	 * ERRO - Utiliza para mostrar ao usuário mensagem (JSF) do tipo FacesMessage.SEVERITY_ERROR
 	 */
-	ERRO,
+	ERRO("Erro!"),
 	/**
 	 * INFO - Utiliza para mostrar ao usuário mensagem (JSF) do tipo FacesMessage.SEVERITY_INFO
 	 */
@@ -47,4 +52,32 @@ public enum TipoMensagem {
 	 * ESTATICO - Textos estáticos
 	 */
 	ESTATICO;
+	
+	private String label;
+	
+	private TipoMensagem (String label){
+		
+		this.label = label;
+	}
+	
+	private TipoMensagem (){
+		this.label = StringUtils.EMPTY;
+	}
+
+	public static Severity severitFacesMessage(TipoMensagem tipo) {
+		
+		if (ALERTA.equals(tipo)){
+			return FacesMessage.SEVERITY_WARN;
+		}
+		
+		if (ERRO.equals(tipo)){
+			return FacesMessage.SEVERITY_ERROR;
+		}
+		
+		return FacesMessage.SEVERITY_INFO;
+	}
+
+	public String getLabel() {
+		return label;
+	}
 }

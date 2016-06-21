@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI200']}</ui:define>
+
+	<ui:define name="body">	 
+	
+		<p:panel id="cadastro" header="#{msg['MSI200']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+	        <h:panelGrid columns="4" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="nome" value="#{msg['MSI106']}" />
+            	<p:inputText id="nome" value="#{cadastroFornecedor.fornecedor.nome}"/>
+            	
+            	<p:outputLabel for="email" value="#{msg['MG30']}" />
+            	<p:inputText id="email" value="#{cadastroFornecedor.fornecedor.email}">
+            	</p:inputText>
+				 	
+				<p:outputLabel for="telFixo" value="#{msg['MSI120']}" />
+            	<p:inputMask mask="(99)-9999-9999" id="telFixo" value="#{cadastroFornecedor.fornecedor.telFixo}"/>
+            	
+            	<p:outputLabel for="celular" value="#{msg['MSI121']}" />
+            	<p:inputMask mask="(99)-9999-9999" id="celular" value="#{cadastroFornecedor.fornecedor.celular}"/>
+				
+	        </h:panelGrid>
+	        
+	         <p:panel header="#{msg['MSI062']}" style="margin:0 auto; width:80%; text-align:center;">
+	        
+	        	<h:panelGrid id="painelCadastroProduto" columns="4" cellpadding="10" style="margin:0 auto;" >
+	        
+			        <p:outputLabel for="marca" value="#{msg['MSI201']}" />
+		           	<p:inputText id="marca" value="#{cadastroFornecedor.produto.marca}"/>
+		           	
+		           	<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+	           		<p:selectOneRadio id="tipo" value="#{cadastroFornecedor.produto.tipoProduto}">
+	           			<f:selectItems value="#{cadastroFornecedor.filtroFornecedorDTO.tiposProduto}"/>
+	           		</p:selectOneRadio>
+		           	
+		           	<p:outputLabel for="medida" value="#{msg['MSI068']}" />
+		           	<p:selectOneMenu id="medida" value="#{cadastroFornecedor.produto.medida}" >
+		           		
+		           		<p:ajax event="change" update="qntMedida"></p:ajax>
+		           	
+			            <f:selectItems value="#{cadastroFornecedor.filtroFornecedorDTO.medidas}" />
+	   				</p:selectOneMenu>
+		           	
+		           	<p:outputLabel for="qntMedida" value="#{msg['MSI202']}" />
+	            	<p:inputText disabled="#{cadastroFornecedor.medidaUnidade}" id="qntMedida" value="#{cadastroFornecedor.produto.quantidadeMedida}" onkeypress="somenteNumero(this,numero)" size="3" maxlength="3"/>
+		           	
+	           	</h:panelGrid>
+	           	
+		           	 <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+			
+					<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+			
+					<p:inputTextarea id="descricao"
+						value="#{cadastroFornecedor.produto.descricao}" maxlength="100"
+						style="width:250px" />
+			
+				</h:panelGrid>
+	           	
+	           	<p:separator></p:separator>
+	           	
+	           	<p:commandButton value="#{msg['MG08']}" action="#{cadastroFornecedor.adicionarProduto()}" update="@form"></p:commandButton>
+	           	
+	           	<p:separator></p:separator>
+	           	
+	           	<p:dataTable id="gridProduto" var="produto" value="#{cadastroFornecedor.fornecedor.listProdutos}" emptyMessage="#{msg['MG19']}"
+	    	 				paginator="true" rows="5" paginatorPosition="bottom">
+	    	 				
+   	 				<p:column headerText="#{msg['MSI051']}">
+			            <h:outputText value="#{produto.marca} - #{produto.quantidadeMedida} #{produto.medida.label}"  />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI054']}">
+			            <h:outputText value="#{produto.tipoProduto.label}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI057']}">
+			            <h:outputText value="#{produto.descricao}" />
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center;margin:0 auto;">
+			             <p:commandButton icon="ui-icon-trash" title="#{msg['MG20']}" action="#{cadastroFornecedor.removerProduto(produto)}"/>
+			        </p:column>
+			        
+			    </p:dataTable>
+           	</p:panel>
+	        
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+				<p:commandButton id="btnVoltar" value="#{msg['MG01']}" action="#{cadastroFornecedor.redirecionaPagina('PAINEL_FORNECEDOR')}" ajax="false" />	
+				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{cadastroFornecedor.cadastrar()}" update="cadastro"/>
+				
+	        </h:panelGrid>
+	        
+	    </p:panel>	 
+	</ui:define>
+</ui:composition>

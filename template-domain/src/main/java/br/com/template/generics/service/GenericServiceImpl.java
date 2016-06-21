@@ -42,4 +42,9 @@ public class GenericServiceImpl<T extends EntidadeBasica, ID extends Serializabl
 	public void excluir(T t) {
 		reposiroty.excluir(t);
 	}
+
+	@Override
+	public T merge(T t) {
+		return reposiroty.merge(t);
+	}
 }

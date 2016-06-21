@@ -5,6 +5,7 @@ package br.com.template.entidades;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +23,7 @@ import br.com.template.domain.Sexo;
 import br.com.template.generics.EntidadeBasica;
 
 @Entity
-@Table(name="Exemplo")
+@Table(name="tb_pessoa")
 public class Pessoa extends EntidadeBasica{
 
 	/**
@@ -30,11 +33,17 @@ public class Pessoa extends EntidadeBasica{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id_pessoa")
 	private Long id;
 	
 	@Column(name="nome")
     private String nome;
+	
+	@Column(name="cpf")
+    private String cpf;
+	
+	@Column(name="rg")
+    private String rg;
 	
 	@Column(name="sexo")
 	@Enumerated(EnumType.STRING)
@@ -43,6 +52,10 @@ public class Pessoa extends EntidadeBasica{
 	@Column(name="data_nascimento")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="id_pessoa")
+	private Endereco endereco;
 	
 	public String getNome() {
 		return nome;
@@ -74,5 +87,29 @@ public class Pessoa extends EntidadeBasica{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 }

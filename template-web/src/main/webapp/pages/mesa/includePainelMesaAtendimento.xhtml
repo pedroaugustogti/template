@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="alertaCodigoMesa" header="#{msg['MSI126']}" widgetVar="codigoMesa" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+        <p:outputPanel autoUpdate="true" id="codigoMesa" style="text-align:center; border:none !important;">
+ 
+           	<p:outputLabel value="#{painelMesaAtendimento.mesa.codigo}"></p:outputLabel>
+		            
+            <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+            
+            <p:commandButton oncomplete="PF('codigoMesa').hide();" value="#{msg['MG13']}" update="@form"></p:commandButton>
+        </p:outputPanel>
+    </p:dialog>
+    
+    <p:dialog id="infoGarcom" widgetVar="garcom" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+        <p:outputPanel autoUpdate="true" id="garcom" style="text-align:center; border:none !important;">
+            
+            <h:panelGrid columns="1" style="border:none !important;">
+ 
+	            <p:outputLabel for="codigoGarcom" value="#{msg['MSI124']}" />
+	
+				<p:inputText id="codigoGarcom" value="#{painelMesaAtendimento.idFuncionario}" />
+		        
+            </h:panelGrid>
+            
+            <br/>
+            
+            <p:commandButton actionListener="#{painelMesaAtendimento.vinculaGarcomMesa()}" value="#{msg['MG18']}"></p:commandButton>
+            <p:commandButton oncomplete="PF('garcom').hide()" value="#{msg['MG13']}"></p:commandButton>
+        </p:outputPanel>
+    </p:dialog>
+	    
+</ui:composition>

@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI065']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:panel id="pesquisa" header="#{msg['MSI065']}" style="margin:0 auto; width:80%; text-align:center;" >
+	    
+	        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+	        
+           		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+           		
+           		<p:selectOneRadio id="tipo" value="#{painelEstoque.filtroEstoqueDTO.tipoProduto}">
+           			<f:selectItems value="#{painelEstoque.filtroEstoqueDTO.tipoProdutos}" var="tipoProduto" itemLabelEscaped="#{tipoProduto.label}" itemValue="#{tipoProduto.value}" />
+           		</p:selectOneRadio>
+           		
+           		<p:outputLabel for="medida" value="#{msg['MSI068']}" />
+		 		
+		 		<p:selectOneMenu id="medida" value="#{painelEstoque.filtroEstoqueDTO.medida}" style="width:250px">
+		            <f:selectItem itemLabel="#{msg['MG03']}" noSelectionOption="true"/>
+		            <f:selectItems value="#{painelEstoque.filtroEstoqueDTO.medidas}" var="medida" itemLabelEscaped="#{medida.label}" itemValue="#{medida.value}" />
+   				</p:selectOneMenu>
+           		
+           		<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+           		
+            	<p:inputTextarea id="descricao" value="#{painelEstoque.filtroEstoqueDTO.descricao}" 
+				 	maxlength="100" style="width:250px"/>
+				 	
+	        </h:panelGrid>
+	        
+	        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+	        
+        		<p:commandButton id="btnPesquisar" value="#{msg['MG16']}" action="#{painelEstoque.pesquisar()}" update="grid"/>
+				<p:commandButton id="btnLimpar" value="#{msg['MG17']}" action="#{painelEstoque.inicio()}" update="pesquisa"/>	
+				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{painelEstoque.redirecionaPagina('CADASTRAR_ESTOQUE')}" rendered="#{painelEstoque.autorizaFuncionalidade('CADASTRAR_ESTOQUE')}"/>
+				
+	        </h:panelGrid>
+	        
+	    </p:panel>
+	    
+	    <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+	    
+	    <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+	    	
+    	 	<p:dataTable id="gridEstoque" var="estoque" value="#{painelEstoque.listEstoque}" emptyMessage="#{msg['MG19']}"
+    	 		paginator="true" rows="5" paginatorPosition="bottom">
+    	 		
+		        <p:column headerText="#{msg['MSI051']}">
+		            <h:outputText value="#{estoque.produto.marca} #{estoque.produto.quantidadeMedida} #{estoque.produto.medida.label}" />
+		        </p:column>
+		        <p:column headerText="#{msg['MG07']}">
+		            <h:outputText value="#{estoque.quantidade}" />
+		        </p:column>
+		        <p:column headerText="#{msg['MSI068']}">
+		            <h:outputText value="#{estoque.medida.label}" />
+		        </p:column>
+		        <p:column headerText="#{msg['MSI067']}">
+		            <h:outputText value="#{estoque.precoFormat}" />
+		        </p:column>
+		        
+		        <p:column style="width:40px;text-align: center;margin:0 auto;" rendered="#{painelEstoque.autorizaFuncionalidade('ALTERAR_ESTOQUE')}">
+		             <p:commandButton icon="ui-icon-refresh" title="#{msg['MG20']}" action="#{painelEstoque.redirecionaParaTelaAlterar(estoque)}"/>
+		        </p:column>
+		        <p:column style="width:40px;text-align: center; margin:0 auto;"  rendered="#{painelEstoque.autorizaFuncionalidade('EXCLUIR_ESTOQUE')}">
+		             <p:commandButton oncomplete="PF('confirmaExclusao').show()" icon="ui-icon-trash" title="#{msg['MG21']}" update="gridEstoque">
+		                <f:setPropertyActionListener value="#{estoque}" target="#{painelEstoque.estoqueSelecionado}" />
+		            </p:commandButton>
+		        </p:column>
+		    </p:dataTable>
+    	</p:panel>
+		    
+	    <p:dialog id="alertaExclusao" header="#{msg['MG22']}" widgetVar="confirmaExclusao" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center !important; border:none !important;" >
+	        <p:outputPanel id="confirmaExclusao" style="text-align:center; border:none !important;">
+	            <h:panelGrid style="border:none !important;">
+	 
+	                <p:row>
+			            <p:column colspan="2">#{msg['MG23']}</p:column>
+			        </p:row>
+			        
+			         <p:row>
+			            <p:column colspan="2"><p:separator></p:separator> </p:column>
+			        </p:row>
+			        
+			        <p:row>
+			        	<p:column>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" action="#{painelEstoque.excluir()}" value="#{msg['MG21']}" update="gridEstoque"></p:commandButton>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" value="#{msg['MG13']}"></p:commandButton>
+			            </p:column>
+			        </p:row>
+
+	            </h:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
+	</ui:define>
+</ui:composition>

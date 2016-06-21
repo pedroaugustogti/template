@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/template/templateDefault.xhtml">
+
+	<ui:define name="title">#{msg['MSI097']}</ui:define>
+
+	<ui:define name="body">
+		
+		<p:commandButton style="text-align:left;" action="#{painelCozinha.logout()}" icon="ui-icon-power" ></p:commandButton>
+	 	<p:separator></p:separator>
+	
+		<p:poll autoStart="true" interval="1" update="painelCozinha"></p:poll>
+		
+		<p:panel id="painelCozinha" header="#{msg['MSI097']}" style="border:none !important; width:100%;margin:0 auto;text-align:center;" >
+		
+			<h:outputText value="Tempo parado na cozinha: #{painelCozinha.tempoOciosoFormat}"/>
+		
+			<p:panelGrid columns="2" style="border:none !important; width:100%;" >
+			
+				<p:panel header="#{msg['MSI098']}" style="border:none !important;" >
+		 			
+		 			<p:dataTable var="pedido" rows="1" value="#{painelCozinha.listPedidoPrioritario}" emptyMessage="#{msg['MG19']}">
+				        
+				        <p:column headerText="#{msg['MSI075']}" >
+				            <h:outputText value="#{pedido.cardapio.descricao}"/>
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MG11']}" >
+				            <h:outputText value="#{pedido.situacao.label}"/>
+				        </p:column>
+				        
+				        <p:column >
+				            <p:commandButton value="#{msg['MSI102']}" action="#{painelCozinha.iniciarPreparo(pedido)}" ignoreAutoUpdate="true"/>
+				        </p:column>
+				        
+			         </p:dataTable>
+			        
+				</p:panel>	
+				
+				<p:panel header="#{msg['MSI100']}" style="border:none !important;">
+		 			
+		 			<p:dataTable var="pedido" paginatorAlwaysVisible="false" paginator="true" paginatorPosition="top" value="#{painelCozinha.listPedidoEmPreparo}" emptyMessage="#{msg['MG19']}">
+				        
+				        <p:column headerText="#{msg['MSI075']}" >
+				            <h:outputText value="#{pedido.cardapio.descricao}"/>
+				        </p:column>
+				        
+				         <p:column headerText="#{msg['MG11']}" >
+				            <h:outputText value="#{pedido.situacao.label}"/>
+				        </p:column>
+				        
+				        <p:column >
+				            <p:commandButton value="#{msg['MSI103']}" action="#{painelCozinha.finalizarPreparo(pedido)}" ignoreAutoUpdate="true"/>
+				        </p:column>
+				        
+			         </p:dataTable>
+			        
+				</p:panel>
+				
+				<p:panel header="#{msg['MSI099']}" style="border:none !important;">
+		 			
+		 			<p:dataTable var="pedido" rows="4" value="#{painelCozinha.listProximosPedidos}" emptyMessage="#{msg['MG19']}">
+				        
+				        <p:column headerText="#{msg['MSI075']}" >
+				            <h:outputText value="#{pedido.cardapio.descricao}"/>
+				        </p:column>
+				        
+				         <p:column headerText="#{msg['MG11']}" >
+				            <h:outputText value="#{pedido.situacao.label}"/>
+				        </p:column>
+				        
+			         </p:dataTable>
+			        
+				</p:panel>
+				
+				<p:panel header="#{msg['MSI101']}" style="border:none !important;">
+				
+					<p:dataTable rows="4" var="pedido" value="#{painelCozinha.listPedidoFinalizado}" emptyMessage="#{msg['MG19']}">
+				        
+				        <p:column headerText="#{msg['MSI075']}" >
+				            <h:outputText value="#{pedido.cardapio.descricao}"/>
+				        </p:column>
+				        
+				        <p:column headerText="#{msg['MG11']}" >
+				            <h:outputText value="#{pedido.situacao.label}"/>
+				        </p:column>
+				        
+			         </p:dataTable>
+			        
+				</p:panel>
+			
+			</p:panelGrid>
+		</p:panel>
+	</ui:define>
+</ui:composition>

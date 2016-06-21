@@ -13,7 +13,7 @@ import br.com.template.excecao.NegocioException;
 
 public abstract class AbstractRelatorioUtil {
 	
-	protected static final RelatorioPath PATH_RAIZ = RelatorioEnum.TEMPLATE;
+	protected static final RelatorioPath PATH_RAIZ = RelatorioEnum.BALANCO_GASTO;
 	
 	protected HttpServletResponse response;
 	protected HttpServletRequest request;

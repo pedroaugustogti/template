@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI109']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:panel id="pesquisa" header="#{msg['MSI203']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+		    <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+		
+				<p:outputLabel for="nome" value="#{msg['MSI106']}" />
+		
+				<p:inputTextarea id="nome"
+					value="#{painelFornecedor.filtroFornecedorDTO.nome}" maxlength="100"
+					style="width:250px" />
+		
+			</h:panelGrid>
+		    
+		    <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		
+				<p:commandButton id="btnPesquisar" value="#{msg['MG16']}"
+					action="#{painelFornecedor.pesquisar()}" update="@form" />
+				<p:commandButton id="btnLimpar" value="#{msg['MG17']}"
+					action="#{painelFornecedor.inicio()}" update="@form" />
+				<p:commandButton id="btnCadastrar" value="#{msg['MG18']}"
+					action="#{painelFornecedor.redirecionaPagina('CADASTRAR_FORNECEDOR')}"
+					rendered="#{painelFornecedor.autorizaFuncionalidade('CADASTRAR_FORNECEDOR')}" />
+		
+			</h:panelGrid>
+
+			<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+			
+      	</p:panel>
+		    
+	    <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+	    	
+	    	 <p:dataTable id="gridFornecedor" var="fornecedor" value="#{painelFornecedor.listFornecedor}" emptyMessage="#{msg['MG19']}">
+		        
+		        <p:column headerText="#{msg['MSI200']}">
+		            <h:outputText value="#{fornecedor.nome}" />
+		        </p:column>
+		        
+		        <p:column style="width:40px;text-align: center;margin:0 auto;" rendered="#{painelFornecedor.autorizaFuncionalidade('ALTERAR_FORNECEDOR')}">
+		             <p:commandButton icon="ui-icon-refresh" title="#{msg['MG20']}" action="#{painelFornecedor.redirecionaParaTelaAlterar(fornecedor)}"/>
+		        </p:column>
+		        
+		    </p:dataTable>
+	    </p:panel>
+	</ui:define>
+</ui:composition>

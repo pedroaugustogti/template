@@ -3,6 +3,7 @@
 	<name>template-domain</name>
 	<comment></comment>
 	<projects>
+		<project>Bematech_Java</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

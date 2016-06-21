@@ -29,6 +29,7 @@ import br.com.template.generics.service.GenericService;
  * @param <T> deve ser referência de uma entidade filha da {@link EntidadeBasica}
  * @param <ID> deve ser a chave primária da entidade (Objeto que implemente {@link Serializable})
  */
+
 @Stateless
 public class GenericServiceController<T extends EntidadeBasica, ID extends Serializable> {
 	
@@ -59,6 +60,10 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	@Interceptors(InterceptionDefaultMenssage.class)
 	public void salvar(T t) {
 		genericService.salvar(t);
+	}
+	
+	public void salvarSemMensagem(T t) {
+		genericService.salvar(merge(t));
 	}
 
 	/**
@@ -166,5 +171,9 @@ public class GenericServiceController<T extends EntidadeBasica, ID extends Seria
 	@Interceptors(InterceptionDefaultMenssage.class)
 	public void excluir(T t) {
 		genericService.excluir(t);
+	}
+
+	public T merge(T t) {
+		return genericService.merge(t);
 	}
 }

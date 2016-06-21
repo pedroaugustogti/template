@@ -16,6 +16,80 @@ public enum Mensagem {
 	MNG003(TipoMensagem.ALERTA),
 	MNG004(TipoMensagem.ALERTA),
 	MNG005(TipoMensagem.ALERTA),
+	MNG006(TipoMensagem.ALERTA),
+	MNG007(TipoMensagem.ALERTA),
+	
+	//Produto
+	MNG008(TipoMensagem.ALERTA),
+	MNG009(TipoMensagem.ALERTA),
+	
+	//estoque
+	MNG010(TipoMensagem.ALERTA),
+	MNG011(TipoMensagem.ALERTA),
+	MNG012(TipoMensagem.ALERTA),
+	MNG013(TipoMensagem.ALERTA),
+	MNG014(TipoMensagem.ALERTA),
+	MNG015(TipoMensagem.ALERTA),
+	MNG016(TipoMensagem.ALERTA),
+	MNG017(TipoMensagem.ALERTA),
+	MNG018(TipoMensagem.ALERTA),
+	MNG019(TipoMensagem.ALERTA),
+	MNG020(TipoMensagem.ALERTA),
+	MNG021(TipoMensagem.ALERTA),
+	MNG022(TipoMensagem.ALERTA),
+	MNG023(TipoMensagem.ALERTA),
+	MNG024(TipoMensagem.ALERTA),
+	MNG025(TipoMensagem.ALERTA),
+	MNG026(TipoMensagem.ALERTA),
+	MNG027(TipoMensagem.ALERTA),
+	MNG028(TipoMensagem.ALERTA),
+	MNG029(TipoMensagem.ALERTA),
+	MNG030(TipoMensagem.ALERTA),
+	MNG031(TipoMensagem.ALERTA),
+	MNG032(TipoMensagem.ALERTA),
+	MNG033(TipoMensagem.ALERTA),
+	MNG034(TipoMensagem.ALERTA),
+	MNG035(TipoMensagem.ALERTA),
+	MNG036(TipoMensagem.ALERTA),
+	MNG037(TipoMensagem.ALERTA),
+	MNG038(TipoMensagem.ALERTA),
+	MNG039(TipoMensagem.ALERTA),
+	MNG040(TipoMensagem.ALERTA),
+	MNG041(TipoMensagem.ALERTA),
+	MNG042(TipoMensagem.ALERTA),
+	MNG043(TipoMensagem.ALERTA),
+	MNG044(TipoMensagem.ALERTA),
+	MNG045(TipoMensagem.ALERTA),
+	MNG046(TipoMensagem.ALERTA),
+	MNG047(TipoMensagem.ALERTA),
+	MNG048(TipoMensagem.ALERTA),
+	MNG049(TipoMensagem.ALERTA),
+	MNG050(TipoMensagem.ALERTA),
+	MNG051(TipoMensagem.ALERTA),
+	MNG052(TipoMensagem.ALERTA),
+	MNG053(TipoMensagem.ALERTA),
+	MNG054(TipoMensagem.ALERTA),
+	MNG055(TipoMensagem.ALERTA),
+	MNG056(TipoMensagem.ALERTA),
+	MNG057(TipoMensagem.ALERTA),
+	MNG058(TipoMensagem.ALERTA),
+	MNG059(TipoMensagem.ALERTA),
+	MNG060(TipoMensagem.ALERTA),
+	MNG061(TipoMensagem.ALERTA),
+	MNG062(TipoMensagem.ALERTA),
+	MNG063(TipoMensagem.ALERTA),
+	MNG064(TipoMensagem.ALERTA),
+	MNG065(TipoMensagem.ALERTA),
+	MNG066(TipoMensagem.ALERTA),
+	MNG067(TipoMensagem.ALERTA),
+	MNG068(TipoMensagem.ALERTA),
+	MNG069(TipoMensagem.ALERTA),
+	MNG070(TipoMensagem.ALERTA),
+	MNG071(TipoMensagem.ALERTA),
+	MNG072(TipoMensagem.ALERTA),
+	MNG073(TipoMensagem.ALERTA),
+	MNG074(TipoMensagem.ALERTA),
+	MNG075(TipoMensagem.ALERTA),
 	
 	//ERROS INTERNOS DO SISTEMA
 	//MEI = Mensagem de Erro Interno
@@ -31,6 +105,8 @@ public enum Mensagem {
 	MEI009(TipoMensagem.INTERNO),
 	MEI010(TipoMensagem.INTERNO),
 	MEI011(TipoMensagem.INTERNO),
+	MEI012(TipoMensagem.INTERNO),
+	MEI013(TipoMensagem.INTERNO),
 	
 	//MENSAGENS PADRÃO (DEFAULT)
 	//MDF = Mensagem Default
@@ -42,7 +118,12 @@ public enum Mensagem {
 	
 	MSI003(TipoMensagem.ESTATICO),
 	MSI043(TipoMensagem.ESTATICO), 
-	MSI044(TipoMensagem.ESTATICO);
+	MSI044(TipoMensagem.ESTATICO), 
+	
+	MSA001(TipoMensagem.ESTATICO),
+	MSA002(TipoMensagem.ESTATICO),
+	MSA003(TipoMensagem.ESTATICO),
+	MSA004(TipoMensagem.ESTATICO);
 	
 	private TipoMensagem tipo;
 	

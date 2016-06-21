@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="alertaCadastro" widgetVar="cadastrarMesa" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+        
+        <p:outputPanel id="cadastrarMesa" style="text-align:center; border:none !important;">
+            <h:panelGrid columns="1" style="border:none !important;">
+ 
+	            <p:outputLabel for="numMesaCadastro" value="#{msg['MSI090']}" />
+	
+				<p:inputText id="numMesaCadastro" value="#{painelMesaCadastro.mesa.numMesa}" />
+		        
+            </h:panelGrid>
+            
+             <br/>
+             
+            <p:commandButton actionListener="#{painelMesaCadastro.cadastrarMesa()}" action="#{painelMesa.pesquisar()}" value="#{msg['MG18']}" update="@form"></p:commandButton>
+            <p:commandButton oncomplete="PF('cadastrarMesa').hide()" value="#{msg['MG13']}"></p:commandButton>
+        </p:outputPanel>
+    </p:dialog>
+    
+</ui:composition>

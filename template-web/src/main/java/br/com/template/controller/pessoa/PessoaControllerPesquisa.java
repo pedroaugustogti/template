@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import br.com.template.autorizacao.Pagina;
+import br.com.localone.autorizacao.Pagina;
 import br.com.template.domain.relatorio.RelatorioEnum;
 import br.com.template.dto.FiltroEntidadeExemploDTO;
 import br.com.template.entidades.Pessoa;
@@ -45,7 +45,7 @@ public class PessoaControllerPesquisa extends AbstractManageBean{
 		
 		PessoaRelatorioParametro parametroRelatorio = new PessoaRelatorioParametro(entidades);
 		
-		super.gerarRelatorio(RelatorioEnum.TEMPLATE, parametroRelatorio);
+		super.gerarRelatorio(RelatorioEnum.BALANCO_GASTO, parametroRelatorio);
 	}
 	
 	public void pesquisar(){

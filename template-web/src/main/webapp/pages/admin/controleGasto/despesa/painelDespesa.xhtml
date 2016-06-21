@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI194']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:panel id="pesquisa" header="#{msg['MSI194']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+		    <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+
+				<p:outputLabel for="empresa" value="#{msg['MG27']}" />
+	           		
+           		<p:selectOneMenu id="empresa" value="#{painelDespesa.filtroDespesaDTO.empresa}">
+           			<f:selectItems value="#{painelDespesa.filtroDespesaDTO.empresas}" />
+           		</p:selectOneMenu>
+		
+				<p:outputLabel for="descricao" value="#{msg['MSI057']}" />
+		
+				<p:inputTextarea id="descricao"
+					value="#{painelDespesa.filtroDespesaDTO.descricao}" maxlength="100"
+					style="width:250px" />
+		
+			</h:panelGrid>
+		    
+		    <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+
+			<p:commandButton id="btnPesquisar" value="#{msg['MG16']}"
+				action="#{painelDespesa.pesquisar()}" update="@form" />
+			<p:commandButton id="btnLimpar" value="#{msg['MG17']}"
+				action="#{painelDespesa.inicio()}" update="@form" />
+			<p:commandButton id="btnCadastrar" value="#{msg['MG18']}"
+				action="#{painelDespesa.verificaConfiguracaoSocio()}"
+				rendered="#{painelDespesa.autorizaFuncionalidade('CADASTRAR_DESPESA')}" />
+
+	</h:panelGrid>
+
+	<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+      	</p:panel>
+		    
+		    <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+		    	
+	    	 	<p:dataTable id="gridDespesa" var="despesa" value="#{painelDespesa.listDespesa}" emptyMessage="#{msg['MG19']}"
+	    	 				paginator="true" rows="5" paginatorPosition="bottom">
+	    	 				
+			        <p:column headerText="#{msg['MG27']}">
+			            <h:outputText value="#{despesa.empresa.label}" />
+			        </p:column>
+			        <p:column headerText="#{msg['MSI057']}">
+			            <h:outputText value="#{despesa.descricao}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI172']}">
+			            <h:outputText value="#{painelDespesa.calculoTotalDespesa(despesa.listDespesaSocio)}" />
+			        </p:column>
+			    </p:dataTable>
+				    
+		    </p:panel>
+	</ui:define>
+</ui:composition>

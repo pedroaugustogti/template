@@ -76,7 +76,9 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
 			throw new UsernameNotFoundException(getValue(Mensagem.MNG003), e);
 		}
 		
-		if (!userDetails.getPassword().equals(authentication.getCredentials().toString())){
+		String senhaCriptografada = CriptografiaUtil.criptografar(authentication.getCredentials());
+		
+		if (!userDetails.getPassword().equals(senhaCriptografada)){
 			
 			throw new BadCredentialsException(getValue(Mensagem.MNG002));
 		}
@@ -101,6 +103,7 @@ public class AuthenticationProviderCustom implements AuthenticationProvider {
     		
     		RequestAttributes mapAtributos = RequestContextHolder.currentRequestAttributes();
     		mapAtributos.setAttribute(AtributoSessao.PERMISSOES_USUARIO.name(), permissoesUsuario, RequestAttributes.SCOPE_SESSION);
+    		mapAtributos.setAttribute(AtributoSessao.USUARIO.name(), userDetails.getUsername(), RequestAttributes.SCOPE_SESSION);
     		
     		isUsuarioNaSessao = Boolean.TRUE;
     		

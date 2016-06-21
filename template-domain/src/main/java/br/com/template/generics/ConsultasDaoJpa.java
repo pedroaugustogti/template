@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,6 +19,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer;
+import org.hibernate.sql.JoinType;
 import org.springframework.core.GenericTypeResolver;
 
 import br.com.template.anotations.EntityProperty;
@@ -90,9 +92,16 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 		 return inicializaCampos(filtrarPesquisa(filtroDTO, entidade), camposInitialize);
 	 }
 	 
-    public T getPrimeiroRegistroPorFiltro(Object filtroDTO, Class<T> entidade) {
+    public T primeiroRegistroPorFiltro(Object filtroDTO, Class<T> entidade, String...camposInitialize) {
     	
-    	List<T> list = filtrarPesquisa(filtroDTO, entidade);
+    	List<T> list = null;
+    	
+    	if (camposInitialize ==null){
+    		list = filtrarPesquisa(filtroDTO, entidade);
+    	}else{
+    		list = filtrarPesquisa(filtroDTO, entidade, camposInitialize);
+    	}
+    	
     	T primeiroRegistro = null;
     	
     	if (!list.isEmpty()){
@@ -101,7 +110,7 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 		 
 		return primeiroRegistro;
 	}
-	
+    
 	@SuppressWarnings("unchecked")
     public List<T> filtrarPesquisa(Object filtroDTO, Class<T> entidade) {
 		
@@ -121,19 +130,29 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 			if (field != null && valor != null) {
 
 				String join = field.getAnnotation(EntityProperty.class).value();
+				boolean isPesquisaExata = field.getAnnotation(EntityProperty.class).pesquisaExata();
+				boolean ignoraCaseSensitive = field.getAnnotation(EntityProperty.class).ignoraCaseSensitive();
 
 				montaJoinsParaOrdenacao(criteria, todosAlias, join);
 
-				montaWhere(criteria, valor, join);
+				montaWhere(criteria, valor, join, isPesquisaExata, ignoraCaseSensitive);
 			}
 		}
 
 		return (List<T>) criteria.list();
     }
 
-	private void montaWhere(Criteria criteria, Object valor, String join) {
+	private void montaWhere(Criteria criteria, Object valor, String join, boolean isPesquisaExata, boolean ignoraCaseSensitive) {
 		
-		if (valor != null && valor instanceof String && StringUtils.isNotBlank(valor.toString())){
+		if (isPesquisaExata && ignoraCaseSensitive && valor instanceof String){
+			
+			criteria.add(Restrictions.ilike(join, valor.toString().toLowerCase() , MatchMode.EXACT));
+			
+		}else if (isPesquisaExata && !ignoraCaseSensitive){
+			
+			criteria.add(Restrictions.eq(join, valor));
+			
+		}else if (valor != null && valor instanceof String && StringUtils.isNotBlank(valor.toString())){
 			criteria.add(Restrictions.ilike(join, valor.toString().toLowerCase() , MatchMode.ANYWHERE));
 		}else if (valor != null && !(valor instanceof String)){
 			criteria.add(Restrictions.eqOrIsNull(join, valor));
@@ -194,7 +213,7 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 					
 					todosAlias.add(aliasCompleto);
 
-					criteria.createAlias(alias.toString(), aliasCompleto);
+					criteria.createAlias(alias.toString(), aliasCompleto, JoinType.INNER_JOIN);
 
 					todosJoins.add(joinsJaCriados.toString());
 				} 
@@ -234,27 +253,33 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 			String[] campos = StringUtils.split(campo,".");
 			int nivelHierarquia = campos.length;
 			
-			if (nivelHierarquia == 1 ){
+			if (t != null){
 				
-				setProperty(t, campo);
-				
-			} else if (nivelHierarquia > 1){
-				
-				Object valueProp = t;
-				
-				for (int i=0; i < campos.length;i++){
+				if (nivelHierarquia == 1){
 					
-					if (valueProp instanceof Collection){
+					setProperty(t, campo);
+					
+				} else if (nivelHierarquia > 1){
+					
+					Object valueProp = t;
+					
+					for (int i=0; i < campos.length;i++){
 						
-						for (Object obj : (Collection<?>)valueProp){
+						if (valueProp instanceof Collection){
 							
-							inicializaCampo(campos, obj);
+							for (Object obj : (Collection<?>)valueProp){
+								
+								inicializaCampo(campos, obj);
+							}
+							
+						}else{
+							
+							valueProp = getValorPropriedadeInicializado(campos[i], valueProp);
+							
+							if (valueProp != null){
+								setProperty(valueProp, campos[i]);
+							}
 						}
-						
-					}else{
-						
-						valueProp = getValorPropriedadeInicializado(campos[i], valueProp);
-						setProperty(valueProp, campos[i]);
 					}
 				}
 			}
@@ -272,7 +297,12 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 	private void setProperty(Object t, String campo, Object valuePropertie) {
 		try {
 			
-			BeanUtils.setProperty(t, campo, valuePropertie);
+			if (valuePropertie != null){
+				
+				BeanUtils.setProperty(t, campo, valuePropertie);
+			}
+			
+			
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
@@ -281,6 +311,10 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 	}
 
 	private Object getValorPropriedadeInicializado(String campo, Object t) {
+		
+		if (t == null){
+			return null;
+		}
 		
 	   Map<?, ?> mapa = UtilReflexao.obterAtributos(t);
        	
@@ -301,6 +335,9 @@ public class ConsultasDaoJpa<T> extends AbstractModel{
 						 	 }else if (props.getValue() instanceof JavassistLazyInitializer){
 						 		 
 						 		setProperty(obj, props.getKey().toString(), ((JavassistLazyInitializer)props.getValue()).getImplementation());
+						 	 }else if (props.getValue() instanceof Date){
+						 		 
+						 		setProperty(obj, props.getKey().toString(), ((Date)props.getValue()));
 						 	 }else{
 						 		 
 						 		setProperty(obj, props.getKey().toString(), props.getValue());

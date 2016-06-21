@@ -1,0 +1,177 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+		      	xmlns:h="http://java.sun.com/jsf/html"
+		      	xmlns:f="http://java.sun.com/jsf/core"
+		      	xmlns:p="http://primefaces.org/ui"
+		      	template="/pages/admin/templatePaginasAdmin.xhtml">
+
+	<ui:define name="title">#{msg['MSI074']}</ui:define>
+
+	<ui:define name="body">
+	
+		<p:panel id="pesquisa" header="#{msg['MSI074']}" style="margin:0 auto; width:80%; text-align:center;" >
+		    
+		        <h:panelGrid columns="2" cellpadding="10" style="margin:0 auto;">
+		        
+	           		<p:outputLabel for="tipo" value="#{msg['MSI054']}" />
+	           		
+	           		<p:selectOneRadio id="tipo" value="#{painelCardapio.filtroCardapioDTO.categoria}">
+	           			<f:selectItems value="#{painelCardapio.filtroCardapioDTO.categoriaMenu}" />
+	           		</p:selectOneRadio>
+	           		
+	           		<p:outputLabel for="cardapio" value="#{msg['MSI075']}" />
+	           		
+	            	<p:inputTextarea id="cardapio" value="#{painelCardapio.filtroCardapioDTO.descricaoPrato}" 
+					 	maxlength="100" style="width:250px"/>
+					 	
+		        </h:panelGrid>
+		        
+		        <h:panelGrid columns="3" cellpadding="10" style="margin:0 auto;">
+		        
+	        		<p:commandButton id="btnPesquisar" value="#{msg['MG16']}" action="#{painelCardapio.pesquisar()}" update="grid"/>
+					<p:commandButton id="btnLimpar" value="#{msg['MG17']}" action="#{painelCardapio.inicio()}" update="pesquisa"/>	
+					<p:commandButton id="btnCadastrar" value="#{msg['MG18']}" action="#{painelCardapio.redirecionaPagina('CADASTRAR_CARDAPIO')}" rendered="#{painelCardapio.autorizaFuncionalidade('CADASTRAR_CARDAPIO')}"/>
+					
+		        </h:panelGrid>
+		        
+		    </p:panel>
+		    
+		    <p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+		    
+		    <p:panel id="grid" style="margin:0 auto; width:80%; text-align:center;">
+		    	
+		    	 <p:dataTable id="gridCardapio" var="cardapio" value="#{painelCardapio.listCardapio}" emptyMessage="#{msg['MG19']}"
+		    	 	paginator="true" rows="5" paginatorPosition="bottom">
+			        
+			        <p:column headerText="#{msg['MSI075']}" width="50%">
+			            <h:outputText value="#{cardapio.descricao}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI067']}">
+			            <h:outputText value="#{cardapio.precoFormat}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MG11']}" style="width:80px;text-align: center;margin:0 auto;">
+			        	
+			        	<p:commandButton icon="ui-icon-locked" action="#{painelCardapio.ativarCardapio(cardapio)}" update="gridCardapio" rendered="#{cardapio.situacao == 'INATIVO'}"/>
+			        	<p:commandButton icon="ui-icon-unlocked" action="#{painelCardapio.inativarCardapio(cardapio)}" update="gridCardapio" rendered="#{cardapio.situacao == 'ATIVO'}"/>
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center;margin:0 auto;">
+		            	<p:commandButton oncomplete="PF('detalharCardapio').show();" action="#{painelCardapio.selecionaCardapio(cardapio)}" icon="ui-icon-zoomin" title="#{msg['MG12']}"/>
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center;margin:0 auto;" rendered="#{painelCardapio.autorizaFuncionalidade('ALTERAR_CARDAPIO')}">
+			             <p:commandButton icon="ui-icon-refresh" title="#{msg['MG20']}" action="#{painelCardapio.redirecionaParaTelaAlterar(cardapio)}"/>
+			        </p:column>
+			        
+			        <p:column style="width:40px;text-align: center; margin:0 auto;"  rendered="#{painelCardapio.autorizaFuncionalidade('EXCLUIR_CARDAPIO')}">
+		            	<p:commandButton oncomplete="PF('confirmaExclusao').show()" icon="ui-icon-trash" title="#{msg['MG21']}" update="gridCardapio">
+			                <f:setPropertyActionListener value="#{cardapio}" target="#{painelCardapio.cardapio}" />
+			            </p:commandButton>
+			        </p:column>
+		         </p:dataTable>
+		    </p:panel>
+		    
+	    <p:dialog id="alertaExclusao" header="#{msg['MG22']}" widgetVar="confirmaExclusao" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center !important; border:none !important;" >
+	        <p:outputPanel id="confirmaExclusao" style="text-align:center; border:none !important;">
+	            <h:panelGrid style="border:none !important;">
+	 
+	                <p:row>
+			            <p:column colspan="2">#{msg['MG23']}</p:column>
+			        </p:row>
+			        
+			         <p:row>
+			            <p:column colspan="2"><p:separator></p:separator> </p:column>
+			        </p:row>
+			        
+			        <p:row>
+			        	<p:column>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" action="#{painelCardapio.excluir()}" value="#{msg['MG21']}" update="gridCardapio"></p:commandButton>
+				            <p:commandButton oncomplete="PF('confirmaExclusao').hide()" value="#{msg['MG13']}"></p:commandButton>
+			            </p:column>
+			        </p:row>
+
+	            </h:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
+	    
+	    <p:dialog id="detalhe" widgetVar="detalharCardapio" modal="true" showEffect="fade" hideEffect="fade" resizable="false" style="text-align:center; border:none !important;" >
+        
+        	<p:outputPanel autoUpdate="true" style="text-align:center; border:none !important;">
+            
+				<p:outputLabel value="#{msg['MSI054']}" style="font-weight: bold;"/>
+				<p:outputLabel value=":" />
+	           	<p:outputLabel value="#{painelCardapio.cardapio.categoriaMenu.label}" />
+	           	
+	           	<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+	           	
+	           	<p:outputLabel value="#{msg['MSI075']}" style="font-weight: bold;"/>
+	           	<p:outputLabel value=":" />
+	           	<p:outputLabel value="#{painelCardapio.cardapio.descricao}" />
+				
+				<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+				
+				<h:panelGrid columns="7" style="margin:0 auto; text-align:center !important; border:none !important;">
+					
+					<p:outputLabel value="#{msg['MSI145']}" style="font-weight: bold;"/>
+					
+	           		<p:outputLabel value="#{painelCardapio.cardapio.tempoPreparo.horaFormat}" />
+	           		<p:outputLabel value=":" />
+	           		
+	           		<p:outputLabel value="#{painelCardapio.cardapio.tempoPreparo.minutoFormat}" />
+	           		<p:outputLabel value=":" />
+	           		
+	           		<p:outputLabel value="#{painelCardapio.cardapio.tempoPreparo.segundoFormat}" />
+				</h:panelGrid>
+				
+				<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+	           	
+	           	<p:outputLabel value="#{msg['MSI067']}" style="font-weight: bold;"/>
+	           	<p:outputLabel value=": R$" />
+	           	<p:outputLabel value="#{painelCardapio.cardapio.precoFormat}" />
+				
+				<br/>
+				<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+				<br/>
+				
+				<br/>
+				<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+				
+				<p:outputLabel value="#{msg['MSI146']}" style="font-weight: bold;"/>
+				<p:outputLabel value=":" />
+	           	<p:outputLabel value="#{painelCardapio.totalGasto}" />
+            	
+            	<br/>
+            	 
+				<p:outputLabel value="#{msg['MSI147']}" style="font-weight: bold;"/>
+				<p:outputLabel value=":" />
+	           	<p:outputLabel value="#{painelCardapio.lucro}" />
+            	
+            	<br/>
+				<p:separator style="margin:0 auto; width:80%; text-align:center;"></p:separator>
+				<br/>
+				
+	           	<p:dataTable id="gridIngrediente" var="ingrediente" value="#{painelCardapio.cardapio.listIngredientes}" emptyMessage="#{msg['MG19']}">
+			        
+			        <p:column headerText="#{msg['MSI080']}">
+			            <h:outputText value="#{ingrediente.estoque.produto.marca} #{ingrediente.estoque.produto.quantidadeMedida} #{ingrediente.estoque.produto.medida.label}" />
+			        </p:column>
+			        <p:column headerText="#{msg['MG07']}">
+			            <h:outputText value="#{ingrediente.quantidade}" />
+			        </p:column>
+			        
+			        <p:column headerText="#{msg['MSI068']}">
+			            <h:outputText value="#{ingrediente.medida.label}" />
+			        </p:column>
+			        
+			    </p:dataTable>
+			    
+			    <br/>
+            
+	           	<p:commandButton onclick="PF('detalharCardapio').hide()" value="#{msg['MG13']}"></p:commandButton>
+	        </p:outputPanel>
+	    </p:dialog>
+	    
+	</ui:define>
+</ui:composition>
